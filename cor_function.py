@@ -16,5 +16,10 @@ binfile = np.logspace(np.log10(0.1), np.log10(10.0), 15)
 
 results = xi(L, 1, binfile, X, Y, Z, verbose=True)
 
+results_rmin = results.rmin
+results_rmax = results.rmax
+results_xi = results.xi
 
-np.save('results', results)
+results_lista=[results_rmin, results_rmax, results_xi]
+
+np.save('results', results_lista)
