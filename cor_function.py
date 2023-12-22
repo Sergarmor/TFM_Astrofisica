@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
-from corrfunc.theory import xi
+import matplotlib.pyplot as plt
+from Corrfunc.theory import xi
 
 data = np.load('sergio_ucm.npy')
 
