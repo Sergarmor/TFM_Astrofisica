@@ -12,7 +12,7 @@ X = data[:, 0]
 Y = data[:, 1]
 Z = data[:, 2]
 
-binfile = np.logspace(np.log10(0.1), np.log10(L), 100)
+binfile = np.logspace(np.log10(0.1), np.log10(200), 100)
 
 results = xi(L, 1, binfile, X, Y, Z, verbose=True)
 
