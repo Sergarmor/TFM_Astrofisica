@@ -12,14 +12,8 @@ X = data[:, 0]
 Y = data[:, 1]
 Z = data[:, 2]
 
-binfile = np.logspace(np.log10(0.1), np.log10(10.0), 15)
+binfile = np.logspace(np.log10(0.1), np.log10(L), 100)
 
 results = xi(L, 1, binfile, X, Y, Z, verbose=True)
 
-results_rmin = results.rmin
-results_rmax = results.rmax
-results_xi = results.xi
-
-results_lista=[results_rmin, results_rmax, results_xi]
-
-np.save('results', results_lista)
+np.save('results', results)
