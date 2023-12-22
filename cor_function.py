@@ -13,7 +13,7 @@ Y = data[:, 1]
 Z = data[:, 2]
 weights = np.ones_like(X)
 
-binfile = np.logspace(np.log10(0.1), np.log10(175), 100)
+binfile = np.logspace(np.log10(0.1), np.log10(L/2-0.1), 100)
 
 results = xi(L, 1, binfile, X, Y, Z, weights = weights)
 
