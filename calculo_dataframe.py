@@ -44,4 +44,4 @@ galaxies_np[:length, 8] = halo_pos_aux[:length, 2]
 galaxies = pd.DataFrame(data=galaxies_np, columns=columns)
 galaxies['HostID'] = galaxies['HostID'].astype(int) # We force the ID column to be integers
 
-np.save('galaxies_dataframe', galaxies)
+galaxies.to_csv('galaxies.csv', index=False)
