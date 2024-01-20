@@ -13,13 +13,6 @@ halo_mass = file["halo_mass"]
 halo_pos = file["halo_pos"]
 halo_id = file["halo_id"]
 
-# Join everything in a dataframe
-halos = pd.DataFrame(halo_id, columns=['HaloID'])
-halos.insert(1, "Halo mass", halo_mass, True)
-halos.insert(2, "x", halo_pos[:, 0], True)
-halos.insert(3, "y", halo_pos[:, 1], True)
-halos.insert(4, "z", halo_pos[:, 2], True)
-
 # Column names for the data frame
 columns=['HostID', 'Halo mass', 'Stellar mass', 'Gal_x', 'Gal_y', 'Gal_z', 'Halo_x', 'Halo_y', 'Halo_z']
 length=gal_mstar.size # Number of rows. Made for debuging and faster compilation
