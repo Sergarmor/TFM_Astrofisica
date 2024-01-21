@@ -2,6 +2,8 @@ import numpy as np
 import pandas as pd
 
 galaxies=pd.read_csv('Resultados/galaxies.csv')
+bin_width=0.1
+bins_masa=np.arange(10.7, 15.2, bin_width)
 
 m=galaxies['Halo mass']
 bin_col=np.ones(len(m), dtype=int)
