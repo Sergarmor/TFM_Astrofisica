@@ -7,7 +7,7 @@ bins_masa=np.arange(10.7, 15.2, bin_width)
 
 m=galaxies['Halo mass']
 bin_col=np.ones(len(m), dtype=int)
-for j in range(10):
+for j in range(len(m)):
     for i in range(len(bins_masa)):
         if m[j] > bins_masa[i] and m[j] < bins_masa[i+1]:
             bin_col[j]=int(i+1)
