@@ -56,9 +56,9 @@ for bin_masa in range(1, len(bins_masa)-1):
         data[0, 2] = galaxy_to_shuffle['Halo mass']
         data[0, 3] = halo_nuevo['Halo mass']
         data[0, 4] = galaxy_to_shuffle['Stellar mass']
-        data[0, 5] = float(halo_nuevo['x']) + float(galaxy_to_shuffle['COP_x'])
-        data[0, 6] = float(halo_nuevo['y']) + float(galaxy_to_shuffle['COP_y'])
-        data[0, 7] = float(halo_nuevo['z']) + float(galaxy_to_shuffle['COP_z'])
+        data[0, 5] = float(halo_nuevo['x'].iloc[0]) + float(galaxy_to_shuffle['COP_x'].iloc[0])
+        data[0, 6] = float(halo_nuevo['y'].iloc[0]) + float(galaxy_to_shuffle['COP_y'].iloc[0])
+        data[0, 7] = float(halo_nuevo['z'].iloc[0]) + float(galaxy_to_shuffle['COP_z'].iloc[0])
         data[0, 8] = galaxy_to_shuffle['COP_x']
         data[0, 9] = galaxy_to_shuffle['COP_y']
         data[0, 10] = galaxy_to_shuffle['COP_z']
