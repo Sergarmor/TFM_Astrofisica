@@ -6,17 +6,20 @@ from Corrfunc.theory import xi
 L = 205 # Side length of simulation box
 h = 0.6774 # Little Hubble constant
 
-galaxies = np.load('galaxies.npy')
+galaxies_shuffled = pd.read_csv('Resultados/galaxies_shuffled.csv')
 
-galaxies_sample = galaxies[galaxies['Stellar mass']>10.75]
+def correlation_fun(L, X, Y, Z):
 
-X = galaxies_sample['Gal_x']
-Y = galaxies_sample['Gal_y']
-Z = galaxies_sample['Gal_z']
-weights = np.ones_like(X)
+    bins_espaciales = np.log10(L/2-0.1)
 
-binfile = np.logspace(np.log10(0.1), np.log10(L/2-0.1), 100)
+    # X = galaxies_shuffled['Gal_x_new']
+    # Y = galaxies_shuffled['Gal_y_new']
+    # Z = galaxies_shuffled['Gal_z_new']
 
-results = xi(L, 1, binfile, X, Y, Z, weights = weights)
+    weights = np.ones_like(X)
 
-np.save('results', results)
+    binfile = np.logspace(np.log10(0.1), bins_espaciales, 100)
+
+    correlation_function = xi(L, 1, binfile, X, Y, Z, weights = weights)
+
+np.save('correlation_function_data', correlation_function)
