@@ -15,9 +15,9 @@ galaxies_sample = galaxies[galaxies['Stellar mass']>10.75]
 
 bins_espaciales = np.log10(L/2-0.1)
 
-X = galaxies_sample['Gal_x_new']
-Y = galaxies_sample['Gal_y_new']
-Z = galaxies_sample['Gal_z_new']
+X = galaxies_sample['Gal_x']
+Y = galaxies_sample['Gal_y']
+Z = galaxies_sample['Gal_z']
 
 X_shuffled = galaxies_shuffled['Gal_x_new']
 Y_shuffled = galaxies_shuffled['Gal_y_new']
