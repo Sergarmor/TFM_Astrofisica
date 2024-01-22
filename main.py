@@ -23,6 +23,7 @@ weights = np.ones_like(X)
 binfile = np.logspace(np.log10(0.1), bins_espaciales, 100)
 
 pcf_original = xi(L, 1, binfile, X, Y, Z, weights = weights)
+np.save('Resultados/pcf_original', pcf_original)
 
 for q in range(10):
     galaxies_shuffled = pd.read_csv(f'Resultados/galaxies_shuffled{q}.csv')
@@ -32,6 +33,6 @@ for q in range(10):
     Z_shuffled = galaxies_shuffled['Gal_z_new']
 
     pcf_shuffled = xi(L, 1, binfile, X_shuffled, Y_shuffled, Z_shuffled, weights = weights)
+    np.save(f'Resultados/pcf_shuffled{q}', pcf_shuffled)
 
-np.save('Resultados/pcf_original', pcf_original)
-np.save('Resultados/pcf_shuffled', pcf_shuffled)
+
