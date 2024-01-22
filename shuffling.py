@@ -11,7 +11,7 @@ bin_width=0.1
 bins_masa=np.arange(10.7, 15.2, bin_width)
 
 L=205
-seeds = np.arange(0, 10)
+seeds = np.arange(0, 100)
 for q in range(len(seeds)):
     seed = seeds[q]
     r.seed(seed)

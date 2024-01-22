@@ -25,7 +25,7 @@ binfile = np.logspace(np.log10(0.1), bins_espaciales, 100)
 pcf_original = xi(L, 1, binfile, X, Y, Z, weights = weights)
 np.save('Resultados/pcf_original', pcf_original)
 
-for q in range(10):
+for q in range(100):
     galaxies_shuffled = pd.read_csv(f'Resultados/galaxies_shuffled{q}.csv')
 
     X_shuffled = galaxies_shuffled['Gal_x_new']
