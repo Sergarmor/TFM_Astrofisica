@@ -1,7 +1,7 @@
 import numpy as np
 import pandas as pd
 
-file = np.load('ab_v0.npy', allow_pickle=True).item()
+file = np.load('Datos/ab_v0.npy', allow_pickle=True).item()
 
 # Galaxies. 76 125 galaxies
 gal_mstar = file["gal_mstar"]
@@ -29,6 +29,9 @@ for i in range(length):
     halo_pos_aux[i, 1] = halo_pos[halo_id==id_host, 1]
     halo_pos_aux[i, 2] = halo_pos[halo_id==id_host, 2]
 
+halos = pd.DataFrame(data=np.array([halo_id, halo_mass, halo_pos[:, 0], halo_pos[:, 1], halo_pos[:, 2]]).transpose(),
+                    columns=['HaloID', 'Halo mass', 'x', 'y', 'z'])
+
 # Create data array to convert to data frame
 galaxies_np = np.zeros([length, 9])
 galaxies_np[:length, 0] = gal_hostid[:length]
@@ -44,4 +47,5 @@ galaxies_np[:length, 8] = halo_pos_aux[:length, 2]
 galaxies = pd.DataFrame(data=galaxies_np, columns=columns)
 galaxies['HostID'] = galaxies['HostID'].astype(int) # We force the ID column to be integers
 
-galaxies.to_csv('galaxies.csv', index=False)
+galaxies.to_csv('Resultados/galaxies.csv', index=False)
+halos.to_csv('Resultados/halos.csv', index=False)
