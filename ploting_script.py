@@ -28,7 +28,7 @@ def ploting_results(pcf_original, b, sigma, n, L):
     ax.plot(np.log10(pcf_original['rmax']), 
             (b), 
             color='C0', label='Data')
-    ax.fill_between((pcf_original['rmax']), 
+    ax.fill_between(np.log10(pcf_original['rmax']), 
                     (b + n*sigma), 
                     (b - n*sigma), 
                     color='C1', label='Uncertainty', alpha=0.5)
