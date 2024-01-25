@@ -40,11 +40,11 @@ def halo_shuffling(L, bin_width, seed_number, corte_masa):
             data = np.zeros([1, len(galaxies_nuevo.columns)])
             for i in range(N_gal):
                 galaxy_to_shuffle = galaxies_sample_bin.iloc[[i]]
-                ID1=int(galaxy_to_shuffle['HostID'])
+                ID1=int(galaxy_to_shuffle['HostID'].iloc[0])
 
                 if i != N_gal-1:
                     next_galaxy_to_shuffle = galaxies_sample_bin.iloc[[i+1]]
-                    ID2=int(next_galaxy_to_shuffle['HostID'])
+                    ID2=int(next_galaxy_to_shuffle['HostID'].iloc[0])
 
 
 
@@ -63,9 +63,9 @@ def halo_shuffling(L, bin_width, seed_number, corte_masa):
                 data[0, 2] = galaxy_to_shuffle['Halo mass']
                 data[0, 3] = halo_nuevo['Halo mass']
                 data[0, 4] = galaxy_to_shuffle['Stellar mass']
-                data[0, 5] = (halo_nuevo['x'].iloc[0]) + (galaxy_to_shuffle['COP_x'].iloc[0])
-                data[0, 6] = (halo_nuevo['y'].iloc[0]) + (galaxy_to_shuffle['COP_y'].iloc[0])
-                data[0, 7] = (halo_nuevo['z'].iloc[0]) + (galaxy_to_shuffle['COP_z'].iloc[0])
+                data[0, 5] = float(halo_nuevo['x'].iloc[0]) + float(galaxy_to_shuffle['COP_x'].iloc[0])
+                data[0, 6] = float(halo_nuevo['y'].iloc[0]) + float(galaxy_to_shuffle['COP_y'].iloc[0])
+                data[0, 7] = float(halo_nuevo['z'].iloc[0]) + float(galaxy_to_shuffle['COP_z'].iloc[0])
                 data[0, 8] = galaxy_to_shuffle['COP_x']
                 data[0, 9] = galaxy_to_shuffle['COP_y']
                 data[0, 10] = galaxy_to_shuffle['COP_z']
