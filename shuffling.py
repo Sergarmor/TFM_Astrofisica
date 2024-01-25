@@ -1,5 +1,5 @@
 
-def halo_shuffling(L, bin_width, seed_number, corte_masa)
+def halo_shuffling(L, bin_width, seed_number, corte_masa):
 
     import numpy as np
     import pandas as pd

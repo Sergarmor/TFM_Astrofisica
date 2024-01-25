@@ -56,6 +56,7 @@ for q in range(len(lista_DataFrames)):
     # We extract the 2PCF value of the shuffled galaxies (one iteration) and save it to use later
     pcf_shuffled_xi = pcf_shuffled['xi']
     lista_xis.append(pcf_shuffled_xi)
+    print(q)
 
 # We unite all the shuffled 2PCF and compute the mean and std
 pcf_shuffled_xi = pd.concat(lista_xis, axis=1)
