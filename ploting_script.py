@@ -21,7 +21,7 @@ def ploting_results(pcf_original, b, sigma, n, L):
     ax.set_ylim([-1, 2.5])
     ax.set_xlim([0, (np.ceil(max(pcf_original['ravg'])))])
     ax.legend()
-    plt.savefig('2pcf_ratio.png', bbox_inches='tight')
+    plt.savefig('Figuras/2pcf_ratio.png', bbox_inches='tight')
 
 
     fig, ax = plt.subplots(1, 1, figsize=(6, 5))
@@ -40,4 +40,4 @@ def ploting_results(pcf_original, b, sigma, n, L):
     ax.set_ylim([0.5, 1.75])
     ax.set_xlim([-1, np.log10(20)])
     ax.legend()
-    plt.savefig('2pcf_ratio_small_scale.png', bbox_inches='tight')
+    plt.savefig('Figuras/2pcf_ratio_small_scale.png', bbox_inches='tight')

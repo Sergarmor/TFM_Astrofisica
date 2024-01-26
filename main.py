@@ -41,6 +41,10 @@ for q in range(len(lista_DataFrames)):
     
     # We extract the 2PCF value of the shuffled galaxies (one iteration) and save it to use later
     pcf_shuffled = calculo_2pcf(galaxies_shuffled, L, bin_number, n_threads)
+    
+    pcf_shuffled.to_csv(f'Resultados/Shuffled/pcf_shuffled{q}.csv', index=False) # We save the shuffled 2pcf
+    
+    
     pcf_shuffled_xi = pcf_shuffled['xi']
     lista_xis.append(pcf_shuffled_xi)
     print(q)
