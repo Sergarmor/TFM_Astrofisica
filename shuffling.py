@@ -106,4 +106,5 @@ def halo_shuffling(L, bin_width, seed_number, corte_masa):
             galaxies_nuevo = pd.concat([galaxies_nuevo, galaxies_nuevo_bin], ignore_index=True)
             
         lista_DataFrames.append(galaxies_nuevo)
+        print(q)
     return lista_DataFrames
