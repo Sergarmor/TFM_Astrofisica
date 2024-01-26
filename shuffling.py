@@ -92,7 +92,7 @@ def halo_shuffling(L, bin_width, seed_number, corte_masa):
                     
                 
                 galaxy_new_row = pd.DataFrame(data=data, columns=['Host_original', 'Host_new', 'Halo_mass_original', 'Halo_mass_new', 'Stellar mass', 
-                                                       'Gal_x_new', 'Gal_y_new', 'Gal_z_new', 
+                                                       'Gal_x', 'Gal_y', 'Gal_z', 
                                                        'COP_x', 'COP_y', 'COP_z', 
                                                        'Mass bin'])
                 galaxy_new_row['Host_original'] = galaxy_new_row['Host_original'].astype(int)
