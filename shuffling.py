@@ -14,7 +14,7 @@ def halo_shuffling(L, bin_width, seed_number, corte_masa):
     bins_masa=np.arange(10.7, 15.2, bin_width)
 
 
-    seeds = np.arange(0, seed_number)
+    seeds = r.sample(range(0, seed_number*200), seed_number)
     lista_DataFrames=[]
 
     for q in range(len(seeds)):

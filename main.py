@@ -4,6 +4,7 @@ import pandas as pd
 from Corrfunc.theory import xi
 from shuffling import halo_shuffling
 from ploting_script import ploting_results
+from calculo_2pcf import calculo_2pcf
 
 # Simulation parameters
 L = 205                  # Side length of simulation box
@@ -26,16 +27,9 @@ galaxies_sample = galaxies[galaxies['Stellar mass']>corte_masa]
 
 # Calculate the original 2PCF
 
-X = galaxies_sample['Gal_x']
-Y = galaxies_sample['Gal_y']
-Z = galaxies_sample['Gal_z']
-weights = np.ones_like(X)
-limit_spatial_bins = np.log10(L/2-0.1)
-spatial_bins = np.logspace(np.log10(0.1), limit_spatial_bins, bin_number+1)
+pcf_original = calculo_2pcf(galaxies_sample, L, bin_number, n_threads)
 
-pcf_original = xi(L, n_threads, spatial_bins, X, Y, Z, weights = weights)
-
-np.save('Resultados/pcf_original', pcf_original) # We save the original 2PCF
+pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the original 2PCF
 
 
 # Calculate the 2PCF shuffled
@@ -44,16 +38,9 @@ lista_xis = []
 for q in range(len(lista_DataFrames)):
     # We extract one DataFrame of shuffled galaxies
     galaxies_shuffled = lista_DataFrames[q] 
-
-    X_shuffled = galaxies_shuffled['Gal_x_new']
-    Y_shuffled = galaxies_shuffled['Gal_y_new']
-    Z_shuffled = galaxies_shuffled['Gal_z_new']
-
-    # We calculate the 2PCF of the shuffled galaxies (one iteration)
-    pcf_shuffled = xi(L, n_threads, spatial_bins, X_shuffled, Y_shuffled, Z_shuffled, weights = weights)
-    pcf_shuffled = pd.DataFrame(pcf_shuffled, columns=['rmin', 'rmax', 'ravg', 'xi', 'npairs', 'weightavg'])
     
     # We extract the 2PCF value of the shuffled galaxies (one iteration) and save it to use later
+    pcf_shuffled = calculo_2pcf(galaxies_shuffled, L, bin_number, n_threads)
     pcf_shuffled_xi = pcf_shuffled['xi']
     lista_xis.append(pcf_shuffled_xi)
     print(q)
