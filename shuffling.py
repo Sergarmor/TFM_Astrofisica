@@ -58,18 +58,18 @@ def halo_shuffling(L, bin_width, seed_number, corte_masa):
 
 
                 halo_nuevo = halos_bin.iloc[[indices[k]]]
-                data[0, 0] = galaxy_to_shuffle['HostID']
-                data[0, 1] = halo_nuevo['HaloID']
-                data[0, 2] = galaxy_to_shuffle['Halo mass']
-                data[0, 3] = halo_nuevo['Halo mass']
-                data[0, 4] = galaxy_to_shuffle['Stellar mass']
+                data[0, 0] = int(galaxy_to_shuffle['HostID'].iloc[0])
+                data[0, 1] = int(halo_nuevo['HaloID'].iloc[0])
+                data[0, 2] = float(galaxy_to_shuffle['Halo mass'].iloc[0])
+                data[0, 3] = float(halo_nuevo['Halo mass'].iloc[0])
+                data[0, 4] = float(galaxy_to_shuffle['Stellar mass'].iloc[0])
                 data[0, 5] = float(halo_nuevo['x'].iloc[0]) + float(galaxy_to_shuffle['COP_x'].iloc[0])
                 data[0, 6] = float(halo_nuevo['y'].iloc[0]) + float(galaxy_to_shuffle['COP_y'].iloc[0])
                 data[0, 7] = float(halo_nuevo['z'].iloc[0]) + float(galaxy_to_shuffle['COP_z'].iloc[0])
-                data[0, 8] = galaxy_to_shuffle['COP_x']
-                data[0, 9] = galaxy_to_shuffle['COP_y']
-                data[0, 10] = galaxy_to_shuffle['COP_z']
-                data[0, 11] = galaxy_to_shuffle['Mass bin']
+                data[0, 8] = float(galaxy_to_shuffle['COP_x'].iloc[0])
+                data[0, 9] = float(galaxy_to_shuffle['COP_y'].iloc[0])
+                data[0, 10] = float(galaxy_to_shuffle['COP_z'].iloc[0])
+                data[0, 11] = int(galaxy_to_shuffle['Mass bin'].iloc[0])
                 
                 # Condiciones periódicas
                 # Coord. x
