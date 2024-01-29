@@ -2,8 +2,8 @@ import numpy as np
 import numpy.random as r
 import pandas as pd
 from Corrfunc.theory import xi
-from shuffling import halo_shuffling
-from ploting_script import ploting_results
+from shuffling import galaxies_shuffle_bin, galaxies_shuffle, galaxies_shuffling_many
+from ploting_script imgalaxies_shuffleport ploting_results
 from calculo_2pcf import calculo_2pcf
 
 # Simulation parameters

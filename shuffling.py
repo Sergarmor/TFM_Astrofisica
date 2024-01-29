@@ -1,12 +1,14 @@
-
-
-# Función que hace el shuffling de cada bin. Este bin puede estar definido de cualquier manera (en función de un parámetro arbitrario, o varios).
-# Toma como input el DataFrame de galaxias del bin y las id de los halos dentro de ese bin.
-# Devuelve una LISTA de DataFrames, donde cada DataFrame es una población con el mismo halo original.
 def galaxies_shuffle_bin(galaxies_bin, id_halos):
+
+    """
+    Función que hace el shuffling de cada bin. Este bin puede estar definido de cualquier manera (en función de un parámetro arbitrario, o varios).
+    Toma como input el DataFrame de galaxias del bin y las id de los halos dentro de ese bin.
+    Devuelve una LISTA de DataFrames, donde cada DataFrame es una población con el mismo halo original.
     
+    """
+        
     # Inicializamos la lista de dataframes
-    galaxies_list=[]
+    galaxies_poblacion_list=[]
     
     # Obtenemos índices y valores de los HostID únicos del bin
     place_holder, indices_halos = np.unique(galaxies_bin['HostID'], return_index=True)
@@ -55,20 +57,23 @@ def galaxies_shuffle_bin(galaxies_bin, id_halos):
         galaxies_poblacion.loc[galaxies_poblacion['Gal_z'] > L, 'Gal_z'] -= L
         galaxies_poblacion.loc[galaxies_poblacion['Gal_z'] < 0, 'Gal_z'] += L
 
-        galaxies_list.append(galaxies_poblacion)
+        galaxies_poblacion_list.append(galaxies_poblacion)
         
-    return galaxies_list
-    
+    return galaxies_poblacion_list
 
-# Función que realiza el shuffling de las galaxias. Los bins se definen según la masa. 
-# Toma como  input el DataFrame de galaxias a las que aplicar el shuffling, el número de bins y la seed a utilizar.
-# Devuelve un DataFrame con las galaxias después de aplicar el shuffling.
 def galaxies_shuffle(galaxies_sample, N_bins, seed):
+    
+    """
+    Función que realiza el shuffling de las galaxias. Los bins se definen según la masa. 
+    Toma como  input el DataFrame de galaxias a las que aplicar el shuffling, el número de bins y la seed a utilizar.
+    Devuelve un DataFrame con las galaxias después de aplicar el shuffling.
+    
+    Tiempo estimado de ejecución: 1 minuto
+    """
 
     r.seed(seed)
     galaxies_bin_list=[]
 
-    # Bucle por cada bin
     for i in range(1, N_bins):
 
         # Tomamos un bin
@@ -79,4 +84,21 @@ def galaxies_shuffle(galaxies_sample, N_bins, seed):
 
     galaxies_nuevo=pd.concat(galaxies_bin_list)
     return galaxies_nuevo
+
+def galaxies_shuffling_many(galaxies_sample, N_bins, seed):
     
+    """
+    Función que realiza un número determinado de shufflings. Se basa en la función galaxies_shuffle.
+    Toma como input el DataFrame de galaxias a las que aplicar el shuffling, el número total de bins y una lista o array de seeds que utilizar.
+    Devuelve una lista de DataFrames con galaxias después de aplicar el shuffling. 
+    
+    Tiempo estimado de ejecución: 1 minuto por cada seed.
+    
+    """
+    galaxies_list=[]
+
+    for i in range(len(seed)):
+        galaxies_nuevo = galaxies_shuffle(galaxies_sample, N_bins, seed[i])
+        galaxies_list.append(galaxies_nuevo)
+
+    return galaxies_list
