@@ -18,6 +18,10 @@ seed_number = 100        # We shuffle seed_number times and compute the mean and
 n = 3                    # Number of sigmas in the plot
 n_threads = 1            # Number of threads to use to calculate the 2PCF
 
+
+N_bins = len(np.arange(10.7, 15.2, bin_width))
+seed=np.arange(0, seed_number, 1)
+
 # We read the data
 halos = pd.read_csv('Resultados/halos.csv')
 galaxies = pd.read_csv('Resultados/galaxies.csv')
@@ -33,7 +37,7 @@ pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the or
 
 
 # Calculate the 2PCF shuffled
-lista_DataFrames = halo_shuffling(L, bin_width, seed_number, corte_masa) # We shuffle the galaxies into haloes of same mass bin
+lista_DataFrames = galaxies_shuffling_many(galaxies_sample, N_bins, seed) # We shuffle the galaxies into haloes of same mass bin
 lista_xis = []
 for q in range(len(lista_DataFrames)):
     # We extract one DataFrame of shuffled galaxies
