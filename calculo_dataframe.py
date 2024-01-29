@@ -47,5 +47,9 @@ galaxies_np[:length, 8] = halo_pos_aux[:length, 2]
 galaxies = pd.DataFrame(data=galaxies_np, columns=columns)
 galaxies['HostID'] = galaxies['HostID'].astype(int) # We force the ID column to be integers
 
+galaxies['COP_x'] = galaxies['Gal_x'] - galaxies['Halo_x']
+galaxies['COP_y'] = galaxies['Gal_y'] - galaxies['Halo_y']
+galaxies['COP_z'] = galaxies['Gal_z'] - galaxies['Halo_z']
+
 galaxies.to_csv('Resultados/galaxies.csv', index=False)
 halos.to_csv('Resultados/halos.csv', index=False)
