@@ -29,8 +29,8 @@ for i in range(length):
     halo_pos_aux[i, 1] = halo_pos[halo_id==id_host, 1]
     halo_pos_aux[i, 2] = halo_pos[halo_id==id_host, 2]
 
-halos = pd.DataFrame(data=np.array([halo_id, halo_mass, halo_pos[:, 0], halo_pos[:, 1], halo_pos[:, 2]]).transpose(),
-                    columns=['HaloID', 'Halo mass', 'x', 'y', 'z'])
+halos = pd.DataFrame(data=np.array([halo_id, halo_mass, halo_pos[:, 0], halo_pos[:, 1], halo_pos[:, 2], halo_mass * halo_mass]).transpose(),
+                    columns=['HaloID', 'Halo mass', 'x', 'y', 'z', 'Halo mass squared'])
 
 # Create data array to convert to data frame
 galaxies_np = np.zeros([length, 9])
