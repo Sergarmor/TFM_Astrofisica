@@ -14,7 +14,7 @@ halo_pos = file["halo_pos"]
 halo_id = file["halo_id"]
 
 # Column names for the data frame
-columns=['HostID', 'Halo mass', 'Stellar mass', 'Gal_x', 'Gal_y', 'Gal_z', 'Halo_x', 'Halo_y', 'Halo_z']
+columns=['HostID', 'Halo mass', 'Stellar mass', 'Gal_x', 'Gal_y', 'Gal_z', 'Halo_x', 'Halo_y', 'Halo_z', 'Halo mass squared']
 length=gal_mstar.size # Number of rows. Made for debuging and faster compilation
 
 # Auxiliary columns to assing halo mass and pos to each galaxy
@@ -43,6 +43,7 @@ galaxies_np[:length, 5] = gal_pos[:length, 2]
 galaxies_np[:length, 6] = halo_pos_aux[:length, 0]
 galaxies_np[:length, 7] = halo_pos_aux[:length, 1]
 galaxies_np[:length, 8] = halo_pos_aux[:length, 2]
+galaxies_np[:length, 9] = halo_mass_aux[:length] * halo_mass_aux[:length]
 
 galaxies = pd.DataFrame(data=galaxies_np, columns=columns)
 galaxies['HostID'] = galaxies['HostID'].astype(int) # We force the ID column to be integers
