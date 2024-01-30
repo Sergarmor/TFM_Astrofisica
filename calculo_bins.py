@@ -5,11 +5,16 @@ import math
 halos=pd.read_csv('Resultados/halos.csv')
 galaxies=pd.read_csv('Resultados/galaxies.csv')
 
+# Parámetros a setear antes de ejecutar
+
 bin_feature = 'Halo mass'
 sub_bin_feature = 'Halo mass squared'
 
 bin_width=0.1
 sub_bin_width=0.1
+
+
+# Cálculo de los bins y binneado de las galaxias y los halos.
 
 limite_inferior_main_bin = math.floor(min(galaxies[bin_feature]) * 10.0) / 10.0
 limite_superior_main_bin = math.ceil(max(galaxies[bin_feature]) * 10.0) / 10.0+bin_width
