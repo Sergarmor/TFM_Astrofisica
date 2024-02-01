@@ -23,6 +23,7 @@ halo_pos_aux = np.zeros([length, 3])
 
 # Loop for all galaxies to create auxiliary columns
 for i in range(length):
+    print(f'DataFrame calculation: Galaxy number {i}')
     id_host=gal_hostid[i]
     halo_mass_aux[i] = halo_mass[halo_id==id_host]
     halo_pos_aux[i, 0] = halo_pos[halo_id==id_host, 0]
@@ -33,7 +34,7 @@ halos = pd.DataFrame(data=np.array([halo_id, halo_mass, halo_pos[:, 0], halo_pos
                     columns=['HaloID', 'Halo mass', 'x', 'y', 'z', 'Halo mass squared'])
 
 # Create data array to convert to data frame
-galaxies_np = np.zeros([length, 9])
+galaxies_np = np.zeros([length, 10])
 galaxies_np[:length, 0] = gal_hostid[:length]
 galaxies_np[:length, 1] = halo_mass_aux[:length]
 galaxies_np[:length, 2] = gal_mstar[:length]
