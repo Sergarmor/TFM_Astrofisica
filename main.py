@@ -55,7 +55,7 @@ pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the or
 
 
 # Calculate the 2PCF shuffled
-lista_DataFrames = galaxies_shuffling_many(galaxies_sample, bin_feature, sub_bin_feature, N_bins_feature, N_bins_sub_feature, seed) # We shuffle the galaxies into haloes of same mass bin
+lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, bin_feature, sub_bin_feature, N_bins_feature, N_bins_sub_feature, seed) # We shuffle the galaxies into haloes of same mass bin
 lista_xis = []
 for q in range(len(lista_DataFrames)):
     # We extract one DataFrame of shuffled galaxies
