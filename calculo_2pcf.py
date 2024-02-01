@@ -1,8 +1,3 @@
-import numpy as np
-import numpy.random as r
-import pandas as pd
-from Corrfunc.theory import xi
-
 def calculo_2pcf(galaxies, L, bin_number, n_threads):
 
     """
@@ -24,6 +19,11 @@ def calculo_2pcf(galaxies, L, bin_number, n_threads):
     pcf : DataFrame
           DataFrame conteniendo la información de la 2PCF frente a escala
     """
+    
+    import numpy as np
+    import numpy.random as r
+    import pandas as pd
+    from Corrfunc.theory import xi
     
     # Coordenadas de las galaxias
     X = galaxies['Gal_x']

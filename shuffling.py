@@ -16,7 +16,11 @@ def galaxies_shuffle_bin(galaxies_bin, id_halos):
     galaxies_poblacion_list : List
                    Lista con DataFrames de las distintas poblaciones dentro del bin.
     """
-        
+    
+    import numpy as np
+    import numpy.random as r
+    import pandas as pd
+    
     # Inicializamos la lista de dataframes
     galaxies_poblacion_list=[]
     
@@ -81,6 +85,10 @@ def galaxies_shuffle(galaxies_sample, bin_feature, sub_bin_feature, N_bins_featu
     Tiempo estimado de ejecución: 1 minuto
     """
     
+    import numpy as np
+    import numpy.random as r
+    import pandas as pd
+    
     r.seed(seed)
     galaxies_bin_list=[]
 
@@ -106,6 +114,11 @@ def galaxies_shuffling_many(galaxies_sample, bin_feature, sub_bin_feature, N_bin
     Tiempo estimado de ejecución: 1 minuto por cada seed.
     
     """
+    
+    import numpy as np
+    import numpy.random as r
+    import pandas as pd
+
     galaxies_list=[]
 
     for i in range(len(seed)):

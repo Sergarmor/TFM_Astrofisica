@@ -2,6 +2,7 @@ def ploting_results(pcf_original, b, sigma, n, L):
 
     import matplotlib.pyplot as plt
     import numpy as np
+    import pandas as pd
 
     # Here we plot everything
 
