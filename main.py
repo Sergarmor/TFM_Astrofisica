@@ -23,7 +23,7 @@ n_threads = 1            # Number of threads to use to calculate the 2PCF
 bin_feature = 'Halo mass'
 sub_bin_feature = 'Halo mass squared'
 
-bin_width=0.1
+bin_width=0.1            # Bin width in halo mass
 sub_bin_width=0.1
 
 
@@ -38,6 +38,9 @@ N_bins_feature = len(main_bins)
 N_bins_sub_feature = len(sub_bins)
 seed=np.arange(0, seed_number, 1)
 
+# We read the data
+halos = pd.read_csv('Resultados/halos.csv')
+galaxies = pd.read_csv('Resultados/galaxies.csv')
 
 # We get the sample by cutting in stellar mass
 galaxies_sample = galaxies[galaxies['Stellar mass']>corte_masa]
