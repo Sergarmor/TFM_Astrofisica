@@ -36,7 +36,7 @@ halos = pd.read_csv('Resultados/halos.csv')
 galaxies = pd.read_csv('Resultados/galaxies.csv')
 
 # Calculation of binned dataframes of halos and galaxies
-halos, galaxies, main_bins, sub_bins = calculo_bins(bin_feature, sub_bin_feature, bin_width, sub_bin_width)
+halos, galaxies, main_bins, sub_bins = calculo_bins(halos, galaxies, bin_feature, sub_bin_feature, bin_width, sub_bin_width)
 
 N_bins_feature = len(main_bins)
 N_bins_sub_feature = len(sub_bins)

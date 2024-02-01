@@ -1,6 +1,6 @@
 
 
-def calculo_bins(bin_feature, sub_bin_feature, bin_width, sub_bin_width):
+def calculo_bins(halos, galaxies, bin_feature, sub_bin_feature, bin_width, sub_bin_width):
 
     """
     Galaxy and halo DataFrame binning.

@@ -109,7 +109,7 @@ def galaxies_shuffling_many(galaxies_sample, bin_feature, sub_bin_feature, N_bin
     galaxies_list=[]
 
     for i in range(len(seed)):
-        print(f'Shuffle number {i}')
+        print(f'Shuffle number {i} out of {len(seed)}')
         galaxies_nuevo = galaxies_shuffle(galaxies_sample, bin_feature, sub_bin_feature, N_bins_feature, N_bins_sub_feature, seed[i])
         galaxies_list.append(galaxies_nuevo)
 

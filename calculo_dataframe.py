@@ -23,7 +23,7 @@ halo_pos_aux = np.zeros([length, 3])
 
 # Loop for all galaxies to create auxiliary columns
 for i in range(length):
-    print(f'DataFrame calculation: Galaxy number {i}')
+    print(f'DataFrame calculation: Galaxy number {i} out of 76125')
     id_host=gal_hostid[i]
     halo_mass_aux[i] = halo_mass[halo_id==id_host]
     halo_pos_aux[i, 0] = halo_pos[halo_id==id_host, 0]
