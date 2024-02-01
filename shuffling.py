@@ -99,7 +99,7 @@ def galaxies_shuffle(halos, galaxies_sample, bin_feature, sub_bin_feature, N_bin
             galaxies_bin = galaxies_sample.loc[galaxies_sample[bin_feature+' bin']==i].loc[galaxies_sample[sub_bin_feature+' bin']==j]
             id_halos = list(halos.loc[halos[bin_feature+' bin']==i].loc[halos[sub_bin_feature+' bin']==j, 'HaloID'])
 
-            galaxies_bin_list+=galaxies_shuffle_bin(galaxies_bin, id_halos)
+            galaxies_bin_list+=galaxies_shuffle_bin(halosgalaxies_bin, id_halos)
 
     galaxies_nuevo=pd.concat(galaxies_bin_list)
     return galaxies_nuevo
