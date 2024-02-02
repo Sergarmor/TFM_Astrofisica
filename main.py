@@ -6,7 +6,7 @@ from Corrfunc.theory import xi
 # Importing custom functions
 from calculo_bins import calculo_bins
 from shuffling import galaxies_shuffle_bin, galaxies_shuffle, galaxies_shuffling_many
-from ploting_script import ploting_results
+from ploting_script import ploting_2pcf_ratio
 from calculo_2pcf import calculo_2pcf
 
 
@@ -104,4 +104,4 @@ sigma = pcf_original['xi']/pcf_shuffled_xi['mean'] * pcf_shuffled_xi['std'] # As
 
 # We plot the results
 
-# ploting_results(pcf_original, b, sigma, n, L)
+ploting_2pcf_ratio(pcf_original, pcf_shuffled, n, L, bin_feature, sub_bin_feature)
