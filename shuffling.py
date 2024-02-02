@@ -126,5 +126,5 @@ def galaxies_shuffling_many(halos, galaxies_sample, bin_feature, sub_bin_feature
         print(f'Shuffle number {i} out of {len(seed)}')
         galaxies_nuevo = galaxies_shuffle(halos, galaxies_sample, bin_feature, sub_bin_feature, N_bins_feature, N_bins_sub_feature, seed[i], L, i)
         galaxies_list.append(galaxies_nuevo)
-        galaxies_nuevo.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i}', index=False)
+        galaxies_nuevo.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i}.csv', index=False)
     return galaxies_list
