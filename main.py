@@ -16,7 +16,7 @@ h = 0.6774               # Little Hubble constant
 # Analisys parameters
 corte_masa = 10.75       # We cut the galaxies by mass into a sample
 bin_number = 100         # Bin number in spatial bins (2PCF calculation)
-seed_number = 100        # We shuffle seed_number times and compute the mean and std
+seed_number = 25         # We shuffle seed_number times and compute the mean and std
 n = 3                    # Number of sigmas in the plot
 n_threads = 1            # Number of threads to use to calculate the 2PCF
 
@@ -26,7 +26,19 @@ sub_bin_feature = 'Halo mass squared'
 bin_width=0.1            # Bin width in halo mass
 sub_bin_width=0.1
 
-
+print(f'The script is estimated to run for {np.floor(seed_number*2/60)} hours and {(seed_number*2 - np.floor(seed_number*2/60)*60)} minutes')
+confirmation = input('Do you want to continue? [yes/no]: ')
+conf = 0
+while conf == 0:
+    if confirmation == 'yes':
+        conf = 1
+    elif confirmation == 'no':
+        seed_number = int(input(f'Please set a new number of shufflings to calculate. Currently {seed_number}: '))
+        print(f'The script is estimated to run for {np.floor(seed_number*2/60)} hours and {(seed_number*2 - np.floor(seed_number*2/60)*60)} minutes')
+        confirmation = input('Do you want to continue? [yes/no]: ')
+    elif confirmation != 'yes' and confirmation != 'no':
+        print(" Please write 'yes' or 'no' ")
+        confirmation = input('Do you want to continue? [yes/no]: ')
 
 # Calculation of original data
 import calculo_dataframe

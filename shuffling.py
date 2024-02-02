@@ -111,7 +111,7 @@ def galaxies_shuffling_many(halos, galaxies_sample, bin_feature, sub_bin_feature
     Toma como input el DataFrame de galaxias a las que aplicar el shuffling, el número total de bins y una lista o array de seeds que utilizar.
     Devuelve una lista de DataFrames con galaxias después de aplicar el shuffling. 
     
-    Tiempo estimado de ejecución: 1 minuto por cada seed.
+    Tiempo estimado de ejecución: 2 minutos por cada seed.
     
     """
     
