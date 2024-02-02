@@ -75,7 +75,7 @@ def galaxies_shuffle_bin(halos, galaxies_bin, id_halos, L):
         
     return galaxies_poblacion_list
 
-def galaxies_shuffle(halos, galaxies_sample, bin_feature, sub_bin_feature, N_bins_feature, N_bins_sub_feature, seed, L):
+def galaxies_shuffle(halos, galaxies_sample, bin_feature, sub_bin_feature, N_bins_feature, N_bins_sub_feature, seed, L, shuffle_number):
     
     """
     Función que realiza el shuffling de las galaxias. Los bins se definen según la masa. 
@@ -95,7 +95,7 @@ def galaxies_shuffle(halos, galaxies_sample, bin_feature, sub_bin_feature, N_bin
     for i in range(1, N_bins_feature):
         for j in range(1, N_bins_sub_feature):
             
-            print(f'Shuffling bin number {i, j} out of {N_bins_sub_feature, N_bins_feature}')
+            print(f'Shuffling bin number {i, j} out of {N_bins_feature, N_bins_sub_feature}. Shuffling number {shuffle_number}')
             # Tomamos un bin
             galaxies_bin = galaxies_sample.loc[galaxies_sample[bin_feature+' bin']==i].loc[galaxies_sample[sub_bin_feature+' bin']==j]
             id_halos = list(halos.loc[halos[bin_feature+' bin']==i].loc[halos[sub_bin_feature+' bin']==j, 'HaloID'])
@@ -124,7 +124,7 @@ def galaxies_shuffling_many(halos, galaxies_sample, bin_feature, sub_bin_feature
 
     for i in range(len(seed)):
         print(f'Shuffle number {i} out of {len(seed)}')
-        galaxies_nuevo = galaxies_shuffle(halos, galaxies_sample, bin_feature, sub_bin_feature, N_bins_feature, N_bins_sub_feature, seed[i], L)
+        galaxies_nuevo = galaxies_shuffle(halos, galaxies_sample, bin_feature, sub_bin_feature, N_bins_feature, N_bins_sub_feature, seed[i], L, i)
         galaxies_list.append(galaxies_nuevo)
 
     return galaxies_list
