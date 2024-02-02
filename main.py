@@ -3,6 +3,7 @@ import numpy.random as r
 import pandas as pd
 from Corrfunc.theory import xi
 
+# Importing custom functions
 from calculo_bins import calculo_bins
 from shuffling import galaxies_shuffle_bin, galaxies_shuffle, galaxies_shuffling_many
 from ploting_script import ploting_results
@@ -10,21 +11,22 @@ from calculo_2pcf import calculo_2pcf
 
 
 # Simulation parameters
-L = 205                  # Side length of simulation box
-h = 0.6774               # Little Hubble constant
+L = 205                                      # Side length of simulation box
+h = 0.6774                                   # Little Hubble constant
 
 # Analisys parameters
-corte_masa = 10.75       # We cut the galaxies by mass into a sample
-bin_number = 100         # Bin number in spatial bins (2PCF calculation)
-seed_number = 25         # We shuffle seed_number times and compute the mean and std
-n = 3                    # Number of sigmas in the plot
-n_threads = 1            # Number of threads to use to calculate the 2PCF
+corte_masa = 10.75                           # We cut the galaxies by mass into a sample
+bin_feature = 'Halo mass'                    # Main feature for the binning
+sub_bin_feature = 'Halo mass squared'        # Sub feature for the binning
+bin_width=0.1                                # Bin width in main feature
+sub_bin_width=0.1                            # Bin width in sub feature
+seed_number = 25                             # We shuffle seed_number times and compute the mean and std
+spatial_bin_number = 100                     # Bin number in spatial bins (2PCF calculation)
+n_threads = 1                                # Number of threads to use to calculate the 2PCF
 
-bin_feature = 'Halo mass'
-sub_bin_feature = 'Halo mass squared'
+# Plotting parameters
+n = 3                                        # Number of sigmas in the plot
 
-bin_width=0.1            # Bin width in halo mass
-sub_bin_width=0.1
 
 print(f'The script is estimated to run for {np.floor(seed_number*2/60)} hours and {(seed_number*2 - np.floor(seed_number*2/60)*60)} minutes')
 confirmation = input('Do you want to continue? [yes/no]: ')
@@ -40,8 +42,12 @@ while conf == 0:
         print(" Please write 'yes' or 'no' ")
         confirmation = input('Do you want to continue? [yes/no]: ')
 
-# Calculation of original data
-import calculo_dataframe
+
+recalc = input('Do you want to recalculate the DataFrames? [yes/no]: ')
+
+if recalc == 'yes':
+    # Calculation of original data
+    import calculo_dataframe
 
 # We read the data
 halos = pd.read_csv('Resultados/halos.csv')
@@ -61,7 +67,7 @@ galaxies_sample = galaxies[galaxies['Stellar mass']>corte_masa]
 
 # Calculate the original 2PCF
 
-pcf_original = calculo_2pcf(galaxies_sample, L, bin_number, n_threads)
+pcf_original = calculo_2pcf(galaxies_sample, L, spatial_bin_number, n_threads)
 
 pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the original 2PCF
 
@@ -74,7 +80,7 @@ for q in range(len(lista_DataFrames)):
     galaxies_shuffled = lista_DataFrames[q] 
     
     # We extract the 2PCF value of the shuffled galaxies (one iteration) and save it to use later
-    pcf_shuffled = calculo_2pcf(galaxies_shuffled, L, bin_number, n_threads)
+    pcf_shuffled = calculo_2pcf(galaxies_shuffled, L, spatial_bin_number, n_threads)
     
     pcf_shuffled.to_csv(f'Resultados/Shuffled/pcf_shuffled{q}.csv', index=False) # We save the shuffled 2pcf
     
@@ -98,4 +104,4 @@ sigma = pcf_original['xi']/pcf_shuffled_xi['mean'] * pcf_shuffled_xi['std'] # As
 
 # We plot the results
 
-ploting_results(pcf_original, b, sigma, n, L)
+# ploting_results(pcf_original, b, sigma, n, L)

@@ -94,7 +94,8 @@ def galaxies_shuffle(halos, galaxies_sample, bin_feature, sub_bin_feature, N_bin
 
     for i in range(1, N_bins_feature):
         for j in range(1, N_bins_sub_feature):
-
+            
+            print(f'Shuffling bin number {i, j} out of {N_bins_sub_feature, N_bins_feature}')
             # Tomamos un bin
             galaxies_bin = galaxies_sample.loc[galaxies_sample[bin_feature+' bin']==i].loc[galaxies_sample[sub_bin_feature+' bin']==j]
             id_halos = list(halos.loc[halos[bin_feature+' bin']==i].loc[halos[sub_bin_feature+' bin']==j, 'HaloID'])
