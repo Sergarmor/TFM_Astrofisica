@@ -1,4 +1,4 @@
-def ploting_2pcf_ratio(pcf_original, pcf_shuffled, n, L, bin_feature, sub_bin_feature):
+def ploting_2pcf_ratio(pcf_original, pcf_shuffled, n, L, bin_feature, sub_bin_feature, shuffle_number):
 
     import matplotlib.pyplot as plt
     import numpy as np
@@ -15,7 +15,7 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled, n, L, bin_feature, sub_bin_fe
             (b), 
             xerr = xerr,
             yerr = n*sigma,
-            color='C1', label= bin_feature + ' and ' + sub_bin_feature + ' shuffle (10)', linestyle='--', marker='.', ecolor='C0')
+            color='C1', label= bin_feature + ' and ' + sub_bin_feature + f' shuffle ({shuffle_number})', linestyle='--', marker='.', ecolor='C0')
 
 
     ax.set_xlabel('Spatial scale [Mpc]')
@@ -35,7 +35,7 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled, n, L, bin_feature, sub_bin_fe
 
     ax.plot(np.log10(pcf_original['ravg']), 
                 (b), 
-                color='C0', label= bin_feature + ' and ' + sub_bin_feature + ' shuffle (10)', linestyle='--', marker='.')
+                color='C0', label= bin_feature + ' and ' + sub_bin_feature + f' shuffle ({shuffle_number})', linestyle='--', marker='.')
     ax.fill_between(np.log10(pcf_original['ravg']), 
                         (b + n*sigma), 
                         (b - n*sigma), 
