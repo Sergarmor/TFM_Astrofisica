@@ -105,4 +105,4 @@ sigma = pcf_original['xi']/pcf_shuffled_xi['mean'] * pcf_shuffled_xi['std'] # As
 
 # We plot the results
 
-ploting_2pcf_ratio(pcf_original, pcf_shuffled, n, L, bin_feature, sub_bin_feature, seed_number)
+ploting_2pcf_ratio(pcf_original, pcf_shuffled_xi, n, L, bin_feature, sub_bin_feature, seed_number)

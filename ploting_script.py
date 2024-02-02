@@ -1,4 +1,4 @@
-def ploting_2pcf_ratio(pcf_original, pcf_shuffled, n, L, bin_feature, sub_bin_feature, shuffle_number):
+def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, bin_feature, sub_bin_feature, shuffle_number):
 
     import matplotlib.pyplot as plt
     import numpy as np
