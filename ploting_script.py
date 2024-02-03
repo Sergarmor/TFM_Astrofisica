@@ -12,13 +12,12 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, bin_feature, sub_b
     fig, ax = plt.subplots(1, 1, figsize=(6, 5))
 
     ax.errorbar((pcf_original['ravg']), 
-            (b), 
-            xerr = xerr,
-            yerr = n*sigma,
-            color='C1', label= bin_feature + ' and ' + sub_bin_feature + f' shuffle ({shuffle_number})', linestyle='--', marker='.', ecolor='C0')
+                (b), 
+                xerr = xerr,
+                yerr = n*sigma,
+                color='C0', label= bin_feature + ' and ' + sub_bin_feature + ' shuffle (10)', linestyle='--', marker='.', ecolor='C1')
 
-
-    ax.set_xlabel('Spatial scale [Mpc]')
+    ax.set_xlabel(r'Escala espacial [Mpc]')
     ax.set_ylabel(r'$\xi_{orig}$ / $\xi_{shuff}$')
     ax.set_title('2PCF ratio')
 
@@ -35,12 +34,12 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, bin_feature, sub_b
 
     ax.plot(np.log10(pcf_original['ravg']), 
                 (b), 
-                color='C0', label= bin_feature + ' and ' + sub_bin_feature + f' shuffle ({shuffle_number})', linestyle='--', marker='.')
+                color='C0', label= bin_feature + ' and ' + sub_bin_feature + ' shuffle (10)', linestyle='--', marker='.')
     ax.fill_between(np.log10(pcf_original['ravg']), 
                         (b + n*sigma), 
                         (b - n*sigma), 
                         color='C1', label='Uncertainty', alpha=0.5)
-    ax.set_xlabel(r'Spatial scale [$\log_{10}$(Mpc)]')
+    ax.set_xlabel(r'Escala espacial [$\log_{10}$(Mpc)]')
     ax.set_ylabel(r'$\xi_{orig}$ / $\xi_{shuff}$')
     ax.set_title('2PCF ratio: small scale')
 
