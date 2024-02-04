@@ -119,7 +119,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, bin_feature, sub_bin_feat
     import numpy.random as r
     import pandas as pd
 
-    Inicializamos la lista de dataframes
+    # Inicializamos la lista de dataframes
     galaxies_poblacion_list=[]
 
     place_holder, indices_halos = np.unique(galaxies_sample['HostID'], return_index=True)
