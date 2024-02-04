@@ -34,6 +34,7 @@ halos = pd.DataFrame(data=np.array([halo_id, halo_mass, halo_pos[:, 0], halo_pos
                     columns=['HaloID', 'Halo mass', 'x', 'y', 'z', 'Halo mass squared'])
 
 halos['HaloID'] = halos['HaloID'].astype(int) # We force the ID column to be integers
+halos = halos.sort_values(by='HaloID')
 
 # Create data array to convert to data frame
 galaxies_np = np.zeros([length, 10])
@@ -54,6 +55,8 @@ galaxies['HostID'] = galaxies['HostID'].astype(int) # We force the ID column to 
 galaxies['COP_x'] = galaxies['Gal_x'] - galaxies['Halo_x']
 galaxies['COP_y'] = galaxies['Gal_y'] - galaxies['Halo_y']
 galaxies['COP_z'] = galaxies['Gal_z'] - galaxies['Halo_z']
+
+galaxies = galaxies.sort_values(by='HostID')
 
 galaxies.to_csv('Resultados/galaxies.csv', index=False)
 halos.to_csv('Resultados/halos.csv', index=False)
