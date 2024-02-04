@@ -124,7 +124,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, bin_feature, sub_bin_feat
 
     place_holder, indices_halos = np.unique(galaxies_sample['HostID'], return_index=True)
 
-    for i in range(1, len(indice_halos)+1): 
+    for i in range(1, len(indices_halos)+1): 
 
         # Tomamos una población
         if i == len(indices_halos):
