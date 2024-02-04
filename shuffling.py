@@ -47,6 +47,16 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, bin_feature, sub_bin_feat
         galaxies_poblacion['Gal_y'] = galaxies_poblacion['Halo_y'] + galaxies_poblacion['COP_y']
         galaxies_poblacion['Gal_z'] = galaxies_poblacion['Halo_z'] + galaxies_poblacion['COP_z']
         
+        # Condiciones periódicas
+        galaxies_poblacion.loc[galaxies_poblacion['Gal_x'] > L, 'Gal_x'] -= L
+        galaxies_poblacion.loc[galaxies_poblacion['Gal_x'] < 0, 'Gal_x'] += L
+        
+        galaxies_poblacion.loc[galaxies_poblacion['Gal_y'] > L, 'Gal_y'] -= L
+        galaxies_poblacion.loc[galaxies_poblacion['Gal_y'] < 0, 'Gal_y'] += L
+        
+        galaxies_poblacion.loc[galaxies_poblacion['Gal_z'] > L, 'Gal_z'] -= L
+        galaxies_poblacion.loc[galaxies_poblacion['Gal_z'] < 0, 'Gal_z'] += L
+        
         galaxies_poblacion_list.append(galaxies_poblacion)
         
     galaxies_nuevo=pd.concat(galaxies_poblacion_list)
