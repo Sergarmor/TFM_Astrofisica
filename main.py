@@ -1,6 +1,7 @@
 import numpy as np
 import numpy.random as r
 import pandas as pd
+from datetime import datetime
 from Corrfunc.theory import xi
 
 # Importing custom functions
