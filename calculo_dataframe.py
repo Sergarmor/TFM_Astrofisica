@@ -33,6 +33,8 @@ for i in range(length):
 halos = pd.DataFrame(data=np.array([halo_id, halo_mass, halo_pos[:, 0], halo_pos[:, 1], halo_pos[:, 2], halo_mass * halo_mass]).transpose(),
                     columns=['HaloID', 'Halo mass', 'x', 'y', 'z', 'Halo mass squared'])
 
+halos['HaloID'] = halos['HaloID'].astype(int) # We force the ID column to be integers
+
 # Create data array to convert to data frame
 galaxies_np = np.zeros([length, 10])
 galaxies_np[:length, 0] = gal_hostid[:length]
