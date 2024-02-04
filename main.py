@@ -42,8 +42,14 @@ while conf == 0:
         conf = 1
     elif confirmation == 'no':
         N_shufflings = int(input(f'Please set a new number of shufflings to calculate. Currently {N_shufflings}: '))
+        
+        h=np.floor(N_shufflings*t/3600) # Number of hours
+        m=np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60) # Number of minutes
+        s=((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60 - np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60)) * 60 # Number of seconds
+        
         print(f'The shuffling script is estimated to run for {h} hours, {m} minutes and {s} seconds.')
         confirmation = input('Do you want to continue? [yes/no]: ')
+        
     elif confirmation != 'yes' and confirmation != 'no':
         print(" Please write 'yes' or 'no' ")
         confirmation = input('Do you want to continue? [yes/no]: ')
