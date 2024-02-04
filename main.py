@@ -5,7 +5,7 @@ from Corrfunc.theory import xi
 
 # Importing custom functions
 from calculo_bins import calculo_bins
-from shuffling import galaxies_shuffle_bin, galaxies_shuffle, galaxies_shuffling_many
+from shuffling import galaxies_shuffle_bin, galaxies_shuffle, galaxies_shuffle_optimized, galaxies_shuffling_many
 from ploting_script import ploting_2pcf_ratio
 from calculo_2pcf import calculo_2pcf
 
@@ -48,6 +48,10 @@ recalc = input('Do you want to recalculate the DataFrames? [yes/no]: ')
 if recalc == 'yes':
     # Calculation of original data
     import calculo_dataframe
+    
+timeit = input('Do you want to time the shuffling time? [yes/no]: ')
+
+
 
 # We read the data
 halos = pd.read_csv('Resultados/halos.csv')
@@ -74,7 +78,27 @@ pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the or
 
 
 # Calculate the 2PCF shuffled
-lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, bin_feature, sub_bin_feature, N_bins_feature, N_bins_sub_feature, seed, L) # We shuffle the galaxies into haloes of same mass bin
+if timeit == 'yes':
+    seed_number = 1
+    time_ini = datetime.now()
+    lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, bin_feature, sub_bin_feature, N_bins_feature, N_bins_sub_feature, seed, L) # We shuffle the galaxies into haloes of same mass bin
+
+    time_end = datetime.now()
+    print(f"Initial time...: {time_ini}")
+    print(f"Final time.....: {time_end}")
+    print(f"Excecution time: {time_end-time_ini}")
+    
+if timeit == 'yes':
+    seed_number = 1
+    time_ini = datetime.now()
+    lista_DataFrames = galaxies_shuffle_optimized(halos, galaxies_sample, bin_feature, sub_bin_feature, seed, L, seed_number) # We shuffle the galaxies into haloes of same mass bin
+
+    time_end = datetime.now()
+    print(f"Initial time...: {time_ini}")
+    print(f"Final time.....: {time_end}")
+    print(f"Excecution time: {time_end-time_ini}")
+    
+    
 lista_xis = []
 for q in range(len(lista_DataFrames)):
     # We extract one DataFrame of shuffled galaxies
@@ -88,7 +112,6 @@ for q in range(len(lista_DataFrames)):
     
     pcf_shuffled_xi = pcf_shuffled['xi']
     lista_xis.append(pcf_shuffled_xi)
-    print(q)
 
 # We unite all the shuffled 2PCF and compute the mean and std
 pcf_shuffled_xi = pd.concat(lista_xis, axis=1)
