@@ -5,7 +5,7 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, bin_feature, sub_b
     import pandas as pd
 
     b = pcf_original['xi'] / pcf_shuffled_mean['mean'] # Assembly bias
-    sigma = pcf_original['xi']/pcf_shuffled_mean['mean'] * pcf_shuffled_mean['std'] # Assembly bias uncertainty
+    sigma = abs(pcf_original['xi']/pcf_shuffled_mean['mean'] * pcf_shuffled_mean['std']) # Assembly bias uncertainty
     xerr = pcf_original['rmax'] - pcf_original['rmin']
 
 
