@@ -5,7 +5,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, bin_feature, sub_bin_feat
     Toma como  input el DataFrame de galaxias a las que aplicar el shuffling, el número de bins y la  a utilizar.
     Devuelve un DataFrame con las galaxias después de aplicar el shuffling.
     
-    Tiempo estimado de ejecución: 1 minuto
+    Tiempo estimado de ejecución: 30 sec
     """
     
     import numpy as np
@@ -17,24 +17,32 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, bin_feature, sub_bin_feat
 
     place_holder, indices_halos = np.unique(galaxies_sample['HostID'], return_index=True)
 
-    for i in range(1, len(indices_halos)+1): 
+    for i in range(len(indices_halos)): 
 
-        # Tomamos una población
+        # Tomamos una población. Comprobar que da lo mismo que np.argwhere
         if i == len(indices_halos):
-            galaxies_poblacion = galaxies_sample.iloc[indices_halos[i-1]:].copy()
+            galaxies_poblacion = galaxies_sample.iloc[indices_halos[i]:].copy()
         else:
-            galaxies_poblacion = galaxies_sample.iloc[indices_halos[i-1]:indices_halos[i]].copy()
+            galaxies_poblacion = galaxies_sample.iloc[indices_halos[i]:indices_halos[i+1]].copy()
 
         if len(galaxies_poblacion) == 0:
+            raise IndexError("This population has no galaxies. This shouldn't happen. Population number ", i)
             continue
 
         bin1 = galaxies_poblacion[bin_feature+' bin'].iloc[0]
         bin2 = galaxies_poblacion[sub_bin_feature+' bin'].iloc[0]
-        ID_halo_nuevo = r.choice(halos.loc[halos[bin_feature+' bin']==bin1].loc[halos[sub_bin_feature+' bin']==bin2, 'HaloID'], size=1, replace=False)[0]
+        
+        halos_bin = halos.loc[halos[bin_feature+' bin']==bin1].loc[halos[sub_bin_feature+' bin']==bin2]
+        
+        halos_permutated = halos_bin.sample(frac=1).copy() # Genera una permutación del dataframe. frac=1 da la fracción de filas del dataframe a devolver.
+        
+        
+        # # Permutación de los halos dentro del bin y elegir los halos de uno en adelante para el shuffle
+        galaxies_poblacion_nuevo = pd.DataFrame(data=np.zeros(galaxies_poblacion.shape), columns=galaxies_poblacion.columns)
         
         ## Editamos la información de la población
         # Datos del nuevo halo
-        galaxies_poblacion['New HostID'] = ID_halo_nuevo
+        galaxies_poblacion_nuevo['New HostID'] = ID_halo_nuevo
         galaxies_poblacion['Halo mass'] = float(halos.loc[halos['HaloID'] == ID_halo_nuevo, 'Halo mass'].iloc[0])
 
         # Coords. del nuevo halo
