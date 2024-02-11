@@ -15,26 +15,24 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, bin_feature, sub_bin_feat
     # Inicializamos la lista de dataframes
     galaxies_poblacion_list=[]
 
+    halos_permutated = halos.groupby(by=[bin_feature + ' bin', sub_bin_feature + ' bin'], sort=True).sample(frac=1).copy() # Genera una permutación del dataframe. frac=1 da la fracción de filas del dataframe a devolver.
     place_holder, indices_halos = np.unique(galaxies_sample['HostID'], return_index=True)
 
     for i in range(len(indices_halos)): 
 
         # Tomamos una población. Comprobar que da lo mismo que np.argwhere
-        if i == len(indices_halos):
+        if i == len(indices_halos)-1:
             galaxies_poblacion = galaxies_sample.iloc[indices_halos[i]:].copy()
         else:
             galaxies_poblacion = galaxies_sample.iloc[indices_halos[i]:indices_halos[i+1]].copy()
 
         if len(galaxies_poblacion) == 0:
             raise IndexError("This population has no galaxies. This shouldn't happen. Population number ", i)
-            continue
 
         bin1 = galaxies_poblacion[bin_feature+' bin'].iloc[0]
         bin2 = galaxies_poblacion[sub_bin_feature+' bin'].iloc[0]
         
         halos_bin = halos.loc[halos[bin_feature+' bin']==bin1].loc[halos[sub_bin_feature+' bin']==bin2]
-        
-        halos_permutated = halos_bin.sample(frac=1).copy() # Genera una permutación del dataframe. frac=1 da la fracción de filas del dataframe a devolver.
         
         
         # # Permutación de los halos dentro del bin y elegir los halos de uno en adelante para el shuffle

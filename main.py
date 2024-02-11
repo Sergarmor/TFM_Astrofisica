@@ -17,10 +17,9 @@ h = 0.6774                                   # Little Hubble constant
 
 # Analisys parameters
 corte_masa = 10.75                           # We cut the galaxies by mass into a sample
-bin_feature = 'Halo mass'                    # Main feature for the binning
-sub_bin_feature = 'Halo mass squared'        # Sub feature for the binning
-bin_width=0.1                                # Bin width in main feature
-sub_bin_width=0.1                            # Bin width in sub feature
+
+features=[ 'Halo mass', 'Halo concentration', 'Halo spin']   # Features used to do the binning
+bin_number=[100,         100,                 100]           # Number of bins for each feature
 N_shufflings = 25                            # We shuffle N_shufflings times and compute the mean and std
 spatial_bin_number = 100                     # Bin number in spatial bins (2PCF calculation)
 n_threads = 1                                # Number of threads to use to calculate the 2PCF
@@ -70,7 +69,7 @@ halos = pd.read_csv('Resultados/halos.csv')
 galaxies = pd.read_csv('Resultados/galaxies.csv')
 
 # Calculation of binned dataframes of halos and galaxies
-halos, galaxies, main_bins, sub_bins = calculo_bins(halos, galaxies, bin_feature, sub_bin_feature, bin_width, sub_bin_width)
+halos, galaxies = calculo_bins(halos, galaxies, features, bin_number)
 
 
 

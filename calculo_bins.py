@@ -1,6 +1,6 @@
 
 
-def calculo_bins(halos, galaxies, bin_feature, sub_bin_feature, bin_width, sub_bin_width):
+def calculo_bins(halos, galaxies, features, bin_number):
 
     """
     Galaxy and halo DataFrame binning.
@@ -8,15 +8,11 @@ def calculo_bins(halos, galaxies, bin_feature, sub_bin_feature, bin_width, sub_b
     Parameters
     ----------
     
-    bin_feature : string
-                  First feature to take account of for the binning
-    sub_bin_feature : string
-                  Second feature to take account of for the binning
-    bin_width : float
-                  Bin width of the first feature
-    sub_bin_width : float
-                  Bin width of the second feature
-                  
+    features : list
+               List of labels for the binning
+    bin_number : list
+               Number of bins for each feature. Must have same length as features.
+               
     Returns
     -------
     
@@ -29,25 +25,22 @@ def calculo_bins(halos, galaxies, bin_feature, sub_bin_feature, bin_width, sub_b
 
     import numpy as np
     import pandas as pd
-    import math
 
-    limite_inferior_main_bin = math.floor(min(galaxies[bin_feature]) * 10.0) / 10.0
-    limite_superior_main_bin = math.ceil(max(galaxies[bin_feature]) * 10.0) / 10.0+bin_width
+    if len(bin_number) != len(features):
+    raise IndexError('Feature and bin number must have the same length. Currently features:', 
+                     len(features), 'and bins:', len(bin_number))
+    #
 
-    limite_inferior_sub_bin = math.floor(min(galaxies[sub_bin_feature]) * 10.0) / 10.0
-    limite_superior_sub_bin = math.ceil(max(galaxies[sub_bin_feature]) * 10.0) / 10.0+sub_bin_width
+    halos_max = halos.loc[:, features].max() + halos_max[i]*0.01
+    halos_min = halos.loc[:, features].min() - halos_min[i]*0.01
 
-    main_bins = np.arange(limite_inferior_main_bin, limite_superior_main_bin, bin_width)
-    sub_bins = np.arange(limite_inferior_sub_bin, limite_superior_sub_bin, sub_bin_width)
+    bin_width = (halos.loc[:, features].max() - halos.loc[:, features].min())/bin_number
 
-    bin_labels=np.arange(1, len(main_bins), 1)
-    sub_bin_labels=np.arange(1, len(sub_bins), 1)
-
-    galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], main_bins, labels=bin_labels)
-    galaxies[sub_bin_feature+' bin'] = pd.cut(galaxies[sub_bin_feature], sub_bins, labels=sub_bin_labels)
-
-    halos[bin_feature+' bin'] = pd.cut(halos[bin_feature], main_bins, labels=bin_labels)
-    halos[sub_bin_feature+' bin'] = pd.cut(halos[sub_bin_feature], sub_bins, labels=sub_bin_labels)
+    for i in range(len(features)):
+        bin_feature = features[i]
+        bins = np.arange(halos_min[i], halos_max[i], bin_width[i])
+        halos[bin_feature+' bin'] = pd.cut(halos[bin_feature], bins, labels=False)
+        galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], bins, labels=False)
 
 
 
@@ -55,4 +48,4 @@ def calculo_bins(halos, galaxies, bin_feature, sub_bin_feature, bin_width, sub_b
 
     halos.to_csv('Resultados/halos.csv', index=False)
     
-    return halos, galaxies, main_bins, sub_bins
+    return galaxies, halos
