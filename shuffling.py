@@ -37,31 +37,23 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
         
     ID_halos, index_halos = np.unique(galaxies_sample['HostID'], return_index=True)
     galaxies_population_list=[]
-    bins_old = np.zeros([len(features_bins), ])
-    k=0
+    halos_choose = halos.copy()
 
     for i in range(len(index_halos)):
-    # i=0
+    
         galaxies_population = galaxies_sample.loc[galaxies_sample['HostID'] == ID_halos[i]]
 
         bins = galaxies_population.loc[:, features_bins].iloc[0]
-        halos_bins = halos.copy()
+        
+        halos_bins = halos_choose.copy()
         for p in range(len(bins)):
             halos_bins = halos_bins[halos_bins[features_bins[p]] == int(bins.iloc[p])]
 
-        halos_permutated = halos_bins.sample(frac=1).copy()
-        len_halos_bin = len(halos_bins)
-
-        if (bins_old != bins).any():
-            k=0
-            bins_old = bins
-        else:
-            k+=1
-
-        if len_halos_bin <= k:
-            raise ValuError("Length of halos in bin too short")
-
-        halo_nuevo = halos_bins.iloc[k]
+        ID_halo_nuevo = r.choice(halos_bins.loc[halos_bins[bin_feature+' bin']==bin1].loc[halos_bins[sub_bin_feature+' bin']==bin2, 'HaloID'], size=1, replace=False)[0]
+        halos_choose.drop(halos_choose['HaloID']==ID_halo_nuevo)
+        
+        
+        halo_nuevo = halos_bins.loc[halos_bins['HaloID'] == ID_halo_nuevo]
         galaxies_population_shuffled = galaxies_population.copy()
 
         galaxies_population_shuffled['HostID'] = int(halo_nuevo['HaloID'])
