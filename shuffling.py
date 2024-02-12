@@ -57,8 +57,8 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
         halo_nuevo = halos_bins.loc[halos_bins['HaloID'] == ID_halo_nuevo]
         galaxies_population_shuffled = galaxies_population.copy()
 
-        galaxies_population_shuffled['HostID'] = int(halo_nuevo['HaloID'])
-        galaxies_population_shuffled['Host index'] = int(halos[halos['HaloID'] == halo_nuevo['HaloID']].index[0])
+        galaxies_population_shuffled['HostID'] = int(halo_nuevo['HaloID'].iloc[0])
+        galaxies_population_shuffled['Host index'] = int(halos[halos['HaloID'] == ID_halo_nuevo].index[0])
 
         galaxies_population_shuffled['Halo mass'] = float(halo_nuevo['Halo mass'])
         galaxies_population_shuffled['Halo concentration'] = float(halo_nuevo['Halo concentration'])
