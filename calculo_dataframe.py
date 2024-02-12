@@ -18,7 +18,7 @@ halos = pd.DataFrame(
                    halo_spin, 
                    halo_pos[:, 0], halo_pos[:, 1], halo_pos[:, 2], 
                    halo_vel[:, 0], halo_vel[:, 1], halo_vel[:, 2]]).transpose(), 
-    columns=['HaloID', 'Halo mass', 'Concentration', 'Spin', 'x', 'y', 'z', 'vel_x', 'vel_y', 'vel_z'])
+    columns=['HaloID', 'Halo mass', 'Concentration', 'Spin', 'x', 'y', 'z', 'Vel_x', 'Vel_y', 'Vel_z'])
 halos['HaloID'] = halos['HaloID'].astype(int) # We force IDs to be integers
 
 halos = halos.sort_values(by='HaloID')

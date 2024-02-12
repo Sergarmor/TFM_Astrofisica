@@ -13,6 +13,11 @@ def calculo_bins(halos, galaxies, features, bin_number):
     bin_number : list
                Number of bins for each feature. Must have same length as features.
                
+    halos : DataFrame
+            DataFrame of halos without binning
+    galaxies : DataFrame
+            DataFrame of galaxies without binning
+               
     Returns
     -------
     
