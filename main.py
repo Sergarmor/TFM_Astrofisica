@@ -18,8 +18,8 @@ h = 0.6774                                   # Little Hubble constant
 # Analisys parameters
 corte_masa = 10.75                           # We cut the galaxies by mass into a sample
 
-features=[ 'Halo mass', 'Halo concentration']   # Features used to do the binning
-bin_number=[100,         100]           # Number of bins for each feature
+features=[ 'Halo mass', 'Halo concentration', 'Halo spin']   # Features used to do the binning
+bin_number=[100,         100,                 100]           # Number of bins for each feature
 N_shufflings = 25                            # We shuffle N_shufflings times and compute the mean and std
 spatial_bin_number = 100                     # Bin number in spatial bins (2PCF calculation)
 n_threads = 1                                # Number of threads to use to calculate the 2PCF
@@ -28,11 +28,11 @@ n_threads = 1                                # Number of threads to use to calcu
 n = 3                                        # Number of sigmas in the plot
 
     
-t = 30 # Each shuffling runs for around 30 seconds
+t = 62 # Each shuffling runs for around 30 seconds
 
 h=np.floor(N_shufflings*t/3600) # Number of hours
 m=np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60) # Number of minutes
-s=((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60 - np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60)) * 60 # Number of seconds
+s=round(((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60 - np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60)) * 60) # Number of seconds
 
 print(f'The shuffling script is estimated to run for {h} hours, {m} minutes and {s} seconds.')
 confirmation = input('Do you want to continue? [yes/no]: ')
@@ -128,4 +128,4 @@ sigma = pcf_original['xi']/pcf_shuffled_xi['mean'] * pcf_shuffled_xi['std'] # As
 
 # We plot the results
 
-ploting_2pcf_ratio(pcf_original, pcf_shuffled_xi, n, L, bin_feature, sub_bin_feature, N_shufflings)
+ploting_2pcf_ratio(pcf_original, pcf_shuffled_xi, n, L, features, N_shufflings)
