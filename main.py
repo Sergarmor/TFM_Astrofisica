@@ -73,7 +73,7 @@ galaxies = pd.read_csv('Resultados/galaxies.csv')
 rebin = input('Do you want to recalculate the binning of the DataFrames? [yes/no]: ')
 
 if rebin == 'yes':
-    halos, galaxies = calculo_bins(halos, galaxies, features, bin_number)
+    halos, galaxies = calculo_bins(halos, galaxies, bin_number)
 
 # We get the sample by cutting in stellar mass
 galaxies_sample = galaxies[galaxies['Stellar mass'] > corte_masa].copy()
