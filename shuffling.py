@@ -40,6 +40,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
     halos_choose = halos.copy()
 
     for i in range(len(index_halos)):
+        print(f'Population {i+1} out of {len(index_halos)}')
     
         galaxies_population = galaxies_sample.loc[galaxies_sample['HostID'] == ID_halos[i]]
 
