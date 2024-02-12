@@ -49,7 +49,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
         for p in range(len(bins)):
             halos_bins = halos_bins[halos_bins[features_bins[p]] == int(bins.iloc[p])]
 
-        ID_halo_nuevo = r.choice(halos_bins.loc['HaloID'], size=1, replace=False)[0]
+        ID_halo_nuevo = r.choice(halos_bins.loc[:, 'HaloID'], size=1, replace=False)[0]
         halos_choose.drop(halos_choose['HaloID']==ID_halo_nuevo)
         
         
