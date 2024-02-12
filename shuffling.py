@@ -38,6 +38,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
     ID_halos, index_halos = np.unique(galaxies_sample['HostID'], return_index=True)
     galaxies_population_list=[]
     halos_choose = halos.copy()
+    halos_choose['Chosen'] = 0
 
     for i in range(len(index_halos)):
         print(f'Population {i+1} out of {len(index_halos)}')
@@ -46,13 +47,13 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
 
         bins = galaxies_population.loc[:, features_bins].iloc[0]
         
-        halos_bins = halos_choose.copy()
+        halos_bins = halos_choose[halos_choose['Chosen']!=1].copy()
         for p in range(len(bins)):
             halos_bins = halos_bins[halos_bins[features_bins[p]] == int(bins.iloc[p])]
 
         ID_halo_nuevo = r.choice(halos_bins.loc[:, 'HaloID'], size=1, replace=False)[0]
-        index_drop = halos_choose[halos_choose['HaloID']==ID_halo_nuevo].index[0]
-        halos_choose = halos_choose.drop(index_drop, axis='index')
+        index_chosen = halos_choose[halos_choose['HaloID']==ID_halo_nuevo].index[0]
+        halos_choose.loc[halos_choose['HaloID']==ID_halo_nuevo, 'Chosen']=1
         
         
         halo_nuevo = halos_bins.loc[halos_bins['HaloID'] == ID_halo_nuevo]
