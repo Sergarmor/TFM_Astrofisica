@@ -80,7 +80,7 @@ if rebin == 'yes':
 
 
 # We get the sample by cutting in stellar mass
-galaxies_sample = galaxies[galaxies['Stellar mass']>corte_masa]
+galaxies_sample = galaxies[galaxies['Stellar mass']>corte_masa].copy()
 
 # Calculate the original 2PCF
 
