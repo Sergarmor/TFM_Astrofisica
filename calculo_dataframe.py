@@ -44,20 +44,7 @@ gal_halo_pos = file['halo_pos'][file['cross_sub2halo']]
 gal_halo_vel = file['halo_vel'][file['cross_sub2halo']]
 
 
-columns = ['HostID', 
-           'Host index', 
-           'Type', 
-           'Stellar mass', 
-           'Halo mass', 
-           'Halo concentration', 
-           'Halo spin', 
-           'Halo_x', 'Halo_y', 'Halo_z', 
-           'Halo_vel_x', 'Halo_vel_y', 'Halo_vel_z', 
-           'Col_x', 'Col_y', 'Col_z', 
-           'Pos_x', 'Pos_y', 'Pos_z',
-           'COP_x', 'COP_y', 'COP_z',
-           'Vel_x', 'Vel_y', 'Vel_z',
-           'COP_vel_x', 'COP_vel_y', 'COP_vel_z']
+columns = ['HostID', 'Host index', 'Type', 'Stellar mass', 'Halo mass', 'Halo concentration', 'Halo spin', 'Halo_x', 'Halo_y', 'Halo_z', 'Halo_vel_x', 'Halo_vel_y', 'Halo_vel_z', 'Col_x', 'Col_y', 'Col_z', 'Pos_x', 'Pos_y', 'Pos_z','COP_x', 'COP_y', 'COP_z','Vel_x', 'Vel_y', 'Vel_z','COP_vel_x', 'COP_vel_y', 'COP_vel_z']
 
 galaxies = pd.DataFrame(
     data=np.array([gal_hostid, 
