@@ -49,13 +49,15 @@ columns = ['HostID',
            'Type', 
            'Stellar mass', 
            'Halo mass', 
-           'Halo spin', 
            'Halo concentration', 
+           'Halo spin', 
            'Halo_x', 'Halo_y', 'Halo_z', 
            'Halo_vel_x', 'Halo_vel_y', 'Halo_vel_z', 
            'Col_x', 'Col_y', 'Col_z', 
-           'Pos_x', 'Pos_y', 'Pos_z', 
-           'Vel_x', 'Vel_y', 'Vel_z']
+           'Pos_x', 'Pos_y', 'Pos_z',
+           'COP_x', 'COP_y', 'COP_z',
+           'Vel_x', 'Vel_y', 'Vel_z',
+           'COP_vel_x', 'COP_vel_y', 'COP_vel_z']
 
 galaxies = pd.DataFrame(
     data=np.array([gal_hostid, 
@@ -63,13 +65,16 @@ galaxies = pd.DataFrame(
                    gal_type, 
                    gal_mst, 
                    gal_halo_mass, 
-                   gal_halo_spin, 
                    gal_halo_conc, 
+                   gal_halo_spin, 
                    gal_halo_pos[:, 0], gal_halo_pos[:, 1], gal_halo_pos[:, 2], 
                    gal_halo_vel[:, 0], gal_halo_vel[:, 1], gal_halo_vel[:, 2], 
                    gal_col[:, 0], gal_col[:, 1], gal_col[:, 2], 
                    gal_pos[:, 0], gal_pos[:, 1], gal_pos[:, 2], 
-                   gal_vel[:, 0], gal_vel[:, 1], gal_vel[:, 2]]).transpose(),
+                   gal_pos[:, 0] - gal_halo_pos[:, 0], gal_pos[:, 1] - gal_halo_pos[:, 1], gal_pos[:, 2] - gal_halo_pos[:, 2],
+                   gal_vel[:, 0], gal_vel[:, 1], gal_vel[:, 2],
+                   gal_vel[:, 0] - gal_halo_vel[:, 0], gal_vel[:, 1] - gal_halo_vel[:, 1], gal_vel[:, 2] - gal_halo_vel[:, 2],
+                   ]).transpose(),
     columns=columns)
     
 

@@ -1,81 +1,142 @@
-def galaxies_shuffle_optimized(halos, galaxies_sample, bin_feature, sub_bin_feature, L):
+def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
     
     """
-    Función que realiza el shuffling de las galaxias. Los bins se definen según la masa. 
-    Toma como  input el DataFrame de galaxias a las que aplicar el shuffling, el número de bins y la  a utilizar.
-    Devuelve un DataFrame con las galaxias después de aplicar el shuffling.
+    Galaxy shuffling. Permutates the halos to select them for each population.
+    Expected execution time: 
     
-    Tiempo estimado de ejecución: 30 sec
+    Parameters
+    ----------
+    
+    halos : DataFrame
+            DataFrame of binned halos.
+    
+    galaxies_sample : DataFrame
+            DataFrame of binned galaxies.
+    
+    features : list
+            List of labels for the binning. Labels must be strings.
+    
+    L : float
+            Box size in same units as positions.
+            
+    Returns
+    -------
+    
+    galaxies_shuffled : DataFrame
+            DataFrame of shuffled galaxies.
     """
     
     import numpy as np
     import numpy.random as r
     import pandas as pd
 
-    # Inicializamos la lista de dataframes
-    galaxies_poblacion_list=[]
+    features_bins=[]
+    for p in range(len(features)):
+        features_bins.append(features[p] + ' bin')
 
-    halos_permutated = halos.groupby(by=[bin_feature + ' bin', sub_bin_feature + ' bin'], sort=True).sample(frac=1).copy() # Genera una permutación del dataframe. frac=1 da la fracción de filas del dataframe a devolver.
-    place_holder, indices_halos = np.unique(galaxies_sample['HostID'], return_index=True)
+        
+    halos_permutated = halos.groupby(by=features_bins, axis=0, sort=True).sample(frac=1).copy() # Genera una permutación del dataframe. frac=1 da la fracción de filas del dataframe a devolver.
 
-    for i in range(len(indices_halos)): 
+    ID_halos, index_halos = np.unique(galaxies_sample['HostID'], return_index=True)
+    galaxies_population_list=[]
+    bins_old = np.zeros([len(features_bins), ])
+    k=0
 
-        # Tomamos una población. Comprobar que da lo mismo que np.argwhere
-        if i == len(indices_halos)-1:
-            galaxies_poblacion = galaxies_sample.iloc[indices_halos[i]:].copy()
+    for i in range(len(index_halos)):
+    
+        galaxies_population = galaxies_sample.loc[galaxies_sample['HostID'] == ID_halos[i]]
+
+        bins = galaxies_population.loc[:, features_bins].iloc[0]
+        halos_bins = halos_permutated
+        for p in range(len(bins)):
+            halos_bins = halos_bins[halos_bins[features_bins[p]] == bins[p]]
+
+        len_halos_bin = len(halos_bins)
+
+        if (bins_old != bins).any():
+            k=0
+            bins_old = bins
         else:
-            galaxies_poblacion = galaxies_sample.iloc[indices_halos[i]:indices_halos[i+1]].copy()
+            k+=1
 
-        if len(galaxies_poblacion) == 0:
-            raise IndexError("This population has no galaxies. This shouldn't happen. Population number ", i)
+        if len_halos_bin <= k:
+            raise ValuError("Length of halos in bin too short")
 
-        bin1 = galaxies_poblacion[bin_feature+' bin'].iloc[0]
-        bin2 = galaxies_poblacion[sub_bin_feature+' bin'].iloc[0]
-        
-        halos_bin = halos.loc[halos[bin_feature+' bin']==bin1].loc[halos[sub_bin_feature+' bin']==bin2]
-        
-        
-        # # Permutación de los halos dentro del bin y elegir los halos de uno en adelante para el shuffle
-        galaxies_poblacion_nuevo = pd.DataFrame(data=np.zeros(galaxies_poblacion.shape), columns=galaxies_poblacion.columns)
-        
-        ## Editamos la información de la población
-        # Datos del nuevo halo
-        galaxies_poblacion_nuevo['New HostID'] = ID_halo_nuevo
-        galaxies_poblacion['Halo mass'] = float(halos.loc[halos['HaloID'] == ID_halo_nuevo, 'Halo mass'].iloc[0])
+        halo_nuevo = halos_bins.iloc[k]
+        galaxies_population_shuffled = galaxies_population.copy()
 
-        # Coords. del nuevo halo
-        galaxies_poblacion['Halo_x'] = float(halos.loc[halos['HaloID'] == ID_halo_nuevo, 'x'].iloc[0])
-        galaxies_poblacion['Halo_y'] = float(halos.loc[halos['HaloID'] == ID_halo_nuevo, 'y'].iloc[0])
-        galaxies_poblacion['Halo_z'] = float(halos.loc[halos['HaloID'] == ID_halo_nuevo, 'z'].iloc[0])
-        
-        # Coords de las galaxias
-        galaxies_poblacion['Gal_x'] = galaxies_poblacion['Halo_x'] + galaxies_poblacion['COP_x']
-        galaxies_poblacion['Gal_y'] = galaxies_poblacion['Halo_y'] + galaxies_poblacion['COP_y']
-        galaxies_poblacion['Gal_z'] = galaxies_poblacion['Halo_z'] + galaxies_poblacion['COP_z']
-        
+        galaxies_population_shuffled['HostID'] = int(halo_nuevo['HaloID'])
+        galaxies_population_shuffled['Host index'] = int(halos[halos['HaloID'] == halo_nuevo['HaloID']].index[0])
+
+        galaxies_population_shuffled['Halo mass'] = float(halo_nuevo['Halo mass'])
+        galaxies_population_shuffled['Halo concentration'] = float(halo_nuevo['Halo concentration'])
+        galaxies_population_shuffled['Halo spin'] = float(halo_nuevo['Halo spin'])
+
+        galaxies_population_shuffled['Halo_x'] = float(halo_nuevo['x'])
+        galaxies_population_shuffled['Halo_y'] = float(halo_nuevo['y'])
+        galaxies_population_shuffled['Halo_z'] = float(halo_nuevo['z'])
+
+        galaxies_population_shuffled['Halo_vel_x'] = float(halo_nuevo['Vel_x'])
+        galaxies_population_shuffled['Halo_vel_y'] = float(halo_nuevo['Vel_y'])
+        galaxies_population_shuffled['Halo_vel_z'] = float(halo_nuevo['Vel_z'])
+
+        galaxies_population_shuffled['Pos_x'] = float(halo_nuevo['x']) + galaxies_population_shuffled['COP_x']
+        galaxies_population_shuffled['Pos_y'] = float(halo_nuevo['y']) + galaxies_population_shuffled['COP_y']
+        galaxies_population_shuffled['Pos_z'] = float(halo_nuevo['z']) + galaxies_population_shuffled['COP_z']
+
+        galaxies_population_shuffled['Vel_x'] = float(halo_nuevo['Vel_x']) + galaxies_population_shuffled['COP_vel_x']
+        galaxies_population_shuffled['Vel_y'] = float(halo_nuevo['Vel_y']) + galaxies_population_shuffled['COP_vel_y']
+        galaxies_population_shuffled['Vel_z'] = float(halo_nuevo['Vel_z']) + galaxies_population_shuffled['COP_vel_z']
+
+        galaxies_population_shuffled['Halo mass bin'] = int(halo_nuevo['Halo mass bin'])
+        galaxies_population_shuffled['Halo concentration bin'] = int(halo_nuevo['Halo concentration bin'])
+        galaxies_population_shuffled['Halo spin bin'] = int(halo_nuevo['Halo spin bin'])
+
+
         # Condiciones periódicas
-        galaxies_poblacion.loc[galaxies_poblacion['Gal_x'] > L, 'Gal_x'] -= L
-        galaxies_poblacion.loc[galaxies_poblacion['Gal_x'] < 0, 'Gal_x'] += L
-        
-        galaxies_poblacion.loc[galaxies_poblacion['Gal_y'] > L, 'Gal_y'] -= L
-        galaxies_poblacion.loc[galaxies_poblacion['Gal_y'] < 0, 'Gal_y'] += L
-        
-        galaxies_poblacion.loc[galaxies_poblacion['Gal_z'] > L, 'Gal_z'] -= L
-        galaxies_poblacion.loc[galaxies_poblacion['Gal_z'] < 0, 'Gal_z'] += L
-        
-        galaxies_poblacion_list.append(galaxies_poblacion)
-        
-    galaxies_nuevo=pd.concat(galaxies_poblacion_list)
-    return galaxies_nuevo
+        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_x'] > L, 'Pos_x'] -= L
+        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_x'] < 0, 'Pos_x'] += L
 
-def galaxies_shuffling_many(halos, galaxies_sample, bin_feature, sub_bin_feature, N_shufflings, L):
+        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_y'] > L, 'Pos_y'] -= L
+        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_y'] < 0, 'Pos_y'] += L
+
+        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_z'] > L, 'Pos_z'] -= L
+        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_z'] < 0, 'Pos_z'] += L
+
+        galaxies_population_list.append(galaxies_population_shuffled)
+        
+    galaxies_shuffled=pd.concat(galaxies_population_list)
+    return galaxies_shuffled
+
+def galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L):
     
     """
-    Función que realiza un número determinado de shufflings. Se basa en la función galaxies_shuffle.
-    Toma como input el DataFrame de galaxias a las que aplicar el shuffling, el número total de bins y una lista o array de seeds que utilizar.
-    Devuelve una lista de DataFrames con galaxias después de aplicar el shuffling. 
+    Multiple galaxy shufflings.
+    Expected execution time: e for each shuffling.
     
-    Tiempo estimado de ejecución: 30 sec por cada shuffling.
+    Parameters
+    ----------
+    
+    halos : DataFrame
+            DataFrame of binned halos.
+    
+    galaxies_sample : DataFrame
+            DataFrame of binned galaxies.
+    
+    features : list
+            List of labels for the binning. Labels must be strings.
+            
+    N_shufflings : int
+            Number of shufflings to execute.
+    
+    L : float
+            Box size in same units as positions.
+            
+    Returns
+    -------
+    
+    galaxies_list : List
+            List of DataFrames of shuffled galaxies.
     
     """
     
@@ -87,7 +148,7 @@ def galaxies_shuffling_many(halos, galaxies_sample, bin_feature, sub_bin_feature
 
     for i in range(N_shufflings):
         print(f'Shuffle number {i} out of {N_shufflings}')
-        galaxies_nuevo = galaxies_shuffle_optimized(halos, galaxies_sample, bin_feature, sub_bin_feature, L)
-        galaxies_list.append(galaxies_nuevo)
-        galaxies_nuevo.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i}.csv', index=False)
+        galaxies_shuffled = galaxies_shuffle_optimized(halos, galaxies_sample, features, L)
+        galaxies_list.append(galaxies_shuffled)
+        galaxies_shuffled.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i}.csv', index=False)
     return galaxies_list

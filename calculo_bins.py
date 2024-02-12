@@ -36,10 +36,6 @@ def calculo_bins(halos, galaxies, features, bin_number):
                      len(features), 'and bins:', len(bin_number))
     #
 
-    halos_max = halos.loc[:, features].max() + halos_max[i]*0.01
-    halos_min = halos.loc[:, features].min() - halos_min[i]*0.01
-
-    bin_width = (halos.loc[:, features].max() - halos.loc[:, features].min())/bin_number
 
     for i in range(len(features)):
         
