@@ -37,10 +37,17 @@ def calculo_bins(halos, galaxies, features, bin_number):
     bin_width = (halos.loc[:, features].max() - halos.loc[:, features].min())/bin_number
 
     for i in range(len(features)):
+        
         bin_feature = features[i]
-        bins = np.arange(halos_min[i], halos_max[i], bin_width[i])
-        halos[bin_feature+' bin'] = pd.cut(halos[bin_feature], bins, labels=False)
-        galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], bins, labels=False)
+        halos_max = halos.loc[:, bin_feature].max()*1.01
+        halos_min = halos.loc[:, bin_feature].min()*0.99
+
+        bin_width = (halos_max - halos_min)/(bin_number[i]+1)
+        
+        
+        bins = np.arange(halos_min, halos_max, bin_width)
+        halos[bin_feature+' bin'] = pd.cut(halos[bin_feature], bins, labels=False).astype(int)
+        galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], bins, labels=False).astype(int)
 
 
 
