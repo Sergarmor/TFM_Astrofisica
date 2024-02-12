@@ -32,13 +32,11 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, features, N_shuffl
     ##### ZOOM TO SMALL SCALES
     fig, ax = plt.subplots(1, 1, figsize=(6, 5))
 
-    ax.plot(np.log10(pcf_original['ravg']), 
-                (b), 
-                color='C0', label= f'Shuffle with features {features} ({N_shufflings})', linestyle='--', marker='.')
-    ax.fill_between(np.log10(pcf_original['ravg']), 
-                        (b + n*sigma), 
-                        (b - n*sigma), 
-                        color='C1', label='Uncertainty', alpha=0.5)
+    ax.errorbar(np.log10(pcf_original['ravg']), 
+            (b), 
+            xerr = np.log10(xerr),
+            yerr = n*sigma,
+            color='C0', label= f'Shuffle with features {features} ({N_shufflings})', linestyle='--', marker='.', ecolor='C1')
     ax.set_xlabel(r'Escala espacial [$\log_{10}$(Mpc)]')
     ax.set_ylabel(r'$\xi_{orig}$ / $\xi_{shuff}$')
     ax.set_title('2PCF ratio: small scale')
