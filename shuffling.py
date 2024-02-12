@@ -35,7 +35,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
         features_bins.append(features[p] + ' bin')
 
         
-    halos_permutated = halos.groupby(by=features_bins, axis=0, sort=True).sample(frac=1).copy() # Genera una permutación del dataframe. frac=1 da la fracción de filas del dataframe a devolver.
+    halos_permutated = halos.groupby(by=features_bins, sort=True).sample(frac=1).copy() # Genera una permutación del dataframe. frac=1 da la fracción de filas del dataframe a devolver.
 
     ID_halos, index_halos = np.unique(galaxies_sample['HostID'], return_index=True)
     galaxies_population_list=[]
