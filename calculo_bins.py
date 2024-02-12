@@ -32,8 +32,8 @@ def calculo_bins(halos, galaxies, features, bin_number):
     import pandas as pd
 
     if len(bin_number) != len(features):
-    raise IndexError('Feature and bin number must have the same length. Currently features:', 
-                     len(features), 'and bins:', len(bin_number))
+        raise IndexError('Feature and bin number must have the same length. Currently features:', 
+                         len(features), 'and bins:', len(bin_number))
     #
 
 
