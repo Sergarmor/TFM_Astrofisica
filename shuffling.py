@@ -60,29 +60,29 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
         galaxies_population_shuffled['HostID'] = int(halo_nuevo['HaloID'].iloc[0])
         galaxies_population_shuffled['Host index'] = int(halos[halos['HaloID'] == ID_halo_nuevo].index[0])
 
-        galaxies_population_shuffled['Halo mass'] = float(halo_nuevo['Halo mass'])
-        galaxies_population_shuffled['Halo concentration'] = float(halo_nuevo['Halo concentration'])
-        galaxies_population_shuffled['Halo spin'] = float(halo_nuevo['Halo spin'])
+        galaxies_population_shuffled['Halo mass'] = float(halo_nuevo['Halo mass'].iloc[0])
+        galaxies_population_shuffled['Halo concentration'] = float(halo_nuevo['Halo concentration'].iloc[0])
+        galaxies_population_shuffled['Halo spin'] = float(halo_nuevo['Halo spin'].iloc[0])
 
-        galaxies_population_shuffled['Halo_x'] = float(halo_nuevo['x'])
-        galaxies_population_shuffled['Halo_y'] = float(halo_nuevo['y'])
-        galaxies_population_shuffled['Halo_z'] = float(halo_nuevo['z'])
+        galaxies_population_shuffled['Halo_x'] = float(halo_nuevo['x'].iloc[0])
+        galaxies_population_shuffled['Halo_y'] = float(halo_nuevo['y'].iloc[0])
+        galaxies_population_shuffled['Halo_z'] = float(halo_nuevo['z'].iloc[0])
 
-        galaxies_population_shuffled['Halo_vel_x'] = float(halo_nuevo['Vel_x'])
-        galaxies_population_shuffled['Halo_vel_y'] = float(halo_nuevo['Vel_y'])
-        galaxies_population_shuffled['Halo_vel_z'] = float(halo_nuevo['Vel_z'])
+        galaxies_population_shuffled['Halo_vel_x'] = float(halo_nuevo['Vel_x'].iloc[0])
+        galaxies_population_shuffled['Halo_vel_y'] = float(halo_nuevo['Vel_y'].iloc[0])
+        galaxies_population_shuffled['Halo_vel_z'] = float(halo_nuevo['Vel_z'].iloc[0])
 
-        galaxies_population_shuffled['Pos_x'] = float(halo_nuevo['x']) + galaxies_population_shuffled['COP_x']
-        galaxies_population_shuffled['Pos_y'] = float(halo_nuevo['y']) + galaxies_population_shuffled['COP_y']
-        galaxies_population_shuffled['Pos_z'] = float(halo_nuevo['z']) + galaxies_population_shuffled['COP_z']
+        galaxies_population_shuffled['Pos_x'] = float(halo_nuevo['x'].iloc[0]) + galaxies_population_shuffled['COP_x']
+        galaxies_population_shuffled['Pos_y'] = float(halo_nuevo['y'].iloc[0]) + galaxies_population_shuffled['COP_y']
+        galaxies_population_shuffled['Pos_z'] = float(halo_nuevo['z'].iloc[0]) + galaxies_population_shuffled['COP_z']
 
-        galaxies_population_shuffled['Vel_x'] = float(halo_nuevo['Vel_x']) + galaxies_population_shuffled['COP_vel_x']
-        galaxies_population_shuffled['Vel_y'] = float(halo_nuevo['Vel_y']) + galaxies_population_shuffled['COP_vel_y']
-        galaxies_population_shuffled['Vel_z'] = float(halo_nuevo['Vel_z']) + galaxies_population_shuffled['COP_vel_z']
+        galaxies_population_shuffled['Vel_x'] = float(halo_nuevo['Vel_x'].iloc[0]) + galaxies_population_shuffled['COP_vel_x']
+        galaxies_population_shuffled['Vel_y'] = float(halo_nuevo['Vel_y'].iloc[0]) + galaxies_population_shuffled['COP_vel_y']
+        galaxies_population_shuffled['Vel_z'] = float(halo_nuevo['Vel_z'].iloc[0]) + galaxies_population_shuffled['COP_vel_z']
 
-        galaxies_population_shuffled['Halo mass bin'] = int(halo_nuevo['Halo mass bin'])
-        galaxies_population_shuffled['Halo concentration bin'] = int(halo_nuevo['Halo concentration bin'])
-        galaxies_population_shuffled['Halo spin bin'] = int(halo_nuevo['Halo spin bin'])
+        galaxies_population_shuffled['Halo mass bin'] = int(halo_nuevo['Halo mass bin'].iloc[0])
+        galaxies_population_shuffled['Halo concentration bin'] = int(halo_nuevo['Halo concentration bin'].iloc[0])
+        galaxies_population_shuffled['Halo spin bin'] = int(halo_nuevo['Halo spin bin'].iloc[0])
 
 
         # Condiciones periódicas
