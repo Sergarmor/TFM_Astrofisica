@@ -34,7 +34,7 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, features, N_shuffl
 
     ax.errorbar(np.log10(pcf_original['ravg']), 
             (b), 
-            xerr = np.log10(xerr),
+            xerr = abs(np.log10(xerr)),
             yerr = n*sigma,
             color='C0', label= f'Shuffle with features {features} ({N_shufflings})', linestyle='--', marker='.', ecolor='C1')
     ax.set_xlabel(r'Escala espacial [$\log_{10}$(Mpc)]')
