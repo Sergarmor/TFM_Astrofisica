@@ -47,7 +47,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
         bins = galaxies_population.loc[:, features_bins].iloc[0]
         halos_bins = halos.copy()
         for p in range(len(bins)):
-            halos_bins = halos_bins[halos_bins[features_bins[p]] == bins[p]]
+            halos_bins = halos_bins[halos_bins[features_bins[p]] == bins.iloc[p]]
 
         halos_permutated = halos_bins.sample(frac=1).copy()
         len_halos_bin = len(halos_bins)
