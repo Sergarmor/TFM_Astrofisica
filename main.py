@@ -18,8 +18,8 @@ h = 0.6774                                   # Little Hubble constant
 # Analisys parameters
 corte_masa = 10.75                           # We cut the galaxies by mass into a sample
 
-features=[ 'Halo mass', 'Halo concentration', 'Halo spin']   # Features used to do the binning
-bin_number=[100,         100,                 100]           # Number of bins for each feature
+features=[ 'Halo mass']   # Features used to do the binning
+bin_number=[100]           # Number of bins for each feature
 N_shufflings = 25                            # We shuffle N_shufflings times and compute the mean and std
 spatial_bin_number = 100                     # Bin number in spatial bins (2PCF calculation)
 n_threads = 1                                # Number of threads to use to calculate the 2PCF
