@@ -6,7 +6,7 @@ def calculo_2pcf(galaxies, L, bin_number, n_threads):
     Parameters
     ----------
     galaxies : DataFrame
-              Galaxias. Debe contener las columnas 'Gal_x/y/z'.
+              Galaxias. Debe contener las columnas 'Pos_x/y/z'.
     L : float
         Anchura de caja.
     bin_number : int
@@ -26,9 +26,9 @@ def calculo_2pcf(galaxies, L, bin_number, n_threads):
     from Corrfunc.theory import xi
     
     # Coordenadas de las galaxias
-    X = galaxies['Gal_x']
-    Y = galaxies['Gal_y']
-    Z = galaxies['Gal_z']
+    X = galaxies['Pos_x']
+    Y = galaxies['Pos_y']
+    Z = galaxies['Pos_z']
     
     # Parámetros del cálculo de la 2PCF
     weights = np.ones_like(X)
