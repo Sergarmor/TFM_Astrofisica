@@ -17,17 +17,17 @@ h = 0.6774                                   # Little Hubble constant
 
 # Analisys parameters
 corte_masa = 10.75                           # We cut the galaxies by mass into a sample
-bin_feature = 'Halo mass'                    # Main feature for the binning
-sub_bin_feature = 'Halo mass squared'        # Sub feature for the binning
-bin_width=0.1                                # Bin width in main feature
-sub_bin_width=0.1                            # Bin width in sub feature
+
+features=[ 'Halo mass', 'Halo concentration', 'Halo spin']   # Features used to do the binning
+bin_number=[100,         100,                 100]           # Number of bins for each feature
 N_shufflings = 25                            # We shuffle N_shufflings times and compute the mean and std
 spatial_bin_number = 100                     # Bin number in spatial bins (2PCF calculation)
 n_threads = 1                                # Number of threads to use to calculate the 2PCF
-
+# Definir bin_width con max y min de los datos. Normalizar con los percentiles 95 y 5. Input: número de bines
 # Plotting parameters
 n = 3                                        # Number of sigmas in the plot
 
+    
 t = 30 # Each shuffling runs for around 30 seconds
 
 h=np.floor(N_shufflings*t/3600) # Number of hours
@@ -70,7 +70,11 @@ halos = pd.read_csv('Resultados/halos.csv')
 galaxies = pd.read_csv('Resultados/galaxies.csv')
 
 # Calculation of binned dataframes of halos and galaxies
-halos, galaxies, main_bins, sub_bins = calculo_bins(halos, galaxies, bin_feature, sub_bin_feature, bin_width, sub_bin_width)
+rebin = input('Do you want to recalculate the binning of the DataFrames? [yes/no]: ')
+
+if rebin == 'yes':
+    
+    halos, galaxies = calculo_bins(halos, galaxies, features, bin_number)
 
 
 
@@ -89,14 +93,15 @@ pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the or
 if timeit == 'yes':
     N_shufflings = 1
     time_ini = datetime.now()
-    lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, bin_feature, sub_bin_feature, N_shufflings, L)
+    lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L)
     
     time_end = datetime.now()
     print(f"Initial time...: {time_ini}")
     print(f"Final time.....: {time_end}")
     print(f"Excecution time: {time_end-time_ini}")
     
-lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, bin_feature, sub_bin_feature, N_shufflings, L)
+else:
+    lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L)
     
 lista_xis = []
 for q in range(len(lista_DataFrames)):
