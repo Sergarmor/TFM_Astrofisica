@@ -50,7 +50,8 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
             halos_bins = halos_bins[halos_bins[features_bins[p]] == int(bins.iloc[p])]
 
         ID_halo_nuevo = r.choice(halos_bins.loc[:, 'HaloID'], size=1, replace=False)[0]
-        halos_choose.drop(halos_choose['HaloID']==ID_halo_nuevo, axis='index')
+        index_drop = halos_choose[halos_choose['HaloID']==ID_halo_nuevo].index[0]
+        halos_choose = halos_choose.drop(index_drop, axis='index')
         
         
         halo_nuevo = halos_bins.loc[halos_bins['HaloID'] == ID_halo_nuevo]
