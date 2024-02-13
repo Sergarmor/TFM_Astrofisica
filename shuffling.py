@@ -85,12 +85,20 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
             population['Vel_z'] = float(halo_new['Vel_z']) + population['COP_vel_z']
             
             # Check for equal bins
-            if not population[features_bins].iloc[0].equals(halo_new[features_bins].astype('int64')):
-                raise ValueError('Error in group selection')
+            if type(features_bins) == str:
+                if not population[features_bins].iloc[0] == halo_new[features_bins].astype('int64'):
+                    raise ValueError('Error in group selection')
+                else:
+                    population['Halo mass bin'] = int(halo_new['Halo mass bin'])
+                    population['Halo concentration bin'] = int(halo_new['Halo concentration bin'])
+                    population['Halo spin bin'] = int(halo_new['Halo spin bin'])
             else:
-                population['Halo mass bin'] = int(halo_new['Halo mass bin'])
-                population['Halo concentration bin'] = int(halo_new['Halo concentration bin'])
-                population['Halo spin bin'] = int(halo_new['Halo spin bin'])
+                if not population[features_bins].iloc[0].equals(halo_new[features_bins].astype('int64')):
+                    raise ValueError('Error in group selection')
+                else:
+                    population['Halo mass bin'] = int(halo_new['Halo mass bin'])
+                    population['Halo concentration bin'] = int(halo_new['Halo concentration bin'])
+                    population['Halo spin bin'] = int(halo_new['Halo spin bin'])
             
             # Periodic conditions
             population.loc[population['Pos_x'] > L, 'Pos_x'] -= L
