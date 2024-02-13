@@ -2,7 +2,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
     
     """
     Galaxy shuffling. Permutates the halos to select them for each population.
-    Expected execution time: 1 minute
+    Expected execution time: 46 seconds
     
     Parameters
     ----------
@@ -137,7 +137,7 @@ def galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L):
     
     """
     Multiple galaxy shufflings.
-    Expected execution time: 1 minute for each shuffling.
+    Expected execution time: 46 seconds for each shuffling.
     
     Parameters
     ----------

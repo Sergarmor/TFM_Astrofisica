@@ -30,7 +30,7 @@ n_threads = 1                                # Number of threads to use to calcu
 n = 3                                        # Number of sigmas in the plot
 
     
-t = 62 # Each shuffling runs for around 30 seconds
+t = 46 # Execution time per shuffling in seconds
 
 h=np.floor(N_shufflings*t/3600) # Number of hours
 m=np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60) # Number of minutes
