@@ -33,7 +33,7 @@ def calculo_bins(halos, galaxies, bin_number):
 
  
     bin_feature = 'Halo mass'
-    halos_max = halos.loc[:, bin_feature].max()*1.004 # Se extienden los límites en un 1% para incluir los elemntos límite
+    halos_max = halos.loc[:, bin_feature].max()*1.004 # Se extienden los límites en un 0.4% para incluir los elementos límite
     halos_min = halos.loc[:, bin_feature].min()*0.996
 
     bin_width = (halos_max - halos_min)/(bin_number)
@@ -44,7 +44,7 @@ def calculo_bins(halos, galaxies, bin_number):
     galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], bins, labels=False)
 
     bin_feature = 'Halo concentration'
-    halos_max = halos.loc[:, bin_feature].max()*1.01 # Se extienden los límites en un 1% para incluir los elemntos límite
+    halos_max = halos.loc[:, bin_feature].max()*1.01  # Se extienden los límites en un 1.0% para incluir los elementos límite
     halos_min = halos.loc[:, bin_feature].min()*0.99
 
     bin_width = (halos_max - halos_min)/(bin_number)
@@ -55,7 +55,7 @@ def calculo_bins(halos, galaxies, bin_number):
     galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], bins, labels=False)
 
     bin_feature = 'Halo spin'
-    halos_max = halos.loc[:, bin_feature].max()*1.02 # Se extienden los límites en un 1% para incluir los elemntos límite
+    halos_max = halos.loc[:, bin_feature].max()*1.02  # Se extienden los límites en un 2.0% para incluir los elementos límite
     halos_min = halos.loc[:, bin_feature].min()*0.98
 
     bin_width = (halos_max - halos_min)/(bin_number)
