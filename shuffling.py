@@ -33,73 +33,79 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
     features_bins=[]
     for p in range(len(features)):
         features_bins.append(features[p] + ' bin')
-
         
-    ID_halos, index_halos = np.unique(galaxies_sample['HostID'], return_index=True)
-    galaxies_population_list=[]
-    halos_choose = halos.copy()
-    halos_choose['Chosen'] = 0
+    if len(features_bins) == 1:
+        features_bins = features_bins[0]
 
-    for i in range(len(index_halos)):
-        print(f'Population {i+1} out of {len(index_halos)}')
-    
-        galaxies_population = galaxies_sample.loc[galaxies_sample['HostID'] == ID_halos[i]]
 
-        bins = galaxies_population.loc[:, features_bins].iloc[0]
+    halos_grouped = halos.groupby(by=features_bins)
+    galaxies_grouped = galaxies_sample.groupby(by=features_bins)
+    population_list=[]
+
+    # Loop in bins considered
+    for bins, galaxies_bin in galaxies_grouped:
+        halos_bin = halos_grouped.get_group(bins).sample(frac=1)
         
-        halos_bins = halos_choose[halos_choose['Chosen']!=1].copy()
-        for p in range(len(bins)):
-            halos_bins = halos_bins[halos_bins[features_bins[p]] == int(bins.iloc[p])]
-
-        ID_halo_nuevo = r.choice(halos_bins.loc[:, 'HaloID'], size=1, replace=False)[0]
-        index_chosen = halos_choose[halos_choose['HaloID']==ID_halo_nuevo].index[0]
-        halos_choose.loc[halos_choose['HaloID']==ID_halo_nuevo, 'Chosen']=1
+        ID_halos, index_halos = np.unique(galaxies_bin['HostID'], return_index=True)
         
+        galaxies_population_grouped = galaxies_bin.groupby(by='HostID')
+        i=0
         
-        halo_nuevo = halos_bins.loc[halos_bins['HaloID'] == ID_halo_nuevo]
-        galaxies_population_shuffled = galaxies_population.copy()
+        # Loop on populations in bin
+        for (halo_id), population in galaxies_population_grouped:
+            halo_new = halos_bin.iloc[i]
+            i+=1
+            
+            population['New HostID'] = int(halo_new['HaloID'])
+            population['New Host index'] = int(halo_new.name)
+            
+            # Halo caracteristics
+            population['Halo mass'] = float(halo_new['Halo mass'])
+            population['Halo concentration'] = float(halo_new['Halo concentration'])
+            population['Halo spin'] = float(halo_new['Halo spin'])
+            
+            # Halo coords
+            population['Halo_x'] = float(halo_new['x'])
+            population['Halo_y'] = float(halo_new['y'])
+            population['Halo_z'] = float(halo_new['z'])
+            
+            # Halo vel
+            population['Halo_vel_x'] = float(halo_new['Vel_x'])
+            population['Halo_vel_y'] = float(halo_new['Vel_y'])
+            population['Halo_vel_z'] = float(halo_new['Vel_z'])
+            
+            # Galaxy coords
+            population['Pos_x'] = float(halo_new['x']) + population['COP_x']
+            population['Pos_y'] = float(halo_new['y']) + population['COP_y']
+            population['Pos_z'] = float(halo_new['z']) + population['COP_z']
+            
+            # Galaxy vel
+            population['Vel_x'] = float(halo_new['Vel_x']) + population['COP_vel_x']
+            population['Vel_y'] = float(halo_new['Vel_y']) + population['COP_vel_y']
+            population['Vel_z'] = float(halo_new['Vel_z']) + population['COP_vel_z']
+            
+            # Check for equal bins
+            if not population[features_bins].iloc[0].equals(halo_new[features_bins].astype('int64')):
+                raise ValueError('Error in group selection')
+            else:
+                population['Halo mass bin'] = int(halo_new['Halo mass bin'])
+                population['Halo concentration bin'] = int(halo_new['Halo concentration bin'])
+                population['Halo spin bin'] = int(halo_new['Halo spin bin'])
+            
+            # Periodic conditions
+            population.loc[population['Pos_x'] > L, 'Pos_x'] -= L
+            population.loc[population['Pos_x'] < 0, 'Pos_x'] += L
 
-        galaxies_population_shuffled['HostID'] = int(halo_nuevo['HaloID'].iloc[0])
-        galaxies_population_shuffled['Host index'] = int(halos[halos['HaloID'] == ID_halo_nuevo].index[0])
+            population.loc[population['Pos_y'] > L, 'Pos_y'] -= L
+            population.loc[population['Pos_y'] < 0, 'Pos_y'] += L
 
-        galaxies_population_shuffled['Halo mass'] = float(halo_nuevo['Halo mass'].iloc[0])
-        galaxies_population_shuffled['Halo concentration'] = float(halo_nuevo['Halo concentration'].iloc[0])
-        galaxies_population_shuffled['Halo spin'] = float(halo_nuevo['Halo spin'].iloc[0])
+            population.loc[population['Pos_z'] > L, 'Pos_z'] -= L
+            population.loc[population['Pos_z'] < 0, 'Pos_z'] += L
+            
+            population_list.append(population)
 
-        galaxies_population_shuffled['Halo_x'] = float(halo_nuevo['x'].iloc[0])
-        galaxies_population_shuffled['Halo_y'] = float(halo_nuevo['y'].iloc[0])
-        galaxies_population_shuffled['Halo_z'] = float(halo_nuevo['z'].iloc[0])
+    galaxies_shuffled = pd.concat(population_list)
 
-        galaxies_population_shuffled['Halo_vel_x'] = float(halo_nuevo['Vel_x'].iloc[0])
-        galaxies_population_shuffled['Halo_vel_y'] = float(halo_nuevo['Vel_y'].iloc[0])
-        galaxies_population_shuffled['Halo_vel_z'] = float(halo_nuevo['Vel_z'].iloc[0])
-
-        galaxies_population_shuffled['Pos_x'] = float(halo_nuevo['x'].iloc[0]) + galaxies_population_shuffled['COP_x']
-        galaxies_population_shuffled['Pos_y'] = float(halo_nuevo['y'].iloc[0]) + galaxies_population_shuffled['COP_y']
-        galaxies_population_shuffled['Pos_z'] = float(halo_nuevo['z'].iloc[0]) + galaxies_population_shuffled['COP_z']
-
-        galaxies_population_shuffled['Vel_x'] = float(halo_nuevo['Vel_x'].iloc[0]) + galaxies_population_shuffled['COP_vel_x']
-        galaxies_population_shuffled['Vel_y'] = float(halo_nuevo['Vel_y'].iloc[0]) + galaxies_population_shuffled['COP_vel_y']
-        galaxies_population_shuffled['Vel_z'] = float(halo_nuevo['Vel_z'].iloc[0]) + galaxies_population_shuffled['COP_vel_z']
-
-        galaxies_population_shuffled['Halo mass bin'] = int(halo_nuevo['Halo mass bin'].iloc[0])
-        galaxies_population_shuffled['Halo concentration bin'] = int(halo_nuevo['Halo concentration bin'].iloc[0])
-        galaxies_population_shuffled['Halo spin bin'] = int(halo_nuevo['Halo spin bin'].iloc[0])
-
-
-        # Condiciones periódicas
-        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_x'] > L, 'Pos_x'] -= L
-        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_x'] < 0, 'Pos_x'] += L
-
-        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_y'] > L, 'Pos_y'] -= L
-        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_y'] < 0, 'Pos_y'] += L
-
-        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_z'] > L, 'Pos_z'] -= L
-        galaxies_population_shuffled.loc[galaxies_population_shuffled['Pos_z'] < 0, 'Pos_z'] += L
-
-        galaxies_population_list.append(galaxies_population_shuffled)
-        
-    galaxies_shuffled=pd.concat(galaxies_population_list)
     return galaxies_shuffled
 
 
