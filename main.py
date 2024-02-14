@@ -126,8 +126,8 @@ pcf_shuffled_xi = pcf_shuffled_xi.loc[:, ['mean', 'std']] # We discard all the 2
 pcf_shuffled_xi.to_csv('Resultados/pcf_shuffled_mean.csv', index=False)
 
 
-b = pcf_original['xi'] / pcf_shuffled_xi['mean'] # Assembly bias
-sigma = pcf_original['xi']/pcf_shuffled_xi['mean'] * pcf_shuffled_xi['std'] # Assembly bias uncertainty
+# b = pcf_original['xi'] / pcf_shuffled_xi['mean'] # Assembly bias
+# sigma = pcf_original['xi']/pcf_shuffled_xi['mean'] * pcf_shuffled_xi['std'] # Assembly bias uncertainty
 
 
 # We plot the results
