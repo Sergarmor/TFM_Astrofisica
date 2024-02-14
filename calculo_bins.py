@@ -71,4 +71,4 @@ def calculo_bins(halos, galaxies, bin_number):
 
     halos.to_csv('Resultados/halos.csv', index=False)
     
-    return galaxies, halos
+    return halos, galaxies
