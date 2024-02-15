@@ -15,11 +15,11 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, features, N_shuffl
                 (b), 
                 xerr = xerr,
                 yerr = n*sigma,
-                color='C0', label= f'Shuffle with features {features} ({N_shufflings})', linestyle='--', marker='.', ecolor='C1')
+                color='C0', label= f'Shuffle with features {features}', linestyle='--', marker='.', ecolor='C1')
 
     ax.set_xlabel(r'Escala espacial [Mpc]')
     ax.set_ylabel(r'$\xi_{orig}$ / $\xi_{shuff}$')
-    ax.set_title('2PCF ratio')
+    ax.set_title(f'2PCF ratio ({N_shufflings} shufflings)')
 
     plt.vlines(L*0.1, -0.5, 2.5, linestyle='--', color='C3')
     ax.hlines(1, -(10), (100), linestyle='--', color='C3')
@@ -50,7 +50,7 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, features, N_shuffl
                 
     ax.set_xlabel(r'Escala espacial [$\log_{10}$(Mpc)]')
     ax.set_ylabel(r'$\xi_{orig}$ / $\xi_{shuff}$')
-    ax.set_title('2PCF ratio: small scale')
+    ax.set_title(f'2PCF ratio: small scale ({N_shufflings} shufflings)')
 
     plt.vlines(L*0.1, -0.5, 2.5, linestyle='--', color='C3')
     ax.hlines(1, -(10), (100), linestyle='--', color='C3')
@@ -66,7 +66,7 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, features, N_shuffl
             (b), 
             xerr = abs(np.log10(xerr)),
             yerr = n*sigma,
-            color='C0', label= f'Shuffle with features {features} ({N_shufflings})', linestyle='--', marker='.', ecolor='C1')
+            color='C0', label= f'Shuffle with features {features}', linestyle='--', marker='.', ecolor='C1')
             
             
     # ax.plot(np.log10(pcf_original['ravg']), 
@@ -80,7 +80,7 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, features, N_shuffl
                 
     ax.set_xlabel(r'Escala espacial [$\log_{10}$(Mpc)]')
     ax.set_ylabel(r'$\xi_{orig}$ / $\xi_{shuff}$')
-    ax.set_title('2PCF ratio: small scale')
+    ax.set_title(f'2PCF ratio: small scale ({N_shufflings} shufflings)')
 
     plt.vlines(L*0.1, -0.5, 2.5, linestyle='--', color='C3')
     ax.hlines(1, -(10), (100), linestyle='--', color='C3')
