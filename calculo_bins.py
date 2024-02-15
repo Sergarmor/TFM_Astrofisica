@@ -1,6 +1,6 @@
 
 
-def calculo_bins(halos, galaxies, bin_number):
+def calculo_bins(halos, galaxies, bin_number, features):
 
     """
     Galaxy and halo DataFrame binning.
@@ -32,38 +32,23 @@ def calculo_bins(halos, galaxies, bin_number):
     import pandas as pd
 
  
-    bin_feature = 'Halo mass'
-    halos_max = halos.loc[:, bin_feature].max()*1.004 # Se extienden los límites en un 0.4% para incluir los elementos límite
-    halos_min = halos.loc[:, bin_feature].min()*0.996
+    for j in features:
+        
+        bin_feature = j
 
-    bin_width = (halos_max - halos_min)/(bin_number)
+        halos_max = halos.loc[:, bin_feature].max()*1.004 # Se extienden los límites en un 0.4% para incluir los elementos límite
+        halos_min = halos.loc[:, bin_feature].min()*0.996
 
+        limit = halos.loc[:, bin_feature].max()*0.95 # Se establece un corte para aumentar la anchura de los bins a un 95% del máximo
+        
+        bins_small = np.linspace(halos_min, limit, bin_number-2)
+        bins_big = np.linspace(limit, halos_max, 3)[1:]
 
-    bins = np.arange(halos_min, halos_max, bin_width)
-    halos[bin_feature+' bin'] = pd.cut(halos[bin_feature], bins, labels=False)
-    galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], bins, labels=False)
-
-    bin_feature = 'Halo concentration'
-    halos_max = halos.loc[:, bin_feature].max()*1.01  # Se extienden los límites en un 1.0% para incluir los elementos límite
-    halos_min = halos.loc[:, bin_feature].min()*0.99
-
-    bin_width = (halos_max - halos_min)/(bin_number)
-
-
-    bins = np.arange(halos_min, halos_max, bin_width)
-    halos[bin_feature+' bin'] = pd.cut(halos[bin_feature], bins, labels=False)
-    galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], bins, labels=False)
-
-    bin_feature = 'Halo spin'
-    halos_max = halos.loc[:, bin_feature].max()*1.02  # Se extienden los límites en un 2.0% para incluir los elementos límite
-    halos_min = halos.loc[:, bin_feature].min()*0.98
-
-    bin_width = (halos_max - halos_min)/(bin_number)
-
-
-    bins = np.arange(halos_min, halos_max, bin_width)
-    halos[bin_feature+' bin'] = pd.cut(halos[bin_feature], bins, labels=False)
-    galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], bins, labels=False)
+        bins = np.concatenate((bins_small, bins_big))
+    
+    
+        halos[bin_feature+' bin'] = pd.cut(halos[bin_feature], bins, labels=False)
+        galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], bins, labels=False)
 
 
 
