@@ -32,7 +32,7 @@ def calculo_2pcf(galaxies, L, bin_number, n_threads):
     
     # Parámetros del cálculo de la 2PCF
     weights = np.ones_like(X)
-    limit_spatial_bins = np.log10(L*0.5)
+    limit_spatial_bins = np.log10(25)
     spatial_bins = np.logspace(np.log10(0.1), limit_spatial_bins, bin_number+1)
 
     # Cálculo de la 2PCF
