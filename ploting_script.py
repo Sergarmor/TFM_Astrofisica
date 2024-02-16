@@ -41,7 +41,7 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, features, N_shuffl
             
     ax.plot(np.log10(pcf_original['ravg']), 
             (b), 
-            color='C0', label='Data')
+            color='C0', label=f'Shuffle with features {features}')
     ax.fill_between(np.log10(pcf_original['ravg']), 
                     (b + n*sigma), 
                     (b - n*sigma), 
