@@ -90,18 +90,14 @@ pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the or
 
 
 # Calculate the 2PCF shuffled
-if timeit == 'yes':
-    N_shufflings = 1
-    time_ini = datetime.now()
-    lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L)
-    
-    time_end = datetime.now()
-    print(f"Initial time...: {time_ini}")
-    print(f"Final time.....: {time_end}")
-    print(f"Excecution time: {time_end-time_ini}")
-    
-else:
-    lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L)
+time_ini = datetime.now()
+lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L)
+
+time_end = datetime.now()
+print(f"Initial time...: {time_ini}")
+print(f"Final time.....: {time_end}")
+print(f"Excecution time: {time_end-time_ini}")
+print(f"Excecution time per iteration: {(time_end-time_ini)/N_shufflings}")
     
 lista_xis = []
 for q in range(len(lista_DataFrames)):
