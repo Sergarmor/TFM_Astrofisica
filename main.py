@@ -63,7 +63,6 @@ if recalc == 'yes':
     # Calculation of original data
     import calculo_dataframe
     
-timeit = input('Do you want to time the shuffling time? [yes/no]: ')
 
 
 
