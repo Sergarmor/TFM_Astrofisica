@@ -1,6 +1,6 @@
 
 
-def calculo_bins(halos, galaxies, bin_number, features):
+def calculo_bins(halos, galaxies, bin_number):
 
     """
     Galaxy and halo DataFrame binning.
@@ -31,7 +31,8 @@ def calculo_bins(halos, galaxies, bin_number, features):
     import numpy as np
     import pandas as pd
 
- 
+    features = ['Halo mass', 'Halo concentration', 'Halo spin']
+    
     for j in features:
         
         bin_feature = j
