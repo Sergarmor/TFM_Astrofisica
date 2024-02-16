@@ -17,7 +17,7 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, features, N_shuffl
                 yerr = n*sigma,
                 color='C0', label= f'Shuffle with features {features}', linestyle='--', marker='.', ecolor='C1')
 
-    ax.set_xlabel(r'Escala espacial [Mpc]')
+    ax.set_xlabel(r'Spatial scale [Mpc]')
     ax.set_ylabel(r'$\xi_{orig}$ / $\xi_{shuff}$')
     ax.set_title(f'2PCF ratio ({N_shufflings} shufflings)')
 
@@ -48,7 +48,7 @@ def ploting_2pcf_ratio(pcf_original, pcf_shuffled_mean, n, L, features, N_shuffl
                     color='C1', alpha=0.5, label='Uncertainty')
                 
                 
-    ax.set_xlabel(r'Escala espacial [$\log_{10}$(Mpc)]')
+    ax.set_xlabel(r'Spatial scale [$\log_{10}$(Mpc)]')
     ax.set_ylabel(r'$\xi_{orig}$ / $\xi_{shuff}$')
     ax.set_title(f'2PCF ratio: small scale ({N_shufflings} shufflings)')
 
