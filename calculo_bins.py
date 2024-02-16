@@ -35,7 +35,7 @@ def calculo_bins(halos, galaxies, bin_number, features):
     for j in features:
         
         bin_feature = j
-
+        print(j)
         halos_max = halos.loc[:, bin_feature].max()*1.004 # Se extienden los límites en un 0.4% para incluir los elementos límite
         halos_min = halos.loc[:, bin_feature].min()*0.996
 
