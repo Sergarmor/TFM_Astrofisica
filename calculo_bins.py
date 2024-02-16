@@ -32,7 +32,7 @@ def calculo_bins(halos, galaxies, bin_number):
     import pandas as pd
 
     features = ['Halo mass', 'Halo concentration', 'Halo spin']
-    
+    big_scale_bin_number = 2
     for j in features:
         
         bin_feature = j
@@ -41,8 +41,8 @@ def calculo_bins(halos, galaxies, bin_number):
 
         limit = halos.loc[:, bin_feature].max()*0.95 # Se establece un corte para aumentar la anchura de los bins a un 95% del máximo
         
-        bins_small = np.linspace(halos_min, limit, bin_number-2)
-        bins_big = np.linspace(limit, halos_max, 3)[1:]
+        bins_small = np.linspace(halos_min, limit, bin_number-big_scale_bin_number)
+        bins_big = np.linspace(limit, halos_max, big_scale_bin_number+1)[1:]
 
         bins = np.concatenate((bins_small, bins_big))
     
