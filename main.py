@@ -19,7 +19,7 @@ h = 0.6774                                   # Little Hubble constant
 mass_cut = 10.75                           # We cut the galaxies by mass into a sample
 
 # Features used to do the binning and shuffle the galaxies
-features=['Halo mass', 'Halo concentration']
+features=['Halo mass', 'Halo spin']
 
 bin_number=100                               # Number of bins for each feature
 N_shufflings = 100                           # We shuffle N_shufflings times and compute the mean and std
@@ -106,7 +106,7 @@ for q in range(len(lista_DataFrames)):
     # We extract the 2PCF value of the shuffled galaxies (one iteration) and save it to use later
     pcf_shuffled = calculo_2pcf(galaxies_shuffled, L, spatial_bin_number, n_threads)
     
-    # pcf_shuffled.to_csv(f'Resultados/Shuffled/PCF/pcf_shuffled{q}.csv', index=False) # We save the shuffled 2pcf
+    pcf_shuffled.to_csv(f'Resultados/Shuffled/PCF/pcf_shuffled{q}.csv', index=False) # We save the shuffled 2pcf
     
     
     pcf_shuffled_xi = pcf_shuffled['xi']
