@@ -175,5 +175,5 @@ def galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L):
         print(f'Shuffle number {i+1} out of {N_shufflings}')
         galaxies_shuffled = galaxies_shuffle_optimized(halos, galaxies_sample, features, L)
         galaxies_list.append(galaxies_shuffled)
-        # galaxies_shuffled.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i}.csv', index=False)
+        galaxies_shuffled.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i}.csv', index=False)
     return galaxies_list
