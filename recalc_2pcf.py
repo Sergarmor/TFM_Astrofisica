@@ -4,7 +4,7 @@ import pandas as pd
 from calculo_2pcf import calculo_2pcf
 
 L=205
-N_shufflings=100
+N_shufflings=300
 spatial_bin_number=25
 n_threads=1
 mass_cut=float(input('Which mass do you want to cut at? Minnimun 10.75: '))
