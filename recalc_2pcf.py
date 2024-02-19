@@ -8,6 +8,20 @@ N_shufflings=100
 spatial_bin_number=25
 n_threads=1
 
+
+# We read the data
+galaxies = pd.read_csv('Resultados/galaxies.csv')
+
+
+# We get the sample by cutting in stellar mass
+galaxies_sample = galaxies[galaxies.loc[:, 'Stellar mass'] > mass_cut].copy()
+
+# Calculate the original 2PCF
+
+pcf_original = calculo_2pcf(galaxies_sample, L, spatial_bin_number, n_threads)
+
+pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the original 2PCF
+
 galaxies_list=[]
 
 for i in range(N_shufflings):
