@@ -1,3 +1,7 @@
+
+import numpy as np
+import pandas as pd
+
 L=205
 N_shufflings=100
 spatial_bin_number=50
