@@ -7,7 +7,7 @@ L=205
 N_shufflings=100
 spatial_bin_number=25
 n_threads=1
-mass_cut=11.25
+mass_cut=float(input('Which mass do you want to cut at? Minnimun 10.75: '))
 shuffling_type=int(input('Which shuffle do you want? [1/2/3] meaning [mass/mass+concentration/mass+spin]: '))
 
 if shuffling_type == 1:
@@ -17,6 +17,8 @@ elif shuffling_type == 2:
 elif shuffling_type == 3:
     path = 'Halo_mass_spin'
 
+if mass_cut < 10.75:
+    raise ValueError('Mass cut must be greater than 10.75')
 # We read the data
 galaxies = pd.read_csv('Resultados/galaxies.csv')
 
