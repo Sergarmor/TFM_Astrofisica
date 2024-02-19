@@ -7,6 +7,7 @@ L=205
 N_shufflings=100
 spatial_bin_number=25
 n_threads=1
+mass_cut=10.75
 
 
 # We read the data
