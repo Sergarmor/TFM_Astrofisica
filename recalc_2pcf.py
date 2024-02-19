@@ -8,7 +8,7 @@ N_shufflings=100
 spatial_bin_number=25
 n_threads=1
 mass_cut=11.25
-shuffling_type=input('Which shuffle do you want? [1/2/3] meaning [mass/mass+concentration/mass+spin]: ')
+shuffling_type=int(input('Which shuffle do you want? [1/2/3] meaning [mass/mass+concentration/mass+spin]: '))
 
 if shuffling_type == 1:
     path = 'Halo_mass'
