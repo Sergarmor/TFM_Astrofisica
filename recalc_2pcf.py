@@ -1,6 +1,7 @@
 
 import numpy as np
 import pandas as pd
+from calculo_2pcf import calculo_2pcf
 
 L=205
 N_shufflings=100
