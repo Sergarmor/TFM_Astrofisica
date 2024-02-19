@@ -5,7 +5,7 @@ from calculo_2pcf import calculo_2pcf
 
 L=205
 N_shufflings=100
-spatial_bin_number=50
+spatial_bin_number=25
 n_threads=1
 
 galaxies_list=[]
