@@ -16,7 +16,7 @@ L = 205                                      # Side length of simulation box
 h = 0.6774                                   # Little Hubble constant
 
 # Analisys parameters
-mass_cut = 11.75                           # We cut the galaxies by mass into a sample
+mass_cut = 10.75                           # We cut the galaxies by mass into a sample
 
 # Features used to do the binning and shuffle the galaxies
 features=['Halo mass']
