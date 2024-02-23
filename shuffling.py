@@ -1,4 +1,4 @@
-def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
+def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L):
     
     """
     Galaxy shuffling. Permutates the halos to select them for each population.
@@ -13,7 +13,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
     galaxies_sample : DataFrame
             DataFrame of binned galaxies.
     
-    features : list
+    features_bins : list
             List of labels for the binning. Labels must be strings.
     
     L : float
@@ -30,9 +30,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
     import numpy.random as r
     import pandas as pd
 
-    features_bins=[]
-    for p in range(len(features)):
-        features_bins.append(features[p] + ' bin')
+
         
     if len(features_bins) == 1:
         features_bins = features_bins[0]
@@ -133,7 +131,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features, L):
 
 
 
-def galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L):
+def galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings, L):
     
     """
     Multiple galaxy shufflings.
@@ -148,7 +146,7 @@ def galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L):
     galaxies_sample : DataFrame
             DataFrame of binned galaxies.
     
-    features : list
+    features_bins : list
             List of labels for the binning. Labels must be strings.
             
     N_shufflings : int
@@ -173,7 +171,7 @@ def galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L):
 
     for i in range(N_shufflings):
         print(f'Shuffle number {i+1} out of {N_shufflings}')
-        galaxies_shuffled = galaxies_shuffle_optimized(halos, galaxies_sample, features, L)
+        galaxies_shuffled = galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L)
         galaxies_list.append(galaxies_shuffled)
         galaxies_shuffled.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i}.csv', index=False)
     return galaxies_list

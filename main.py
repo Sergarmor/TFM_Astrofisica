@@ -29,32 +29,7 @@ n_threads = 1                                # Number of threads to use to calcu
 # Plotting parameters
 n = 3                                        # Number of sigmas in the plot
 
-    
-t = 46 # Execution time per shuffling in seconds
 
-h=np.floor(N_shufflings*t/3600) # Number of hours
-m=np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60) # Number of minutes
-s=round(((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60 - np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60)) * 60) # Number of seconds
-
-print(f'The shuffling script is estimated to run for {h} hours, {m} minutes and {s} seconds.')
-confirmation = input('Do you want to continue? [yes/no]: ')
-conf = 0
-while conf == 0:
-    if confirmation == 'yes':
-        conf = 1
-    elif confirmation == 'no':
-        N_shufflings = int(input(f'Please set a new number of shufflings to calculate. Currently {N_shufflings}: '))
-        
-        h=np.floor(N_shufflings*t/3600) # Number of hours
-        m=np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60) # Number of minutes
-        s=((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60 - np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60)) * 60 # Number of seconds
-        
-        print(f'The shuffling script is estimated to run for {h} hours, {m} minutes and {s} seconds.')
-        confirmation = input('Do you want to continue? [yes/no]: ')
-        
-    elif confirmation != 'yes' and confirmation != 'no':
-        print(" Please write 'yes' or 'no' ")
-        confirmation = input('Do you want to continue? [yes/no]: ')
 
 
 recalc = input('Do you want to recalculate the DataFrames? [yes/no]: ')
@@ -81,6 +56,40 @@ else:
 # We get the sample by cutting in stellar mass
 galaxies_sample = galaxies[galaxies.loc[:, 'Stellar mass'] > mass_cut].copy()
 
+
+# Execution time estimation and execution confirmation
+features_bins=[]
+for p in range(len(features)):
+    features_bins.append(features[p] + ' bin')
+    
+galaxies_grouped = galaxies_sample.groupby(by=features_bins)
+t = np.exp(len(galaxies_grouped)*0.00410 - 4.79791) * len(galaxies_grouped) # Execution time per shuffling in seconds
+
+h=np.floor(N_shufflings*t/3600) # Number of hours
+m=np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60) # Number of minutes
+s=round(((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60 - np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60)) * 60) # Number of seconds
+
+print(f'The shuffling script is estimated to run for {h} hours, {m} minutes and {s} seconds.')
+confirmation = input('Do you want to continue? [yes/no]: ')
+conf = 0
+while conf == 0:
+    if confirmation == 'yes':
+        conf = 1
+    elif confirmation == 'no':
+        N_shufflings = int(input(f'Please set a new number of shufflings to calculate. Currently {N_shufflings}: '))
+        
+        h=np.floor(N_shufflings*t/3600) # Number of hours
+        m=np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60) # Number of minutes
+        s=((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60 - np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60)) * 60 # Number of seconds
+        
+        print(f'The shuffling script is estimated to run for {h} hours, {m} minutes and {s} seconds.')
+        confirmation = input('Do you want to continue? [yes/no]: ')
+        
+    elif confirmation != 'yes' and confirmation != 'no':
+        print(" Please write 'yes' or 'no' ")
+        confirmation = input('Do you want to continue? [yes/no]: ')
+
+
 # Calculate the original 2PCF
 
 pcf_original = calculo_2pcf(galaxies_sample, L, spatial_bin_number, n_threads)
@@ -90,7 +99,7 @@ pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the or
 
 # Calculate the 2PCF shuffled
 time_ini = datetime.now()
-lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features, N_shufflings, L)
+lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings, L)
 
 time_end = datetime.now()
 print(f"Initial time...: {time_ini}")
