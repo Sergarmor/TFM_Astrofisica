@@ -16,7 +16,7 @@ L = 205                                      # Side length of simulation box
 h = 0.6774                                   # Little Hubble constant
 
 # Analisys parameters
-mass_cut = 10.75                           # We cut the galaxies by mass into a sample
+mass_cut = 10.25                           # We cut the galaxies by mass into a sample
 
 # Features used to do the binning and shuffle the galaxies
 features=['Halo mass']
@@ -68,8 +68,8 @@ intercept = -5.20487
 t = np.exp(len(galaxies_grouped)*slope + intercept) * len(galaxies_grouped) * N_shufflings # Execution time per shuffling in seconds
 
 h=np.floor(N_shufflings*t/3600) # Number of hours
-m=np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60) # Number of minutes
-s=round(((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60 - np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60)) * 60) # Number of seconds
+m=np.floor((N_shufflings*t/3600 - h)*60) # Number of minutes
+s=round(((N_shufflings*t/3600 - h)*60 - m) * 60) # Number of seconds
 
 print(f'The shuffling script is estimated to run for {h} hours, {m} minutes and {s} seconds.')
 confirmation = input('Do you want to continue? [yes/no]: ')
