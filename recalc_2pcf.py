@@ -45,7 +45,8 @@ for q in range(len(galaxies_list)):
     # We extract one DataFrame of shuffled galaxies
     galaxies_shuffled = galaxies_list[q] 
     
-    galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] > mass_cut].copy()
+    galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] > mass_cut_1].copy()
+    galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] < mass_cut_2].copy()
     # We extract the 2PCF value of the shuffled galaxies (one iteration) and save it to use later
     pcf_shuffled = calculo_2pcf(galaxies_shuffled, L, spatial_bin_number, n_threads)
     
