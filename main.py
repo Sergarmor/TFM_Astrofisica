@@ -62,10 +62,10 @@ features_bins=[]
 for p in range(len(features)):
     features_bins.append(features[p] + ' bin')
     
-galaxies_grouped = galaxies_sample.groupby(by=features_bins)
-slope = 0.0042
-intercept = -5.20487
-t = np.exp(len(galaxies_grouped)*slope + intercept) * len(galaxies_grouped) * N_shufflings # Execution time per shuffling in seconds
+# galaxies_grouped = galaxies_sample.groupby(by=features_bins)
+# slope = 0.0042
+# intercept = -5.20487
+# t = np.exp(len(galaxies_grouped)*slope + intercept) * len(galaxies_grouped) * N_shufflings # Execution time per shuffling in seconds
 t = 33*60
 h=np.floor(N_shufflings*t/3600) # Number of hours
 m=np.floor((N_shufflings*t/3600 - h)*60) # Number of minutes

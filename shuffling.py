@@ -166,11 +166,12 @@ def galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings,
     import numpy as np
     import numpy.random as r
     import pandas as pd
+    from tqdm import trange
 
     galaxies_list=[]
 
-    for i in range(N_shufflings):
-        print(f'Shuffle number {i+1} out of {N_shufflings}')
+    for i in trange(N_shufflings):
+        # print(f'Shuffle number {i+1} out of {N_shufflings}')
         galaxies_shuffled = galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L)
         galaxies_list.append(galaxies_shuffled)
         galaxies_shuffled.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i}.csv', index=False)
