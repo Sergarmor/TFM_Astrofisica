@@ -8,7 +8,7 @@ N_shufflings=100
 spatial_bin_number=25
 n_threads=1
 mass_cut_1=float(input('Which mass do you want to cut at? Minnimun 10.5: '))
-# mass_cut_2=float(input(f'Which mass do you want to cut at? Minnimun {mass_cut_1}: '))
+mass_cut_2=float(input(f'Which mass do you want to cut at? Minnimun {mass_cut_1}: '))
 shuffling_type=int(input('Which shuffle do you want? [1/2/3] meaning [mass/mass+concentration/mass+spin]: '))
 
 if shuffling_type == 1:
@@ -26,7 +26,7 @@ galaxies = pd.read_csv('Resultados/galaxies.csv')
 
 # We get the sample by cutting in stellar mass
 galaxies_sample = galaxies[galaxies.loc[:, 'Stellar mass'] > mass_cut_1].copy()
-# galaxies_sample = galaxies_sample[galaxies_sample.loc[:, 'Stellar mass'] < mass_cut_2].copy()
+galaxies_sample = galaxies_sample[galaxies_sample.loc[:, 'Stellar mass'] < mass_cut_2].copy()
 # Calculate the original 2PCF
 
 pcf_original = calculo_2pcf(galaxies_sample, L, spatial_bin_number, n_threads)
@@ -46,7 +46,7 @@ for q in range(len(galaxies_list)):
     galaxies_shuffled = galaxies_list[q] 
     
     galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] > mass_cut_1].copy()
-    # galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] < mass_cut_2].copy()
+    galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] < mass_cut_2].copy()
     # We extract the 2PCF value of the shuffled galaxies (one iteration) and save it to use later
     pcf_shuffled = calculo_2pcf(galaxies_shuffled, L, spatial_bin_number, n_threads)
     
@@ -66,4 +66,4 @@ pcf_shuffled_xi = pd.concat(lista_xis, axis=1)
 pcf_shuffled_xi = pcf_shuffled_xi.assign(mean=pcf_shuffled_xi.mean(axis=1))
 pcf_shuffled_xi = pcf_shuffled_xi.assign(std=pcf_shuffled_xi.std(axis=1))
 pcf_shuffled_xi = pcf_shuffled_xi.loc[:, ['mean', 'std']] # We discard all the 2PCFs and maintain the mean and std. Then we save it
-pcf_shuffled_xi.to_csv(f'Resultados/2pcf_recalc/{path}/pcf_shuffled_mean_{mass_cut_1}}.csv', index=False)
+pcf_shuffled_xi.to_csv(f'Resultados/2pcf_recalc/{path}/pcf_shuffled_mean_{mass_cut_1}_{mass_cut_2}.csv', index=False)
