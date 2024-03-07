@@ -66,4 +66,4 @@ pcf_shuffled_xi = pd.concat(lista_xis, axis=1)
 pcf_shuffled_xi = pcf_shuffled_xi.assign(mean=pcf_shuffled_xi.mean(axis=1))
 pcf_shuffled_xi = pcf_shuffled_xi.assign(std=pcf_shuffled_xi.std(axis=1))
 pcf_shuffled_xi = pcf_shuffled_xi.loc[:, ['mean', 'std']] # We discard all the 2PCFs and maintain the mean and std. Then we save it
-pcf_shuffled_xi.to_csv(f'Resultados/2pcf_recalc/{path}/pcf_shuffled_mean_{mass_cut_1}}.csv', index=False)
+pcf_shuffled_xi.to_csv(f'Resultados/2pcf_recalc/{path}/pcf_shuffled_mean_{mass_cut_1}.csv', index=False)
