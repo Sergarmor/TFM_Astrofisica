@@ -52,11 +52,7 @@ for q in range(len(galaxies_list)):
     
     pcf_shuffled.to_csv(f'Resultados/2pcf_recalc/{path}/Shuffled/PCF/pcf_shuffled{q}.csv', index=False) # We save the shuffled 2pcf
     
-    if not pcf_shuffled.isnull().values.any():
-        lista_xis.append(pcf_shuffled)
-    else:
-        raise ValueError(f'There is a NaN is 2PCF number {q}')
-        
+    
     pcf_shuffled_xi = pcf_shuffled['xi']
     lista_xis.append(pcf_shuffled_xi)
 
