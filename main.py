@@ -19,7 +19,7 @@ h = 0.6774                                   # Little Hubble constant
 mass_cut = 10.5                           # We cut the galaxies by mass into a sample
 
 # Features used to do the binning and shuffle the galaxies
-features=['Halo mass', 'Halo spin']
+features=['Halo mass']
 
 bin_number=100                               # Number of bins for each feature
 N_shufflings = 100                           # We shuffle N_shufflings times and compute the mean and std
