@@ -61,35 +61,6 @@ galaxies_sample = galaxies[galaxies.loc[:, 'Stellar mass'] > mass_cut].copy()
 features_bins=[]
 for p in range(len(features)):
     features_bins.append(features[p] + ' bin')
-    
-# galaxies_grouped = galaxies_sample.groupby(by=features_bins)
-# slope = 0.0042
-# intercept = -5.20487
-# t = np.exp(len(galaxies_grouped)*slope + intercept) * len(galaxies_grouped) * N_shufflings # Execution time per shuffling in seconds
-t = 33*60
-h=np.floor(N_shufflings*t/3600) # Number of hours
-m=np.floor((N_shufflings*t/3600 - h)*60) # Number of minutes
-s=round(((N_shufflings*t/3600 - h)*60 - m) * 60) # Number of seconds
-
-print(f'The shuffling script is estimated to run for {h} hours, {m} minutes and {s} seconds.')
-confirmation = input('Do you want to continue? [yes/no]: ')
-conf = 0
-while conf == 0:
-    if confirmation == 'yes':
-        conf = 1
-    elif confirmation == 'no':
-        N_shufflings = int(input(f'Please set a new number of shufflings to calculate. Currently {N_shufflings}: '))
-        
-        h=np.floor(N_shufflings*t/3600) # Number of hours
-        m=np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60) # Number of minutes
-        s=((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60 - np.floor((N_shufflings*t/3600 - np.floor(N_shufflings*t/3600))*60)) * 60 # Number of seconds
-        
-        print(f'The shuffling script is estimated to run for {h} hours, {m} minutes and {s} seconds.')
-        confirmation = input('Do you want to continue? [yes/no]: ')
-        
-    elif confirmation != 'yes' and confirmation != 'no':
-        print(" Please write 'yes' or 'no' ")
-        confirmation = input('Do you want to continue? [yes/no]: ')
 
 
 # Calculate the original 2PCF
