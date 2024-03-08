@@ -37,7 +37,7 @@ galaxies_list=[]
 
 for i in range(N_shufflings):
     # print(f'Shuffle number {i+1} out of {N_shufflings}')
-    galaxies_temp = pd.read_csv(f'Resultados/Sample_10{path}/Shuffled/Galaxies/galaxies_shuffled{i}.csv')
+    galaxies_temp = pd.read_csv(f'Resultados/Sample_10.5/{path}/Shuffled/Galaxies/galaxies_shuffled{i}.csv')
     galaxies_list.append(galaxies_temp)
 
 lista_xis = []
