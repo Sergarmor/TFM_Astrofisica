@@ -32,7 +32,7 @@ galaxies_sample = galaxies_sample[galaxies_sample.loc[:, 'Stellar mass'] < mass_
 
 pcf_original = calculo_2pcf(galaxies_sample, L, spatial_bin_number, n_threads)
 
-pcf_original.to_csv(f'Resultados/Sample_{minimal_sample}/pcf_original.csv', index=False) # We save the original 2PCF
+pcf_original.to_csv(f'Resultados/Sample_{minimal_sample}/pcf_original_{mass_cut_1}_{mass_cut_2}.csv', index=False) # We save the original 2PCF
 
 galaxies_list=[]
 
