@@ -21,7 +21,6 @@ def calculo_2pcf(galaxies, L, bin_number, n_threads):
     """
     
     import numpy as np
-    import numpy.random as r
     import pandas as pd
     from Corrfunc.theory import xi
     
