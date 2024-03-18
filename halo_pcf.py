@@ -13,9 +13,9 @@ n_threads = 1                                # Number of threads to use to calcu
 halos = pd.read_csv('Resultados/halos.csv')
 
 # Coordenadas de las galaxias
-X = halos['X']
-Y = halos['Y']
-Z = halos['Z']
+X = halos['x']
+Y = halos['y']
+Z = halos['z']
 
 # Parámetros del cálculo de la 2PCF
 weights = np.ones_like(X)
