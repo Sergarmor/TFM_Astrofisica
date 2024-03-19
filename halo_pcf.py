@@ -23,9 +23,9 @@ limit_spatial_bins = np.log10(25)
 spatial_bins = np.logspace(np.log10(0.1), limit_spatial_bins, spatial_bin_number+1)
 
 # Cálculo de la 2PCF
-pcf = xi(L, n_threads, spatial_bins, X, Y, Z, weights = weights)
-pcf = pd.DataFrame(pcf, columns=['rmin', 'rmax', 'ravg', 'xi', 'npairs', 'weightavg'])
+halo_pcf = xi(L, n_threads, spatial_bins, X, Y, Z, weights = weights)
+halo_pcf = pd.DataFrame(halo_pcf, columns=['rmin', 'rmax', 'ravg', 'xi', 'npairs', 'weightavg'])
 
-pcf['ravg'] = (pcf['rmax'] + pcf['rmin'])/2
+halo_pcf['ravg'] = (halo_pcf['rmax'] + halo_pcf['rmin'])/2
 
 halo_pcf.to_csv('Resultados/halo_pcf.csv', index=False) # We save the original 2PCF
