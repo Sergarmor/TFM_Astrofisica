@@ -20,7 +20,7 @@ Z = halos['z']
 # Parámetros del cálculo de la 2PCF
 weights = np.ones_like(X)
 limit_spatial_bins = np.log10(25)
-spatial_bins = np.logspace(np.log10(0.1), limit_spatial_bins, bin_number+1)
+spatial_bins = np.logspace(np.log10(0.1), limit_spatial_bins, spatial_bin_number+1)
 
 # Cálculo de la 2PCF
 pcf = xi(L, n_threads, spatial_bins, X, Y, Z, weights = weights)
