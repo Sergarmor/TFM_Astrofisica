@@ -21,8 +21,17 @@ mass_cut = 10.5                           # We cut the galaxies by mass into a s
 # Features used to do the binning and shuffle the galaxies
 features=['Halo mass', 'Halo mrank 1']
 
+# new_feature = input('Which feature do you want to add? Press 0 to add none: ')
+N_shufflings = 20
+part = input('Execution part [0/1/2/3/4]: ') # Designed max 100 shufflings
+
+# if not new_feature == 0:
+    # print(type(new_feature))
+    # features.append(new_feature)
+
+
 bin_number=100                               # Number of bins for each feature
-N_shufflings = 100                           # We shuffle N_shufflings times and compute the mean and std
+# N_shufflings = 100                           # We shuffle N_shufflings times and compute the mean and std
 spatial_bin_number = 25                      # Bin number in spatial bins (2PCF calculation)
 n_threads = 1                                # Number of threads to use to calculate the 2PCF
 # Definir bin_width con max y min de los datos. Normalizar con los percentiles 95 y 5
@@ -72,39 +81,10 @@ pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the or
 
 # Calculate the 2PCF shuffled
 time_ini = datetime.now()
-lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings, L)
+lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings, L, part)
 
 time_end = datetime.now()
 print(f"Initial time...: {time_ini}")
 print(f"Final time.....: {time_end}")
 print(f"Excecution time: {time_end-time_ini}")
 print(f"Excecution time per iteration: {(time_end-time_ini)/N_shufflings}")
-    
-lista_xis = []
-for q in range(len(lista_DataFrames)):
-    # We extract one DataFrame of shuffled galaxies
-    galaxies_shuffled = lista_DataFrames[q] 
-    
-    # We extract the 2PCF value of the shuffled galaxies (one iteration) and save it to use later
-    pcf_shuffled = calculo_2pcf(galaxies_shuffled, L, spatial_bin_number, n_threads)
-    
-    pcf_shuffled.to_csv(f'Resultados/Shuffled/PCF/pcf_shuffled{q}.csv', index=False) # We save the shuffled 2pcf
-    
-    
-    pcf_shuffled_xi = pcf_shuffled['xi']
-    lista_xis.append(pcf_shuffled_xi)
-
-# We unite all the shuffled 2PCF and compute the mean and std
-pcf_shuffled_xi = pd.concat(lista_xis, axis=1)
-
-pcf_shuffled_xi = pcf_shuffled_xi.assign(mean=pcf_shuffled_xi.mean(axis=1))
-pcf_shuffled_xi = pcf_shuffled_xi.assign(std=pcf_shuffled_xi.std(axis=1))
-pcf_shuffled_xi = pcf_shuffled_xi.loc[:, ['mean', 'std']] # We discard all the 2PCFs and maintain the mean and std. Then we save it
-pcf_shuffled_xi.to_csv('Resultados/pcf_shuffled_mean.csv', index=False)
-
-
-
-
-# We plot the results
-
-ploting_2pcf_ratio(pcf_original, pcf_shuffled_xi, n, L, features, N_shufflings)

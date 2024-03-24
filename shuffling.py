@@ -61,7 +61,22 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L):
             population['Halo mass'] = float(halo_new['Halo mass'])
             population['Halo concentration'] = float(halo_new['Halo concentration'])
             population['Halo spin'] = float(halo_new['Halo spin'])
+                # New properties
+            population['Halo mrank 1'] = float(halo_new['Halo mrank 1'])
+            population['Halo mrank 2'] = float(halo_new['Halo mrank 2'])
+            population['Halo mrank 3'] = float(halo_new['Halo mrank 3'])
             
+            population['Halo vrank 1'] = float(halo_new['Halo vrank 1'])
+            population['Halo vrank 2'] = float(halo_new['Halo vrank 2'])
+            population['Halo vrank 3'] = float(halo_new['Halo vrank 3'])
+            
+            population['Halo tmform 1'] = float(halo_new['Halo tmform 1'])
+            population['Halo tmform 2'] = float(halo_new['Halo tmform 2'])
+            population['Halo tmform 3'] = float(halo_new['Halo tmform 3'])
+            
+            population['Halo tvform 1'] = float(halo_new['Halo tvform 1'])
+            population['Halo tvform 2'] = float(halo_new['Halo tvform 2'])
+            population['Halo tvform 3'] = float(halo_new['Halo tvform 3'])
             # Halo coords
             population['Halo_x'] = float(halo_new['x'])
             population['Halo_y'] = float(halo_new['y'])
@@ -131,7 +146,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L):
 
 
 
-def galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings, L):
+def galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings, L, part):
     
     """
     Multiple galaxy shufflings.
@@ -155,11 +170,15 @@ def galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings,
     L : float
             Box size in same units as positions.
             
+    part : int
+            Execution part. Used to number each file. Implemented due to memory limitations.
+            
     Returns
     -------
     
     galaxies_list : List
             List of DataFrames of shuffled galaxies.
+    galaxies_shuffled.csv : Saved as .csv file in order for it to be available later
     
     """
     
@@ -174,5 +193,5 @@ def galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings,
         # print(f'Shuffle number {i+1} out of {N_shufflings}')
         galaxies_shuffled = galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L)
         galaxies_list.append(galaxies_shuffled)
-        galaxies_shuffled.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i}.csv', index=False)
+        galaxies_shuffled.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i+part*20}.csv', index=False)
     return galaxies_list
