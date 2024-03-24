@@ -31,7 +31,13 @@ def calculo_bins(halos, galaxies, bin_number):
     import numpy as np
     import pandas as pd
 
-    features = ['Halo mass', 'Halo concentration', 'Halo spin']
+    features = ['Halo mass', 
+                'Halo concentration', 
+                'Halo spin', 
+                'Halo mrank 1', 'Halo mrank 2', 'Halo mrank 3', 
+                'Halo vrank 1', 'Halo vrank 2', 'Halo vrank 3'
+                'Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
+                'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3']
     big_scale_bin_number = 2
     for j in features:
         
