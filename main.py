@@ -23,7 +23,7 @@ features=['Halo mass', 'Halo mrank 1']
 
 # new_feature = input('Which feature do you want to add? Press 0 to add none: ')
 N_shufflings = 20
-part = input('Execution part [0/1/2/3/4]: ') # Designed max 100 shufflings
+part = int(input('Execution part [0/1/2/3/4]: ')) # Designed max 100 shufflings
 
 # if not new_feature == 0:
     # print(type(new_feature))
