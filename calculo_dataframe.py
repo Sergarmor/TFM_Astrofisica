@@ -54,9 +54,6 @@ gal_col = file['col'] # Color?
 gal_pos = file['pos']
 gal_vel = file['vel']
 
-## Didn't use
-gal_mhist = file['mhist']
-gal_vhist = file['vhist']
 ##
 
 gal_halo_mass = file['halo_mass'][file['cross_sub2halo']]
