@@ -19,7 +19,7 @@ h = 0.6774                                   # Little Hubble constant
 mass_cut = 10.5                           # We cut the galaxies by mass into a sample
 
 # Features used to do the binning and shuffle the galaxies
-features=['Halo mass', 'Halo vrank 2']
+features=['Halo mass', 'Halo vrank 3']
 
 # new_feature = input('Which feature do you want to add? Press 0 to add none: ')
 N_shufflings = 20
