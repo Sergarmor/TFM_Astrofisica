@@ -18,6 +18,26 @@ elif shuffling_type == 2:
     path = 'Halo_mass_concentration'
 elif shuffling_type == 3:
     path = 'Halo_mass_spin'
+elif shuffling_type == 4:
+    path = 'Halo_mass_mrank1'
+elif shuffling_type == 5:
+    path = 'Halo_mass_mrank2'
+elif shuffling_type == 6:
+    path = 'Halo_mass_mrank3'
+elif shuffling_type == 7:
+    path = 'Halo_mass_vrank1'
+elif shuffling_type == 8:
+    path = 'Halo_mass_vrank2'
+elif shuffling_type == 9:
+    path = 'Halo_mass_vrank3'
+
+
+
+
+
+
+
+
 
 if mass_cut_1 < minimal_sample:
     raise ValueError(f'Mass cut must be greater than {minimal_sample}')
