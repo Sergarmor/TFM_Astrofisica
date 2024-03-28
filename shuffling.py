@@ -107,7 +107,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L):
                     population['Halo spin bin'] = int(halo_new['Halo spin bin'])
             else:
                 if not population[features_bins].iloc[0].equals(halo_new[features_bins].astype('int64')):
-                    raise ValueError('Error in group selection')
+                    raise ValueError('Error in group selection')   # PROBLEMA EN TMFORM!!
                 else:
                     population['Halo mass bin'] = int(halo_new['Halo mass bin'])
                     population['Halo concentration bin'] = int(halo_new['Halo concentration bin'])
