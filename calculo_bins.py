@@ -53,8 +53,8 @@ def calculo_bins(halos, galaxies, bin_number):
         bins = np.concatenate((bins_small, bins_big))
     
     
-        halos[bin_feature+' bin'] = pd.cut(halos[bin_feature], bins, labels=False)
-        galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], bins, labels=False)
+        halos[bin_feature+' bin'] = pd.cut(halos[bin_feature], bins, labels=False, include_lowest=True)
+        galaxies[bin_feature+' bin'] = pd.cut(galaxies[bin_feature], bins, labels=False, include_lowest=True)
 
 
 
