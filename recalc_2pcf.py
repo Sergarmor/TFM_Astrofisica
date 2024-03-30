@@ -10,7 +10,7 @@ n_threads=1
 minimal_sample = 10.5
 mass_cut_1=float(input(f'Which mass do you want to cut at? Minnimun {minimal_sample}: '))
 mass_cut_2=float(input(f'Which mass do you want to cut at? Minnimun {mass_cut_1}: '))
-shuffling_type=int(input('Which shuffle do you want? [1/2/3] meaning [mass/mass+concentration/mass+spin]: '))
+shuffling_type=int(input('Which shuffle do you want? [1/2/3/4/5/6/7/8/9/10/11/12/13/14/15] meaning [mass/concentration/spin/mrank123/vrank123/tmform123/tvform123]: '))
 
 if shuffling_type == 1:
     path = 'Halo_mass'
@@ -18,12 +18,14 @@ elif shuffling_type == 2:
     path = 'Halo_mass_concentration'
 elif shuffling_type == 3:
     path = 'Halo_mass_spin'
+
 elif shuffling_type == 4:
     path = 'Halo_mass_mrank1'
 elif shuffling_type == 5:
     path = 'Halo_mass_mrank2'
 elif shuffling_type == 6:
     path = 'Halo_mass_mrank3'
+
 elif shuffling_type == 7:
     path = 'Halo_mass_vrank1'
 elif shuffling_type == 8:
@@ -31,9 +33,19 @@ elif shuffling_type == 8:
 elif shuffling_type == 9:
     path = 'Halo_mass_vrank3'
 
+elif shuffling_type == 10:
+    path = 'Halo_mass_tmform1'
+elif shuffling_type == 11:
+    path = 'Halo_mass_tmform2'
+elif shuffling_type == 12:
+    path = 'Halo_mass_tmform3'
 
-
-
+elif shuffling_type == 13:
+    path = 'Halo_mass_tvform1'
+elif shuffling_type == 14:
+    path = 'Halo_mass_tvform2'
+elif shuffling_type == 15:
+    path = 'Halo_mass_tvform3'
 
 
 
