@@ -35,8 +35,11 @@ def calculo_bins(halos, galaxies, bin_number):
                 'Halo concentration', 
                 'Halo spin', 
                 'Halo mrank 1', 'Halo mrank 2', 'Halo mrank 3', 
-                'Halo vrank 1', 'Halo vrank 2', 'Halo vrank 3',
+                'Halo mrank 4', 'Halo mrank 5', 'Halo mrank 6', 
+                'Halo vrank 1', 'Halo vrank 2', 'Halo vrank 3', 
+                'Halo vrank 4', 'Halo vrank 5', 'Halo vrank 6', 
                 'Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
+                'Halo tmform 4', 'Halo tmform 5',
                 'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3']
     big_scale_bin_number = 2
     for j in features:
