@@ -1,4 +1,4 @@
-def calculo_2pcf(galaxies, L, bin_number, n_threads):
+def calculo_2pcf_halo(galaxies, L, n_threads):
 
     """
     Función que calcula la 2PCF a partir de un set de galaxias.
@@ -31,14 +31,13 @@ def calculo_2pcf(galaxies, L, bin_number, n_threads):
     
     # Parámetros del cálculo de la 2PCF
     weights = np.ones_like(X)
-    limit_spatial_bins = np.log10(25)
-    spatial_bins = np.logspace(np.log10(0.1), limit_spatial_bins, bin_number+1)
+    spatial_bins = np.logspace(-2.5, 2, 21)
 
     # Cálculo de la 2PCF
     pcf = xi(L, n_threads, spatial_bins, X, Y, Z, weights = weights)
     pcf = pd.DataFrame(pcf, columns=['rmin', 'rmax', 'ravg', 'xi', 'npairs', 'weightavg'])
     
-    pcf['ravg'] = (pcf['rmax'] + pcf['rmin'])/2
+    pcf['ravg'] = 0.5*(np.log10(spatial_bins[1:]) + np.log10(spatial_bins[ :-1]))
     
     return pcf
 
