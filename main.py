@@ -76,21 +76,16 @@ recalc = input('Do you want to recalculate the DataFrames? [yes/no]: ')
 if recalc == 'yes':
     # Calculation of original data
     import calculo_dataframe
-    
-
-
-
-# We read the data
-halos = pd.read_csv('Resultados/halos_'+file_part+'.csv')
-galaxies = pd.read_csv('Resultados/galaxies_'+file_part+'.csv')
 
 # Calculation of binned dataframes of halos and galaxies
 rebin = input('Do you want to recalculate the binning of the DataFrames? [yes/no]: ')
 
 if rebin == 'yes':
-    halos, galaxies = calculo_bins(halos, galaxies, bin_number, file_part)
-else:
-    pass
+    import property_bins
+
+# We read the data
+halos = pd.read_csv('Resultados/halos_'+file_part+'.csv')
+galaxies = pd.read_csv('Resultados/galaxies_'+file_part+'.csv')
     
 # We get the sample by cutting in stellar mass
 galaxies_sample = galaxies[galaxies.loc[:, 'Stellar mass'] > mass_cut].copy()
