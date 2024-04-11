@@ -17,7 +17,7 @@ big_scale_bin_number = 2
 bin_number=100
 
 for i in range(3):
-    file_part = 'part'+i
+    file_part = 'part'+str(i)
 
     features = feature_dict[file_part]
 
