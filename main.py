@@ -19,7 +19,35 @@ h = 0.6774                                   # Little Hubble constant
 mass_cut = 10.5                           # We cut the galaxies by mass into a sample
 
 # Features used to do the binning and shuffle the galaxies
-features=['Halo mass', 'Halo vrank 1']
+features=['Halo mass']
+
+secondary_feature = input('Which feature do you want?: ')
+
+features.append(secondary_feature)
+
+
+feature_part_dict = {'None'          : 'part1',
+                     'Halo mrank 1'  : 'part2',
+                     'Halo mrank 2'  : 'part2',
+                     'Halo mrank 3'  : 'part2',
+                     'Halo mrank 4'  : 'part2',
+                     'Halo mrank 5'  : 'part2',
+                     'Halo mrank 6'  : 'part2',
+                     'Halo vrank 1'  : 'part2',
+                     'Halo vrank 2'  : 'part2',
+                     'Halo vrank 3'  : 'part2',
+                     'Halo vrank 4'  : 'part2',
+                     'Halo vrank 5'  : 'part2',
+                     'Halo vrank 6'  : 'part2',
+                     'Halo tmform 1' : 'part3',
+                     'Halo tmform 2' : 'part3',
+                     'Halo tmform 3' : 'part3',
+                     'Halo tmform 4' : 'part3',
+                     'Halo tmform 5' : 'part3',
+                     'Halo tvform 1' : 'part3',
+                     'Halo tvform 2' : 'part3',
+                     'Halo tvform 3' : 'part3',
+                     }
 
 # new_feature = input('Which feature do you want to add? Press 0 to add none: ')
 N_shufflings = 20
@@ -51,8 +79,8 @@ if recalc == 'yes':
 
 
 # We read the data
-halos = pd.read_csv('Resultados/halos.csv')
-galaxies = pd.read_csv('Resultados/galaxies.csv')
+halos = pd.read_csv('Resultados/halos_'+feature_part_dict[secondary_feature]+'.csv')
+galaxies = pd.read_csv('Resultados/galaxies_'+feature_part_dict[secondary_feature]+'.csv')
 
 # Calculation of binned dataframes of halos and galaxies
 rebin = input('Do you want to recalculate the binning of the DataFrames? [yes/no]: ')
