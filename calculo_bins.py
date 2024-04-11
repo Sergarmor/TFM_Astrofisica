@@ -1,6 +1,6 @@
 
 
-def calculo_bins(halos, galaxies, bin_number):
+def calculo_bins(halos, galaxies, bin_number, file_part):
 
     """
     Galaxy and halo DataFrame binning.
@@ -31,16 +31,17 @@ def calculo_bins(halos, galaxies, bin_number):
     import numpy as np
     import pandas as pd
 
-    features = ['Halo mass', 
-                'Halo concentration', 
-                'Halo spin', 
-                'Halo mrank 1', 'Halo mrank 2', 'Halo mrank 3', 
-                'Halo mrank 4', 'Halo mrank 5', 'Halo mrank 6', 
-                'Halo vrank 1', 'Halo vrank 2', 'Halo vrank 3', 
-                'Halo vrank 4', 'Halo vrank 5', 'Halo vrank 6', 
-                'Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
-                'Halo tmform 4', 'Halo tmform 5',
-                'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3']
+    feature_dict = {'part1' : ['Halo mass', 'Halo concentration', 'Halo spin'],
+                    'part2' : ['Halo mrank 1', 'Halo mrank 2', 'Halo mrank 3', 
+                               'Halo mrank 4', 'Halo mrank 5', 'Halo mrank 6', 
+                               'Halo vrank 1', 'Halo vrank 2', 'Halo vrank 3', 
+                               'Halo vrank 4', 'Halo vrank 5', 'Halo vrank 6'],
+                    'part3' : ['Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
+                               'Halo tmform 4', 'Halo tmform 5',
+                               'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3']}
+
+    features = feature_dict[file_part]
+
     big_scale_bin_number = 2
     for j in features:
         
@@ -61,8 +62,8 @@ def calculo_bins(halos, galaxies, bin_number):
 
 
 
-    galaxies.to_csv('Resultados/galaxies.csv', index=False)
+    galaxies.to_csv('Resultados/galaxies_'+file_part+'.csv', index=False)
 
-    halos.to_csv('Resultados/halos.csv', index=False)
+    halos.to_csv('Resultados/halos_'+file_part+'.csv', index=False)
     
     return halos, galaxies

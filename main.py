@@ -49,6 +49,8 @@ feature_part_dict = {'None'          : 'part1',
                      'Halo tvform 3' : 'part3',
                      }
 
+file_part = feature_part_dict[secondary_feature]
+
 # new_feature = input('Which feature do you want to add? Press 0 to add none: ')
 N_shufflings = 20
 part = int(input('Execution part [0/1/2/3/4]: ')) # Designed max 100 shufflings
@@ -79,14 +81,14 @@ if recalc == 'yes':
 
 
 # We read the data
-halos = pd.read_csv('Resultados/halos_'+feature_part_dict[secondary_feature]+'.csv')
-galaxies = pd.read_csv('Resultados/galaxies_'+feature_part_dict[secondary_feature]+'.csv')
+halos = pd.read_csv('Resultados/halos_'+file_part+'.csv')
+galaxies = pd.read_csv('Resultados/galaxies_'+file_part+'.csv')
 
 # Calculation of binned dataframes of halos and galaxies
 rebin = input('Do you want to recalculate the binning of the DataFrames? [yes/no]: ')
 
 if rebin == 'yes':
-    halos, galaxies = calculo_bins(halos, galaxies, bin_number)
+    halos, galaxies = calculo_bins(halos, galaxies, bin_number, file_part)
 else:
     pass
     
