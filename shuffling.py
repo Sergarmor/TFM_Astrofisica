@@ -1,4 +1,4 @@
-def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L):
+def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L, file_part):
     
     """
     Galaxy shuffling. Permutates the halos to select them for each population.
@@ -40,11 +40,23 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L):
     galaxies_grouped = galaxies_sample.groupby(by=features_bins)
     population_list=[]
 
+    feature_dict = {'part1' : ['Halo mass', 
+                               'Halo concentration', 'Halo spin'],
+                    'part2' : ['Halo mass', 
+                               'Halo mrank 1', 'Halo mrank 2', 'Halo mrank 3', 
+                               'Halo mrank 4', 'Halo mrank 5', 'Halo mrank 6', 
+                               'Halo vrank 1', 'Halo vrank 2', 'Halo vrank 3', 
+                               'Halo vrank 4', 'Halo vrank 5', 'Halo vrank 6'],
+                    'part3' : ['Halo mass', 
+                               'Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
+                               'Halo tmform 4', 'Halo tmform 5',
+                               'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3']}
+    
+    feature_list = feature_dict[file_part]
+
     # Loop in bins considered
     for bins, galaxies_bin in galaxies_grouped:
         halos_bin = halos_grouped.get_group(bins).sample(frac=1)
-        
-        ID_halos, index_halos = np.unique(galaxies_bin['HostID'], return_index=True)
         
         galaxies_population_grouped = galaxies_bin.groupby(by='HostID')
         i=0
@@ -58,25 +70,27 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L):
             population['New Host index'] = int(halo_new.name)
             
             # Halo caracteristics
-            population['Halo mass'] = float(halo_new['Halo mass'])
-            population['Halo concentration'] = float(halo_new['Halo concentration'])
-            population['Halo spin'] = float(halo_new['Halo spin'])
-                # New properties
-            population['Halo mrank 1'] = float(halo_new['Halo mrank 1'])
-            population['Halo mrank 2'] = float(halo_new['Halo mrank 2'])
-            population['Halo mrank 3'] = float(halo_new['Halo mrank 3'])
+            population[feature_list] = float(halo_new[feature_list])
+
+        #     population['Halo mass'] = float(halo_new['Halo mass'])
+        #     population['Halo concentration'] = float(halo_new['Halo concentration'])
+        #     population['Halo spin'] = float(halo_new['Halo spin'])
+        #         # New properties
+        #     population['Halo mrank 1'] = float(halo_new['Halo mrank 1'])
+        #     population['Halo mrank 2'] = float(halo_new['Halo mrank 2'])
+        #     population['Halo mrank 3'] = float(halo_new['Halo mrank 3'])
             
-            population['Halo vrank 1'] = float(halo_new['Halo vrank 1'])
-            population['Halo vrank 2'] = float(halo_new['Halo vrank 2'])
-            population['Halo vrank 3'] = float(halo_new['Halo vrank 3'])
+        #     population['Halo vrank 1'] = float(halo_new['Halo vrank 1'])
+        #     population['Halo vrank 2'] = float(halo_new['Halo vrank 2'])
+        #     population['Halo vrank 3'] = float(halo_new['Halo vrank 3'])
             
-            population['Halo tmform 1'] = float(halo_new['Halo tmform 1'])
-            population['Halo tmform 2'] = float(halo_new['Halo tmform 2'])
-            population['Halo tmform 3'] = float(halo_new['Halo tmform 3'])
+        #     population['Halo tmform 1'] = float(halo_new['Halo tmform 1'])
+        #     population['Halo tmform 2'] = float(halo_new['Halo tmform 2'])
+        #     population['Halo tmform 3'] = float(halo_new['Halo tmform 3'])
             
-            population['Halo tvform 1'] = float(halo_new['Halo tvform 1'])
-            population['Halo tvform 2'] = float(halo_new['Halo tvform 2'])
-            population['Halo tvform 3'] = float(halo_new['Halo tvform 3'])
+        #     population['Halo tvform 1'] = float(halo_new['Halo tvform 1'])
+        #     population['Halo tvform 2'] = float(halo_new['Halo tvform 2'])
+        #     population['Halo tvform 3'] = float(halo_new['Halo tvform 3'])
             # Halo coords
             population['Halo_x'] = float(halo_new['x'])
             population['Halo_y'] = float(halo_new['y'])
@@ -146,7 +160,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L):
 
 
 
-def galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings, L, part):
+def galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings, L, part, file_part):
     
     """
     Multiple galaxy shufflings.
@@ -191,7 +205,7 @@ def galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings,
 
     for i in trange(N_shufflings):
         # print(f'Shuffle number {i+1} out of {N_shufflings}')
-        galaxies_shuffled = galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L)
+        galaxies_shuffled = galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L, file_part)
         galaxies_list.append(galaxies_shuffled)
         galaxies_shuffled.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i+part*20}.csv', index=False)
     return galaxies_list

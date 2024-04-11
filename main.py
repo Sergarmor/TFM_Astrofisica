@@ -111,7 +111,7 @@ pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the or
 
 # Calculate the 2PCF shuffled
 time_ini = datetime.now()
-lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings, L, part)
+lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings, L, part, file_part)
 
 time_end = datetime.now()
 print(f"Initial time...: {time_ini}")

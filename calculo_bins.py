@@ -31,12 +31,15 @@ def calculo_bins(halos, galaxies, bin_number, file_part):
     import numpy as np
     import pandas as pd
 
-    feature_dict = {'part1' : ['Halo mass', 'Halo concentration', 'Halo spin'],
-                    'part2' : ['Halo mrank 1', 'Halo mrank 2', 'Halo mrank 3', 
+    feature_dict = {'part1' : ['Halo mass', 
+                               'Halo concentration', 'Halo spin'],
+                    'part2' : ['Halo mass', 
+                               'Halo mrank 1', 'Halo mrank 2', 'Halo mrank 3', 
                                'Halo mrank 4', 'Halo mrank 5', 'Halo mrank 6', 
                                'Halo vrank 1', 'Halo vrank 2', 'Halo vrank 3', 
                                'Halo vrank 4', 'Halo vrank 5', 'Halo vrank 6'],
-                    'part3' : ['Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
+                    'part3' : ['Halo mass', 
+                               'Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
                                'Halo tmform 4', 'Halo tmform 5',
                                'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3']}
 
