@@ -6,7 +6,7 @@ from Corrfunc.theory import xi
 
 # Importing custom functions
 from calculo_bins import calculo_bins
-from shuffling import galaxies_shuffle_optimized, galaxies_shuffling_many
+from shuffling import galaxies_shuffle_optimized_1, galaxies_shuffling_many_1, galaxies_shuffle_optimized_2, galaxies_shuffling_many_2, galaxies_shuffle_optimized_3, galaxies_shuffling_many_3
 from ploting_script import ploting_2pcf_ratio
 from calculo_2pcf import calculo_2pcf
 
@@ -105,8 +105,17 @@ pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the or
 
 
 # Calculate the 2PCF shuffled
-time_ini = datetime.now()
-lista_DataFrames = galaxies_shuffling_many(halos, galaxies_sample, features_bins, N_shufflings, L, part, file_part)
+if file_part == 'part1':
+    time_ini = datetime.now()
+    lista_DataFrames = galaxies_shuffling_many_1(halos, galaxies_sample, features_bins, N_shufflings, L, part)
+elif file_part == 'part2':
+    time_ini = datetime.now()
+    lista_DataFrames = galaxies_shuffling_many_2(halos, galaxies_sample, features_bins, N_shufflings, L, part)
+elif file_part == 'part3':
+    time_ini = datetime.now()
+    lista_DataFrames = galaxies_shuffling_many_3(halos, galaxies_sample, features_bins, N_shufflings, L, part)
+else:
+    raise KeyError(file_part)
 
 time_end = datetime.now()
 print(f"Initial time...: {time_ini}")
