@@ -70,7 +70,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L, file_pa
             population['New Host index'] = int(halo_new.name)
             
             # Halo caracteristics
-            population[feature_list] = halo_new[feature_list]
+            population.loc[:, feature_list] = halo_new.loc[:, feature_list]
 
         #     population['Halo mass'] = float(halo_new['Halo mass'])
         #     population['Halo concentration'] = float(halo_new['Halo concentration'])
