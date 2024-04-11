@@ -51,7 +51,7 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L, file_pa
                                'Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
                                'Halo tmform 4', 'Halo tmform 5',
                                'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3']}
-    
+
     feature_list = feature_dict[file_part]
 
     # Loop in bins considered
@@ -64,68 +64,69 @@ def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L, file_pa
         # Loop on populations in bin
         for (halo_id), population in galaxies_population_grouped:
             halo_new = halos_bin.iloc[i]
+            halo_new = pd.DataFrame([halo_new])
             i+=1
             
-            population['New HostID'] = int(halo_new['HaloID'])
-            population['New Host index'] = int(halo_new.name)
+            population['New HostID'] = halo_new['HaloID']
+            population['New Host index'] = halo_new.index[0]
             
             # Halo caracteristics
-            population.loc[:, feature_list] = halo_new.loc[:, feature_list]
-
-        #     population['Halo mass'] = float(halo_new['Halo mass'])
-        #     population['Halo concentration'] = float(halo_new['Halo concentration'])
-        #     population['Halo spin'] = float(halo_new['Halo spin'])
-        #         # New properties
-        #     population['Halo mrank 1'] = float(halo_new['Halo mrank 1'])
-        #     population['Halo mrank 2'] = float(halo_new['Halo mrank 2'])
-        #     population['Halo mrank 3'] = float(halo_new['Halo mrank 3'])
-            
-        #     population['Halo vrank 1'] = float(halo_new['Halo vrank 1'])
-        #     population['Halo vrank 2'] = float(halo_new['Halo vrank 2'])
-        #     population['Halo vrank 3'] = float(halo_new['Halo vrank 3'])
-            
-        #     population['Halo tmform 1'] = float(halo_new['Halo tmform 1'])
-        #     population['Halo tmform 2'] = float(halo_new['Halo tmform 2'])
-        #     population['Halo tmform 3'] = float(halo_new['Halo tmform 3'])
-            
-        #     population['Halo tvform 1'] = float(halo_new['Halo tvform 1'])
-        #     population['Halo tvform 2'] = float(halo_new['Halo tvform 2'])
-        #     population['Halo tvform 3'] = float(halo_new['Halo tvform 3'])
+            population[population.columns[population.columns.isin(feature_list)]] = halo_new[feature_list]
+    
+            #     population['Halo mass'] = float(halo_new['Halo mass'])
+            #     population['Halo concentration'] = float(halo_new['Halo concentration'])
+            #     population['Halo spin'] = float(halo_new['Halo spin'])
+            #         # New properties
+            #     population['Halo mrank 1'] = float(halo_new['Halo mrank 1'])
+            #     population['Halo mrank 2'] = float(halo_new['Halo mrank 2'])
+            #     population['Halo mrank 3'] = float(halo_new['Halo mrank 3'])
+                    
+            #     population['Halo vrank 1'] = float(halo_new['Halo vrank 1'])
+            #     population['Halo vrank 2'] = float(halo_new['Halo vrank 2'])
+            #     population['Halo vrank 3'] = float(halo_new['Halo vrank 3'])
+                    
+            #     population['Halo tmform 1'] = float(halo_new['Halo tmform 1'])
+            #     population['Halo tmform 2'] = float(halo_new['Halo tmform 2'])
+            #     population['Halo tmform 3'] = float(halo_new['Halo tmform 3'])
+                    
+            #     population['Halo tvform 1'] = float(halo_new['Halo tvform 1'])
+            #     population['Halo tvform 2'] = float(halo_new['Halo tvform 2'])
+            #     population['Halo tvform 3'] = float(halo_new['Halo tvform 3'])
             # Halo coords
-            population['Halo_x'] = float(halo_new['x'])
-            population['Halo_y'] = float(halo_new['y'])
-            population['Halo_z'] = float(halo_new['z'])
+            population['Halo_x'] = halo_new['x']
+            population['Halo_y'] = halo_new['y']
+            population['Halo_z'] = halo_new['z']
             
             # Halo vel
-            population['Halo_vel_x'] = float(halo_new['Vel_x'])
-            population['Halo_vel_y'] = float(halo_new['Vel_y'])
-            population['Halo_vel_z'] = float(halo_new['Vel_z'])
+            population['Halo_vel_x'] = halo_new['Vel_x']
+            population['Halo_vel_y'] = halo_new['Vel_y']
+            population['Halo_vel_z'] = halo_new['Vel_z']
             
             # Galaxy coords
-            population['Pos_x'] = float(halo_new['x']) + population['COP_x']
-            population['Pos_y'] = float(halo_new['y']) + population['COP_y']
-            population['Pos_z'] = float(halo_new['z']) + population['COP_z']
+            population['Pos_x'] = halo_new['x'] + population['COP_x']
+            population['Pos_y'] = halo_new['y'] + population['COP_y']
+            population['Pos_z'] = halo_new['z'] + population['COP_z']
             
             # Galaxy vel
-            population['Vel_x'] = float(halo_new['Vel_x']) + population['COP_vel_x']
-            population['Vel_y'] = float(halo_new['Vel_y']) + population['COP_vel_y']
-            population['Vel_z'] = float(halo_new['Vel_z']) + population['COP_vel_z']
+            population['Vel_x'] = halo_new['Vel_x'] + population['COP_vel_x']
+            population['Vel_y'] = halo_new['Vel_y'] + population['COP_vel_y']
+            population['Vel_z'] = halo_new['Vel_z'] + population['COP_vel_z']
             
             # Check for equal bins
             if type(features_bins) == str:
-                if not population[features_bins].iloc[0] == halo_new[features_bins].astype('int64'):
+                if not population[features_bins].iloc[0] == halo_new[features_bins].astype('int64').iloc[0]:
                     raise ValueError('Error in group selection')
             else:
-                if not population[features_bins].iloc[0].equals(halo_new[features_bins].astype('int64')):
+                if not population[features_bins].iloc[0].equals(halo_new[features_bins].astype('int64').iloc[0]):
                     raise ValueError('Error in group selection')
             
             # Periodic conditions
             population.loc[population['Pos_x'] > L, 'Pos_x'] -= L
             population.loc[population['Pos_x'] < 0, 'Pos_x'] += L
-
+    
             population.loc[population['Pos_y'] > L, 'Pos_y'] -= L
             population.loc[population['Pos_y'] < 0, 'Pos_y'] += L
-
+    
             population.loc[population['Pos_z'] > L, 'Pos_z'] -= L
             population.loc[population['Pos_z'] < 0, 'Pos_z'] += L
             
