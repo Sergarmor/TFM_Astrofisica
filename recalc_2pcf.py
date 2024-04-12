@@ -11,7 +11,7 @@ minimal_sample = 10.5
 max_mass_sample = 13.0
 # mass_cut_1=float(input(f'Which mass do you want to cut at? Minnimun {minimal_sample}: '))
 # mass_cut_2=float(input(f'Which mass do you want to cut at? Minnimun {mass_cut_1}: '))
-shuffling_type=int(input('Which secondary property are you shuffling?: '))
+shuffling_type=input('Which secondary property are you shuffling?: ')
 
 feature_file_dict = {'None'          : 'Halo_mass',
                      'Halo mrank 1'  : 'Halo_mass_mrank1',
