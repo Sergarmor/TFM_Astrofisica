@@ -8,91 +8,87 @@ N_shufflings=100
 spatial_bin_number=25
 n_threads=1
 minimal_sample = 10.5
-mass_cut_1=float(input(f'Which mass do you want to cut at? Minnimun {minimal_sample}: '))
-mass_cut_2=float(input(f'Which mass do you want to cut at? Minnimun {mass_cut_1}: '))
-shuffling_type=int(input('Which shuffle do you want? [1/2/3/4/5/6/7/8/9/10/11/12/13/14/15] meaning [mass/concentration/spin/mrank123/vrank123/tmform123/tvform123]: '))
+max_mass_sample = 13.0
+# mass_cut_1=float(input(f'Which mass do you want to cut at? Minnimun {minimal_sample}: '))
+# mass_cut_2=float(input(f'Which mass do you want to cut at? Minnimun {mass_cut_1}: '))
+shuffling_type=int(input('Which secondary property are you shuffling?: '))
 
-if shuffling_type == 1:
-    path = 'Halo_mass'
-elif shuffling_type == 2:
-    path = 'Halo_mass_concentration'
-elif shuffling_type == 3:
-    path = 'Halo_mass_spin'
+feature_file_dict = {'None'          : 'Halo_mass',
+                     'Halo mrank 1'  : 'Halo_mass_mrank1',
+                     'Halo mrank 2'  : 'Halo_mass_mrank2',
+                     'Halo mrank 3'  : 'Halo_mass_mrank3',
+                     'Halo mrank 4'  : 'Halo_mass_mrank4',
+                     'Halo mrank 5'  : 'Halo_mass_mrank5',
+                     'Halo mrank 6'  : 'Halo_mass_mrank6',
+                     'Halo vrank 1'  : 'Halo_mass_vrank1',
+                     'Halo vrank 2'  : 'Halo_mass_vrank2',
+                     'Halo vrank 3'  : 'Halo_mass_vrank3',
+                     'Halo vrank 4'  : 'Halo_mass_vrank4',
+                     'Halo vrank 5'  : 'Halo_mass_vrank5',
+                     'Halo vrank 6'  : 'Halo_mass_vrank6',
+                     'Halo tmform 1' : 'Halo_mass_tmform1',
+                     'Halo tmform 2' : 'Halo_mass_tmform2',
+                     'Halo tmform 3' : 'Halo_mass_tmform3',
+                     'Halo tmform 4' : 'Halo_mass_tmform4',
+                     'Halo tmform 5' : 'Halo_mass_tmform5',
+                     'Halo tvform 1' : 'Halo_mass_tvform1',
+                     'Halo tvform 2' : 'Halo_mass_tvform2',
+                     'Halo tvform 3' : 'Halo_mass_tvform3',
+                     }
 
-elif shuffling_type == 4:
-    path = 'Halo_mass_mrank1'
-elif shuffling_type == 5:
-    path = 'Halo_mass_mrank2'
-elif shuffling_type == 6:
-    path = 'Halo_mass_mrank3'
+path = feature_file_dict[shuffling_type]
 
-elif shuffling_type == 7:
-    path = 'Halo_mass_vrank1'
-elif shuffling_type == 8:
-    path = 'Halo_mass_vrank2'
-elif shuffling_type == 9:
-    path = 'Halo_mass_vrank3'
+mass_cuts = [10.5, 10.75, 13.0]
 
-elif shuffling_type == 10:
-    path = 'Halo_mass_tmform1'
-elif shuffling_type == 11:
-    path = 'Halo_mass_tmform2'
-elif shuffling_type == 12:
-    path = 'Halo_mass_tmform3'
+for i in range(2):
+    mass_cut_1 = mass_cuts[i]
+    mass_cut_2 = mass_cuts[i+1]
 
-elif shuffling_type == 13:
-    path = 'Halo_mass_tvform1'
-elif shuffling_type == 14:
-    path = 'Halo_mass_tvform2'
-elif shuffling_type == 15:
-    path = 'Halo_mass_tvform3'
-
-
-
-
-
-if mass_cut_1 < minimal_sample:
-    raise ValueError(f'Mass cut must be greater than {minimal_sample}')
-# We read the data
-galaxies = pd.read_csv('Resultados/galaxies.csv')
-
-
-# We get the sample by cutting in stellar mass
-galaxies_sample = galaxies[galaxies.loc[:, 'Stellar mass'] > mass_cut_1].copy()
-galaxies_sample = galaxies_sample[galaxies_sample.loc[:, 'Stellar mass'] < mass_cut_2].copy()
-# Calculate the original 2PCF
-
-pcf_original = calculo_2pcf(galaxies_sample, L, spatial_bin_number, n_threads)
-
-pcf_original.to_csv(f'Resultados/pcf_original_{mass_cut_1}_{mass_cut_2}.csv', index=False) # We save the original 2PCF
-
-galaxies_list=[]
-
-for i in range(N_shufflings):
-    # print(f'Shuffle number {i+1} out of {N_shufflings}')
-    galaxies_temp = pd.read_csv(f'Resultados/{path}/Shuffled/Galaxies/galaxies_shuffled{i}.csv')
-    galaxies_list.append(galaxies_temp)
-
-lista_xis = []
-for q in range(len(galaxies_list)):
-    # We extract one DataFrame of shuffled galaxies
-    galaxies_shuffled = galaxies_list[q] 
+    if mass_cut_1 < minimal_sample:
+        raise ValueError(f'Mass cut 1 must be greater than {minimal_sample}')
     
-    galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] > mass_cut_1].copy()
-    galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] < mass_cut_2].copy()
-    # We extract the 2PCF value of the shuffled galaxies (one iteration) and save it to use later
-    pcf_shuffled = calculo_2pcf(galaxies_shuffled, L, spatial_bin_number, n_threads)
-    
-    pcf_shuffled.to_csv(f'Resultados/{path}/Shuffled/PCF/pcf_shuffled{q}.csv', index=False) # We save the shuffled 2pcf
-    
-    
-    pcf_shuffled_xi = pcf_shuffled['xi']
-    lista_xis.append(pcf_shuffled_xi)
+    if mass_cut_2 > max_mass_sample:
+        raise Warning(f'Mass cut 2 is too big. Reset to {max_mass_sample}')
+    # We read the data
+    # galaxies = pd.read_csv('Resultados/galaxies.csv')
 
-# We unite all the shuffled 2PCF and compute the mean and std
-pcf_shuffled_xi = pd.concat(lista_xis, axis=1)
 
-pcf_shuffled_xi = pcf_shuffled_xi.assign(mean=pcf_shuffled_xi.mean(axis=1))
-pcf_shuffled_xi = pcf_shuffled_xi.assign(std=pcf_shuffled_xi.std(axis=1))
-pcf_shuffled_xi = pcf_shuffled_xi.loc[:, ['mean', 'std']] # We discard all the 2PCFs and maintain the mean and std. Then we save it
-pcf_shuffled_xi.to_csv(f'Resultados/{path}/pcf_shuffled_mean_{mass_cut_1}_{mass_cut_2}.csv', index=False)
+    # We get the sample by cutting in stellar mass
+    # galaxies_sample = galaxies[galaxies.loc[:, 'Stellar mass'] > mass_cut_1].copy()
+    # galaxies_sample = galaxies_sample[galaxies_sample.loc[:, 'Stellar mass'] < mass_cut_2].copy()
+    # Calculate the original 2PCF
+
+    # pcf_original = calculo_2pcf(galaxies_sample, L, spatial_bin_number, n_threads)
+
+    # pcf_original.to_csv(f'Resultados/pcf_original_{mass_cut_1}_{mass_cut_2}.csv', index=False) # We save the original 2PCF
+
+    galaxies_list=[]
+
+    for i in range(N_shufflings):
+        # print(f'Shuffle number {i+1} out of {N_shufflings}')
+        galaxies_temp = pd.read_csv(f'Resultados/{path}/Shuffled/Galaxies/galaxies_shuffled{i}.csv')
+        galaxies_list.append(galaxies_temp)
+
+    lista_xis = []
+    for q in range(len(galaxies_list)):
+        # We extract one DataFrame of shuffled galaxies
+        galaxies_shuffled = galaxies_list[q] 
+        
+        galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] > mass_cut_1].copy()
+        galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] < mass_cut_2].copy()
+        # We extract the 2PCF value of the shuffled galaxies (one iteration) and save it to use later
+        pcf_shuffled = calculo_2pcf(galaxies_shuffled, L, spatial_bin_number, n_threads)
+        
+        pcf_shuffled.to_csv(f'Resultados/{path}/Shuffled/PCF/pcf_shuffled{q}.csv', index=False) # We save the shuffled 2pcf
+        
+        
+        pcf_shuffled_xi = pcf_shuffled['xi']
+        lista_xis.append(pcf_shuffled_xi)
+
+    # We unite all the shuffled 2PCF and compute the mean and std
+    pcf_shuffled_xi = pd.concat(lista_xis, axis=1)
+
+    pcf_shuffled_xi = pcf_shuffled_xi.assign(mean=pcf_shuffled_xi.mean(axis=1))
+    pcf_shuffled_xi = pcf_shuffled_xi.assign(std=pcf_shuffled_xi.std(axis=1))
+    pcf_shuffled_xi = pcf_shuffled_xi.loc[:, ['mean', 'std']] # We discard all the 2PCFs and maintain the mean and std. Then we save it
+    pcf_shuffled_xi.to_csv(f'Resultados/{path}/pcf_shuffled_mean_{mass_cut_1}_{mass_cut_2}.csv', index=False)
