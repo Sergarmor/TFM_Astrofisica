@@ -374,7 +374,7 @@ def galaxies_shuffle_optimized_3(halos, galaxies_sample, features_bins, L):
 
 
 
-def galaxies_shuffling_many_1(halos, galaxies_sample, features_bins, N_shufflings, L, part):
+def galaxies_shuffling_many_1(halos, galaxies_sample, features_bins, N_shufflings, L, part, path):
     
     """
     Multiple galaxy shufflings.
@@ -421,7 +421,7 @@ def galaxies_shuffling_many_1(halos, galaxies_sample, features_bins, N_shuffling
         # print(f'Shuffle number {i+1} out of {N_shufflings}')
         galaxies_shuffled = galaxies_shuffle_optimized_1(halos, galaxies_sample, features_bins, L)
         galaxies_list.append(galaxies_shuffled)
-        galaxies_shuffled.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i+part*20}.csv', index=False)
+        galaxies_shuffled.to_csv(f'Resultados/{path}/Shuffled/Galaxies/galaxies_shuffled{i+part*20}.csv', index=False)
     return galaxies_list
 
 
@@ -439,7 +439,7 @@ def galaxies_shuffling_many_1(halos, galaxies_sample, features_bins, N_shuffling
 
 
 
-def galaxies_shuffling_many_2(halos, galaxies_sample, features_bins, N_shufflings, L, part):
+def galaxies_shuffling_many_2(halos, galaxies_sample, features_bins, N_shufflings, L, part, path):
     
     """
     Multiple galaxy shufflings.
@@ -486,7 +486,7 @@ def galaxies_shuffling_many_2(halos, galaxies_sample, features_bins, N_shuffling
         # print(f'Shuffle number {i+1} out of {N_shufflings}')
         galaxies_shuffled = galaxies_shuffle_optimized_2(halos, galaxies_sample, features_bins, L)
         galaxies_list.append(galaxies_shuffled)
-        galaxies_shuffled.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i+part*20}.csv', index=False)
+        galaxies_shuffled.to_csv(f'Resultados/{path}/Shuffled/Galaxies/galaxies_shuffled{i+part*20}.csv', index=False)
     return galaxies_list
 
 
@@ -498,7 +498,7 @@ def galaxies_shuffling_many_2(halos, galaxies_sample, features_bins, N_shuffling
 
 
 
-def galaxies_shuffling_many_3(halos, galaxies_sample, features_bins, N_shufflings, L, part):
+def galaxies_shuffling_many_3(halos, galaxies_sample, features_bins, N_shufflings, L, part, path):
     
     """
     Multiple galaxy shufflings.
@@ -545,5 +545,5 @@ def galaxies_shuffling_many_3(halos, galaxies_sample, features_bins, N_shuffling
         # print(f'Shuffle number {i+1} out of {N_shufflings}')
         galaxies_shuffled = galaxies_shuffle_optimized_3(halos, galaxies_sample, features_bins, L)
         galaxies_list.append(galaxies_shuffled)
-        galaxies_shuffled.to_csv(f'Resultados/Shuffled/Galaxies/galaxies_shuffled{i+part*20}.csv', index=False)
+        galaxies_shuffled.to_csv(f'Resultados/{path}/Shuffled/Galaxies/galaxies_shuffled{i+part*20}.csv', index=False)
     return galaxies_list
