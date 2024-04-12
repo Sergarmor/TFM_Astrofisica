@@ -5,9 +5,6 @@ from datetime import datetime
 from Corrfunc.theory import xi
 
 # Importing custom functions
-from calculo_bins import calculo_bins
-from shuffling import galaxies_shuffle_optimized, galaxies_shuffling_many
-from ploting_script import ploting_2pcf_ratio
 from calculo_2pcf import calculo_2pcf
 
 # Simulation parameters
