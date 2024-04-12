@@ -49,6 +49,31 @@ feature_part_dict = {'None'          : 'part1',
                      'Halo tvform 3' : 'part3',
                      }
 
+feature_file_dict = {'None'          : 'Halo_mass',
+                     'Halo mrank 1'  : 'Halo_mass_mrank1',
+                     'Halo mrank 2'  : 'Halo_mass_mrank2',
+                     'Halo mrank 3'  : 'Halo_mass_mrank3',
+                     'Halo mrank 4'  : 'Halo_mass_mrank4',
+                     'Halo mrank 5'  : 'Halo_mass_mrank5',
+                     'Halo mrank 6'  : 'Halo_mass_mrank6',
+                     'Halo vrank 1'  : 'Halo_mass_vrank1',
+                     'Halo vrank 2'  : 'Halo_mass_vrank2',
+                     'Halo vrank 3'  : 'Halo_mass_vrank3',
+                     'Halo vrank 4'  : 'Halo_mass_vrank4',
+                     'Halo vrank 5'  : 'Halo_mass_vrank5',
+                     'Halo vrank 6'  : 'Halo_mass_vrank6',
+                     'Halo tmform 1' : 'Halo_mass_tmform1',
+                     'Halo tmform 2' : 'Halo_mass_tmform2',
+                     'Halo tmform 3' : 'Halo_mass_tmform3',
+                     'Halo tmform 4' : 'Halo_mass_tmform4',
+                     'Halo tmform 5' : 'Halo_mass_tmform5',
+                     'Halo tvform 1' : 'Halo_mass_tvform1',
+                     'Halo tvform 2' : 'Halo_mass_tvform2',
+                     'Halo tvform 3' : 'Halo_mass_tvform3',
+                     }
+
+path = feature_file_dict[secondary_feature]
+
 file_part = feature_part_dict[secondary_feature]
 
 # new_feature = input('Which feature do you want to add? Press 0 to add none: ')
@@ -107,13 +132,13 @@ pcf_original.to_csv('Resultados/pcf_original.csv', index=False) # We save the or
 # Calculate the 2PCF shuffled
 if file_part == 'part1':
     time_ini = datetime.now()
-    lista_DataFrames = galaxies_shuffling_many_1(halos, galaxies_sample, features_bins, N_shufflings, L, part)
+    lista_DataFrames = galaxies_shuffling_many_1(halos, galaxies_sample, features_bins, N_shufflings, L, part, path)
 elif file_part == 'part2':
     time_ini = datetime.now()
-    lista_DataFrames = galaxies_shuffling_many_2(halos, galaxies_sample, features_bins, N_shufflings, L, part)
+    lista_DataFrames = galaxies_shuffling_many_2(halos, galaxies_sample, features_bins, N_shufflings, L, part, path)
 elif file_part == 'part3':
     time_ini = datetime.now()
-    lista_DataFrames = galaxies_shuffling_many_3(halos, galaxies_sample, features_bins, N_shufflings, L, part)
+    lista_DataFrames = galaxies_shuffling_many_3(halos, galaxies_sample, features_bins, N_shufflings, L, part, path)
 else:
     raise KeyError(file_part)
 
