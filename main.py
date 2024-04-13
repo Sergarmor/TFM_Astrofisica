@@ -76,9 +76,16 @@ path = feature_file_dict[secondary_feature]
 
 file_part = feature_part_dict[secondary_feature]
 
+if file_part == 'part2':
+    N_shufflings = 20
+    part = int(input('Execution part [0/1/2/3/4]: ')) # Designed max 100 shufflings
+else:
+    N_shufflings = 100
+    part=0
+
 # new_feature = input('Which feature do you want to add? Press 0 to add none: ')
-N_shufflings = 20
-part = int(input('Execution part [0/1/2/3/4]: ')) # Designed max 100 shufflings
+# N_shufflings = 20
+# part = int(input('Execution part [0/1/2/3/4]: ')) # Designed max 100 shufflings
 
 # if not new_feature == 0:
     # print(type(new_feature))
