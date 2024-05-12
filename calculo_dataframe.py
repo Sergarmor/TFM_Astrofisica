@@ -5,6 +5,8 @@ file = np.load('Datos/ab_v2.npy', allow_pickle=True).item()
 file_extra = np.load('Datos/extra_prop_v0.npy', allow_pickle=True).item()
 file_extra_1 = np.load('Datos/extra_prop_v1.npy', allow_pickle=True).item()
 
+file_extra_2 = np.load('Datos/av_nu.npy', allow_pickle=True).item()
+
 # Building Halo DataFrame
 
 # Necesary properties for all parts
@@ -24,6 +26,8 @@ halo_tvform = file_extra['tvform']
 halo_mrank_1 = file_extra_1['mrank']
 halo_vrank_1 = file_extra_1['vrank']
 halo_tmform_1 = file_extra_1['tmform']
+
+halo_av_nu = file_extra_2['av_nu']
 
 # Didn't use
 # halo_mhist = file['halo_mhist']
