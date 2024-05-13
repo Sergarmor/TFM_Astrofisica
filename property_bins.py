@@ -11,7 +11,8 @@ feature_dict = {'part1' : ['Halo mass',
                 'part3' : ['Halo mass', 
                             'Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
                             'Halo tmform 4', 'Halo tmform 5',
-                            'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3']}
+                            'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3',
+                            'Halo av_nu']}
 
 big_scale_bin_number = 2
 bin_number=100

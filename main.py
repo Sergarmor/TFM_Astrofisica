@@ -47,6 +47,7 @@ feature_part_dict = {'None'          : 'part1',
                      'Halo tvform 1' : 'part3',
                      'Halo tvform 2' : 'part3',
                      'Halo tvform 3' : 'part3',
+                     'Halo av_nu'    : 'part3',
                      }
 
 feature_file_dict = {'None'          : 'Halo_mass',
@@ -70,6 +71,7 @@ feature_file_dict = {'None'          : 'Halo_mass',
                      'Halo tvform 1' : 'Halo_mass_tvform1',
                      'Halo tvform 2' : 'Halo_mass_tvform2',
                      'Halo tvform 3' : 'Halo_mass_tvform3',
+                     'Halo av_nu'    : 'Halo_mass_av_nu',
                      }
 
 path = feature_file_dict[secondary_feature]
