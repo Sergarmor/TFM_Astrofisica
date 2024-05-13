@@ -267,7 +267,7 @@ galaxies_part3 = pd.DataFrame(
            'Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
            'Halo tmform 4', 'Halo tmform 5',
            'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3',
-           'Halo av_nu'
+           'Halo av_nu',
            'Halo_x', 'Halo_y', 'Halo_z', 
            'Halo_vel_x', 'Halo_vel_y', 'Halo_vel_z', 
            'Col_x', 'Col_y', 'Col_z', 
