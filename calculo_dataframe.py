@@ -7,6 +7,7 @@ file_extra_1 = np.load('Datos/extra_prop_v1.npy', allow_pickle=True).item()
 
 file_extra_2 = np.load('Datos/av_nu.npy', allow_pickle=True).item()
 
+print('Data reading done.')
 # Building Halo DataFrame
 
 # Necesary properties for all parts
@@ -33,6 +34,8 @@ halo_av_nu = file_extra_2['av_nu']
 # halo_mhist = file['halo_mhist']
 # halo_vhist = file['halo_vhist']
 
+print('Start building Halo DataFrames')
+
 halos_part1 = pd.DataFrame(
     data=np.array([halo_id, 
                    halo_mass, 
@@ -46,6 +49,8 @@ halos_part1 = pd.DataFrame(
     'Halo spin', 
     'x', 'y', 'z', 
     'Vel_x', 'Vel_y', 'Vel_z'])
+
+print('Halo part 1 done')
 
 halos_part2 = pd.DataFrame(
     data=np.array([halo_id, 
@@ -65,6 +70,8 @@ halos_part2 = pd.DataFrame(
     'x', 'y', 'z', 
     'Vel_x', 'Vel_y', 'Vel_z'])
 
+print('Halo part 2 done')
+
 halos_part3 = pd.DataFrame(
     data=np.array([halo_id, 
                    halo_mass, 
@@ -83,6 +90,7 @@ halos_part3 = pd.DataFrame(
     'x', 'y', 'z', 
     'Vel_x', 'Vel_y', 'Vel_z'])
 
+print('Halo part 3 done')
 
 # halos = pd.DataFrame(
 #     data=np.array([halo_id, 
@@ -116,10 +124,12 @@ halos_part1['HaloID'] = halos_part1['HaloID'].astype(int) # We force IDs to be i
 halos_part2['HaloID'] = halos_part2['HaloID'].astype(int) # We force IDs to be integers
 halos_part3['HaloID'] = halos_part3['HaloID'].astype(int) # We force IDs to be integers
 
-# Save halos DataFrames
+# Sort halos DataFrames
 halos_part1 = halos_part1.sort_values(by='HaloID')
 halos_part2 = halos_part2.sort_values(by='HaloID')
 halos_part3 = halos_part3.sort_values(by='HaloID')
+
+print('Halo sorting done')
 
 # Building Galaxies DataFrame
 ## Necesary properties
@@ -173,6 +183,8 @@ gal_halo_vel = file['halo_vel'][file['cross_sub2halo']]
 #            'Vel_x', 'Vel_y', 'Vel_z',
 #            'COP_vel_x', 'COP_vel_y', 'COP_vel_z']
 
+print('Start building galaxy DataFrames')
+
 galaxies_part1 = pd.DataFrame(
     data = np.array([gal_hostid, 
                     gal_cross,
@@ -204,6 +216,8 @@ galaxies_part1 = pd.DataFrame(
            'Vel_x', 'Vel_y', 'Vel_z',
            'COP_vel_x', 'COP_vel_y', 'COP_vel_z']
 )
+
+print('Galaxy part 1 done')
 
 galaxies_part2 = pd.DataFrame(
     data = np.array([gal_hostid, 
@@ -241,6 +255,8 @@ galaxies_part2 = pd.DataFrame(
            'COP_vel_x', 'COP_vel_y', 'COP_vel_z']
 )
 
+print('Galaxy part 2 done')
+
 galaxies_part3 = pd.DataFrame(
     data = np.array([gal_hostid, 
                     gal_cross,
@@ -276,6 +292,8 @@ galaxies_part3 = pd.DataFrame(
            'Vel_x', 'Vel_y', 'Vel_z',
            'COP_vel_x', 'COP_vel_y', 'COP_vel_z']
 )
+
+print('Galaxy part 3 done')
 
 # galaxies = pd.DataFrame(
 #     data=np.array([gal_hostid, 
@@ -320,6 +338,8 @@ galaxies_part3['Type'] = galaxies_part3['Type'].astype(int)
 galaxies_part1 = galaxies_part1.sort_values(by='HostID')
 galaxies_part2 = galaxies_part2.sort_values(by='HostID')
 galaxies_part3 = galaxies_part3.sort_values(by='HostID')
+
+print('Galaxy sorting done. Saving results')
 
 # Save galaxy DataFrames
 galaxies_part1.to_csv('Resultados/galaxies_part1.csv', index=False)
