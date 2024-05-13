@@ -34,6 +34,7 @@ feature_file_dict = {'None'          : 'Halo_mass',
                      'Halo tvform 1' : 'Halo_mass_tvform1',
                      'Halo tvform 2' : 'Halo_mass_tvform2',
                      'Halo tvform 3' : 'Halo_mass_tvform3',
+                     'Halo av_nu'    : 'Halo_mass_av_nu',
                      }
 
 path = feature_file_dict[shuffling_type]

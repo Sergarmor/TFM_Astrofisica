@@ -325,6 +325,8 @@ def galaxies_shuffle_optimized_3(halos, galaxies_sample, features_bins, L):
             population['Halo tvform 1'] = float(halo_new['Halo tvform 1'])
             population['Halo tvform 2'] = float(halo_new['Halo tvform 2'])
             population['Halo tvform 3'] = float(halo_new['Halo tvform 3'])
+
+            population['Halo av_nu'] = float(halo_new['Halo av_nu'])
             # Halo coords
             population['Halo_x'] = float(halo_new['x'])
             population['Halo_y'] = float(halo_new['y'])

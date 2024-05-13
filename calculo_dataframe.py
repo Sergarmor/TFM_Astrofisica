@@ -5,6 +5,8 @@ file = np.load('Datos/ab_v2.npy', allow_pickle=True).item()
 file_extra = np.load('Datos/extra_prop_v0.npy', allow_pickle=True).item()
 file_extra_1 = np.load('Datos/extra_prop_v1.npy', allow_pickle=True).item()
 
+file_extra_2 = np.load('Datos/av_nu.npy', allow_pickle=True).item()
+
 # Building Halo DataFrame
 
 # Necesary properties for all parts
@@ -24,6 +26,8 @@ halo_tvform = file_extra['tvform']
 halo_mrank_1 = file_extra_1['mrank']
 halo_vrank_1 = file_extra_1['vrank']
 halo_tmform_1 = file_extra_1['tmform']
+
+halo_av_nu = file_extra_2['av_nu']
 
 # Didn't use
 # halo_mhist = file['halo_mhist']
@@ -67,6 +71,7 @@ halos_part3 = pd.DataFrame(
                    halo_tmform[:, 0], halo_tmform[:, 1], halo_tmform[:, 2], 
                    halo_tmform_1[:, 0], halo_tmform_1[:, 1],
                    halo_tvform[:, 0], halo_tvform[:, 1], halo_tvform[:, 2], 
+                   halo_av_nu,
                    halo_pos[:, 0], halo_pos[:, 1], halo_pos[:, 2], 
                    halo_vel[:, 0], halo_vel[:, 1], halo_vel[:, 2]]).transpose(), 
     columns=['HaloID', 
@@ -74,6 +79,7 @@ halos_part3 = pd.DataFrame(
     'Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
     'Halo tmform 4', 'Halo tmform 5',
     'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3',
+    'Halo av_nu',
     'x', 'y', 'z', 
     'Vel_x', 'Vel_y', 'Vel_z'])
 
@@ -137,6 +143,8 @@ gal_halo_tmform = file_extra['tmform'][file['cross_sub2halo']]
 gal_halo_mrank_1 = file_extra_1['mrank'][file['cross_sub2halo']]
 gal_halo_vrank_1 = file_extra_1['vrank'][file['cross_sub2halo']]
 gal_halo_tmform_1 = file_extra_1['tmform'][file['cross_sub2halo']]
+
+gal_halo_av_nu = file_extra_2['av_nu'][file['cross_sub2halo']]
 
 gal_halo_tvform = file_extra['tvform'][file['cross_sub2halo']]
 gal_halo_pos = file['halo_pos'][file['cross_sub2halo']]
@@ -242,6 +250,7 @@ galaxies_part3 = pd.DataFrame(
                     gal_halo_tmform[:, 0], gal_halo_tmform[:, 1], gal_halo_tmform[:, 2],
                     gal_halo_tmform_1[:, 0], gal_halo_tmform_1[:, 1], 
                     gal_halo_tvform[:, 0], gal_halo_tvform[:, 1], gal_halo_tvform[:, 2],
+                    gal_halo_av_nu,
                     gal_halo_pos[:, 0], gal_halo_pos[:, 1], gal_halo_pos[:, 2],
                     gal_halo_vel[:, 0], gal_halo_vel[:, 1], gal_halo_vel[:, 2], 
                     gal_col[:, 0], gal_col[:, 1], gal_col[:, 2], 
@@ -258,6 +267,7 @@ galaxies_part3 = pd.DataFrame(
            'Halo tmform 1', 'Halo tmform 2', 'Halo tmform 3', 
            'Halo tmform 4', 'Halo tmform 5',
            'Halo tvform 1', 'Halo tvform 2', 'Halo tvform 3',
+           'Halo av_nu'
            'Halo_x', 'Halo_y', 'Halo_z', 
            'Halo_vel_x', 'Halo_vel_y', 'Halo_vel_z', 
            'Col_x', 'Col_y', 'Col_z', 
