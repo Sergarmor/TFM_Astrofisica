@@ -1,3 +1,12 @@
+#
+# Copyright 2023-2024 
+#
+# This file is part of Sergio García's Master's Thesis (TFM)
+#
+# SPDX-License-Identifier: 
+# License-Filename: LICENSE.txt
+#
+
 import numpy as np
 import numpy.random as r
 import pandas as pd

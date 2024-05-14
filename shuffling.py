@@ -1,3 +1,12 @@
+#
+# Copyright 2023-2024 
+#
+# This file is part of Sergio García's Master's Thesis (TFM)
+#
+# SPDX-License-Identifier: 
+# License-Filename: LICENSE.txt
+#
+
 def galaxies_shuffle_optimized_1(halos, galaxies_sample, features_bins, L):
     
     """
