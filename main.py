@@ -104,11 +104,8 @@ else:
 
 
 bin_number=100                               # Number of bins for each feature
-# N_shufflings = 100                           # We shuffle N_shufflings times and compute the mean and std
 spatial_bin_number = 25                      # Bin number in spatial bins (2PCF calculation)
 n_threads = 1                                # Number of threads to use to calculate the 2PCF
-# Definir bin_width con max y min de los datos. Normalizar con los percentiles 95 y 5
-# Plotting parameters
 n = 3                                        # Number of sigmas in the plot
 
 
