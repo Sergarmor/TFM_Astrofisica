@@ -52,6 +52,7 @@ mass_cuts = [10.5, 10.75, 13.0]
 for i in range(2):
     mass_cut_1 = mass_cuts[i]
     mass_cut_2 = mass_cuts[i+1]
+    print(f'Mass bin number {i} out of 2')
 
     if mass_cut_1 < minimal_sample:
         raise ValueError(f'Mass cut 1 must be greater than {minimal_sample}')
@@ -73,11 +74,13 @@ for i in range(2):
 
     galaxies_list=[]
 
+    print('Reading data')
     for i in range(N_shufflings):
         # print(f'Shuffle number {i+1} out of {N_shufflings}')
         galaxies_temp = pd.read_csv(f'Resultados/{path}/Shuffled/Galaxies/galaxies_shuffled{i}.csv')
         galaxies_list.append(galaxies_temp)
 
+    print("Recalculating 2pcf's")
     lista_xis = []
     for q in range(len(galaxies_list)):
         # We extract one DataFrame of shuffled galaxies
