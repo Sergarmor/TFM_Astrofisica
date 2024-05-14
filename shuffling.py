@@ -7,7 +7,7 @@
 # License-Filename: LICENSE.txt
 #
 
-def galaxies_shuffle_optimized(halos, galaxies_sample, features_bins, L, file_part):
+def galaxies_shuffle_one(halos, galaxies_sample, features_bins, L, file_part):
     
     """
     Galaxy shuffling. Permutates the halos to select them for each population.
