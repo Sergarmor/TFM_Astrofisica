@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
-import scienceplots
+# import scienceplots
 
 plt.style.use('science')
 plt.rcParams.update({
