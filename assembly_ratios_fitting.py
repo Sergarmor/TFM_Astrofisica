@@ -4,11 +4,11 @@ import matplotlib.pyplot as plt
 from scipy.optimize import curve_fit
 # import scienceplots
 
-plt.style.use('science')
-plt.rcParams.update({
-    "font.family": "lmodern",   # specify font family here
-    # "font.serif": ["Times"],  # specify font here
-    "font.size":11})          # specify font size here
+# plt.style.use('science')
+# plt.rcParams.update({
+#     "font.family": "lmodern",   # specify font family here
+#     # "font.serif": ["Times"],  # specify font here
+#     "font.size":11})          # specify font size here
 
 
 L=205               # Box size
