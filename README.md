@@ -5,3 +5,18 @@ This repository contains all the code of the Master's Thesis of Sergio García M
 Some files are depecrated scripts that can be removed (like the 'main_part2.py') or that have been transformed into scripts from a Jupyter Notebook in order to include all the process of fitting and plotting done for the Thesis. This thesis is available in PDF in the following link:
 
 TO_BE_INCLUDED
+
+# Citation
+
+If you make use of this work, please aknowledge the project citing the following paper (Here is an example of a BibTeX entry):
+```
+{
+
+    @SOFTWARE{2024_GAB_Sergio,
+        author = {Sergio García},
+        title = {A new model for galaxy assembly bias},
+        year = {2024}
+        }
+
+}
+```
