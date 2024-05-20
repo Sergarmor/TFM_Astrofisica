@@ -53,8 +53,6 @@ def galaxies_shuffle_one(halos, galaxies_sample, features_bins, L, file_part):
     for bins, galaxies_bin in galaxies_grouped:
         halos_bin = halos_grouped.get_group(bins).sample(frac=1)
         
-        ID_halos, index_halos = np.unique(galaxies_bin['HostID'], return_index=True)
-        
         galaxies_population_grouped = galaxies_bin.groupby(by='HostID')
         i=0
         
