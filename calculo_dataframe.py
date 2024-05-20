@@ -146,7 +146,7 @@ gal_hostid = file['idhost']
 gal_cross = file['cross_sub2halo']
 gal_type = file['type'] # Guide: 0 --> Central. | 1 --> Satellite
 gal_mst = file['mst']
-gal_col = file['col'] # Color?
+gal_col = file['col'] # Color
 gal_pos = file['pos']
 gal_vel = file['vel']
 
