@@ -17,8 +17,7 @@ spatial_bin_number=25
 n_threads=1
 minimal_sample = 10.5
 max_mass_sample = 13.0
-# mass_cut_1=float(input(f'Which mass do you want to cut at? Minnimun {minimal_sample}: '))
-# mass_cut_2=float(input(f'Which mass do you want to cut at? Minnimun {mass_cut_1}: '))
+
 shuffling_type=input('Which secondary property are you shuffling?: ')
 
 feature_file_dict = {'None'          : 'Halo_mass',
@@ -59,19 +58,7 @@ for i in range(2):
     
     if mass_cut_2 > max_mass_sample:
         raise Warning(f'Mass cut 2 is too big. Reset to {max_mass_sample}')
-    # We read the data
-    # galaxies = pd.read_csv('Resultados/galaxies.csv')
-
-
-    # We get the sample by cutting in stellar mass
-    # galaxies_sample = galaxies[galaxies.loc[:, 'Stellar mass'] > mass_cut_1].copy()
-    # galaxies_sample = galaxies_sample[galaxies_sample.loc[:, 'Stellar mass'] < mass_cut_2].copy()
-    # Calculate the original 2PCF
-
-    # pcf_original = calculo_2pcf(galaxies_sample, L, spatial_bin_number, n_threads)
-
-    # pcf_original.to_csv(f'Resultados/pcf_original_{mass_cut_1}_{mass_cut_2}.csv', index=False) # We save the original 2PCF
-
+    
     galaxies_list=[]
 
     print('Reading data')
@@ -83,17 +70,19 @@ for i in range(2):
     print("Recalculating 2pcf's")
     lista_xis = []
     for q in range(len(galaxies_list)):
+
         # We extract one DataFrame of shuffled galaxies
         galaxies_shuffled = galaxies_list[q] 
         
+        # Keep one mass bin (remove the rest)
         galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] > mass_cut_1].copy()
         galaxies_shuffled = galaxies_shuffled[galaxies_shuffled.loc[:, 'Stellar mass'] < mass_cut_2].copy()
+
         # We extract the 2PCF value of the shuffled galaxies (one iteration) and save it to use later
         pcf_shuffled = calculo_2pcf(galaxies_shuffled, L, spatial_bin_number, n_threads)
-        
         pcf_shuffled.to_csv(f'Resultados/{path}/Shuffled/PCF/pcf_shuffled{q}.csv', index=False) # We save the shuffled 2pcf
         
-        
+        # Save the 2PCF values of all shuffled samples
         pcf_shuffled_xi = pcf_shuffled['xi']
         lista_xis.append(pcf_shuffled_xi)
 
