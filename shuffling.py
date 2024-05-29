@@ -3,9 +3,6 @@
 #
 # This file is part of Sergio García's Master's Thesis (TFM)
 #
-# SPDX-License-Identifier: 
-# License-Filename: LICENSE.txt
-#
 
 def galaxies_shuffle_one(halos, galaxies_sample, features_bins, L, file_part):
     

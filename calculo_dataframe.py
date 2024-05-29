@@ -3,9 +3,6 @@
 #
 # This file is part of Sergio García's Master's Thesis (TFM)
 #
-# SPDX-License-Identifier: 
-# License-Filename: LICENSE.txt
-#
 
 import numpy as np
 import pandas as pd

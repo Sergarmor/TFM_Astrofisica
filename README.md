@@ -10,7 +10,7 @@ This repository contains all the code of the Master's Thesis of Sergio García M
 
 After all the calculations from the ```.py``` scripts have been completed, the execution of the two Jupyter Notebooks is necessary to obtain the final results. The ```Fit_results_plots.ipynb``` file calculates the fits of the 2PCF ratios and computes the GAB values associated with each property. Outputs two ```.csv``` files with the results tables and the plots of the 2PCF ratios. The ```Mass_bins_illustration.ipynb``` notebook computes the median halo mass of each mass bin, creates the galaxy histogram of stellar mass and the corner plot with the properties. 
 
-The rest of the ```.py``` files are depecrated scripts that can be removed (like the ```main_part2.py```) or that have been transformed into scripts from a Jupyter Notebook. This thesis is available in PDF in the following link:
+This thesis is available in PDF in the following link:
 
 TO_BE_INCLUDED
 
@@ -25,17 +25,3 @@ This code makes use of the following packages:
 - ```scienceplots``` (requieres a Latex installation, optional for the jupyter notebooks)
 - ```Corrfunc``` (2PCF calculation)
 - ```tqdm``` (progress bars)
-
-
-
-
-<!-- # Citation
-
-If you make use of this work, please aknowledge the project citing the following paper (Here is an example of a BibTeX entry):
-```
-@SOFTWARE{2024_GAB_Sergio,
-    author = {Sergio García},
-    title = {A new model for galaxy assembly bias},
-    year = {2024}
-    }
-``` -->

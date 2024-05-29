@@ -3,9 +3,6 @@
 #
 # This file is part of Sergio García's Master's Thesis (TFM)
 #
-# SPDX-License-Identifier: 
-# License-Filename: LICENSE.txt
-#
 
 def calculo_2pcf(galaxies, L, bin_number, n_threads):
 
