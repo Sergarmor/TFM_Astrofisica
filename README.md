@@ -1,8 +1,10 @@
-# TFM_Sergio_Garcia_Astrofisica
+# TFM Sergio Garcia Astrofisica
 
 # A new galaxy assembly bias model
 
 ## Abstract
+
+To achieve realistic predictions of the clustering of galaxies, we need numerical simulations that match observations. Due to computational limitations, for large volumes is necessary to populate dark matter simulations with galactic populations a posteriori, using models that assume relationships between the halo mass and the galactic populations. However, only using the halo mass does not capture the entirety of the galactic populations' complexity. The galaxy assembly bias refers to the dependence of galaxy clustering on factors beyond the mass of the host halo, such as halo concentration or spin, which capture around $42.4\%$ and $31.4\%$ of the total galaxy assembly bias. This work proposes and calculates the value of the galaxy assembly bias associated with different halo properties in the IllustrisTNG 300 simulation, such as the ranking by $M_{\rm peak}$ and $V_{\rm peak}$, and the formation times when the halo reaches a certain percentage of its final $M_{\rm peak}$ or $V_{\rm peak}$. To measure the galaxy assembly bias, we implemented the shuffling technique, which involves moving galactic populations of the same sample between halos of similar mass, generating new samples; calculating the two-point correlation function of each generated sample, and comparing the mean of all sample's correlation function with that obtained from shuffling relative to mass and a secondary property. The ratio of both means follows a sigmoid curve that tends towards the value of the galaxy assembly bias captured by the secondary property used. We found that, of the proposed properties, rankings by $M_{\rm peak}$ and $V_{\rm peak}$ achieve maximum fractions of the galaxy assembly bias of $30\%$, lower than that of concentration ($42.4\%$), while formation times achieve similar or higher fractions, with the maximum being $45\%$ and $49.1\%$ of the total galaxy assembly bias for the formation time when the halo reaches 0.9 and 0.125 times its final mass, respectively.
 
 ## Content and main work
 
